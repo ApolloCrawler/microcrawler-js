@@ -24,17 +24,17 @@
 
     var Mc = require('./../lib');
 
-    describe('Crawler', function () {
+    describe('Persistence', function () {
         it('Module is defined', function () {
-            Mc.Crawler.should.not.equal(null);
+            Mc.Persistence.should.not.equal(null);
         });
 
         it('Default constructor works', function () {
-            var instance = new Mc.Crawler();
+            var instance = new Mc.Persistence();
             instance.should.not.equal(null);
 
-            var Crawler = require('../lib/crawler.js');
-            instance.should.be.an.instanceof(Crawler);
+            var Persistence = require('../lib/persistence.js');
+            instance.should.be.an.instanceof(Persistence);
         });
     });
 

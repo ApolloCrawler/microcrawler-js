@@ -22,20 +22,11 @@
     var chai = require('chai')
         , should = chai.should();
 
-    var Mc = require('./../lib');
+    var request = require('./../lib/request');
 
-    describe('Crawler', function () {
-        it('Module is defined', function () {
-            Mc.Crawler.should.not.equal(null);
-        });
-
-        it('Default constructor works', function () {
-            var instance = new Mc.Crawler();
-            instance.should.not.equal(null);
-
-            var Crawler = require('../lib/crawler.js');
-            instance.should.be.an.instanceof(Crawler);
+    describe('Request', function () {
+        it('Function is defined', function () {
+            request.should.not.equal(null);
         });
     });
-
 }());

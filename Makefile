@@ -14,7 +14,7 @@ cover:
 	    --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
 
 doc:
-	@jsdoc --verbose --destination docs/lib lib
+	@jsdoc --verbose --destination docs/lib lib/*.js
 
 test: test-unit
 
