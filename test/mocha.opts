@@ -1,2 +1,6 @@
+--slow 1500
 --timeout 10000
+--colors
+--growl
+--check-leaks
 
