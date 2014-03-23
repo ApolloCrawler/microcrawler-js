@@ -4,4 +4,4 @@ node_js:
 before_install:
   - "export NODE_ENV=test"
   - "npm config set strict-ssl false"
-  - "npm install -g bower chai grunt grunt-cli istanbul mocha"
+  - "npm install -g chai istanbul mocha"
