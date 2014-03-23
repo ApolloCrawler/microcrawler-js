@@ -5,6 +5,7 @@ node_js:
 services:
   - couchdb
   - mongodb
+  - rabbitmq
 before_install:
   - "export NODE_ENV=test"
   - "npm config set strict-ssl false"
