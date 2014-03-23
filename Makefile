@@ -1,3 +1,5 @@
+# Inspired by https://raw.githubusercontent.com/visionmedia/mocha/master/Makefile
+
 REPORTER ?= list
 SRC = $(shell find lib -name "*.js" -type f | sort)
 
