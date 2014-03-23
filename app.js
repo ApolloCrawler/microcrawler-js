@@ -21,49 +21,10 @@
 // To install required packages just run following command
 //   npm install deferred request node.extend cheerio
 
-var deferred = require('deferred'),
-    fs = require('fs'),
-    merge = require('node.extend'),
-    request = require('request'),
-    cheerio = require('cheerio');
-
-var mc = require('./lib');
-
-var deferredRequest = function (url) {
-    var d = deferred();
-
-    options = {
-        url: url,
-        headers: {
-            'Accept': '*/*',
-            'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
-            'From': 'googlebot(at)googlebot.com'
-        }
-    };
-
-    // console.log("deferredRequest('" + url + "');")
-
-    request(options, function (err, resp, body) {
-        if (err) {
-            d.reject(new Error("Unable to fetch '" + url + "', reason: " + err));
-            return;
-        }
-
-        if (resp.statusCode !== 200) {
-            d.reject(new Error("Unable to fetch '" + url + "', code: " + resp.statusCode));
-            return;
-        }
-
-        d.resolve(body);
-    });
-
-    return d.promise();
-};
-
-var maxConcurrencyLimit = 10;
-var deferredLimitedRequest = deferred.gate(function async(url) {
-    return deferredRequest(url);
-}, maxConcurrencyLimit);
+var cheerio = require('cheerio')
+    , deferred = require('deferred')
+    , mc = require('./lib')
+    , Request = require('./lib/request');
 
 var queues = {
     requested: [],
@@ -78,7 +39,7 @@ var queues = {
 var processPage = deferred.gate(function async(item) {
     queues.processing.push(item);
 
-    return deferredLimitedRequest(item.url).then(function (data) {
+    return Request.request(item.url).then(function (data) {
         // Load HTML to cheerio
         var $ = cheerio.load(data);
 
