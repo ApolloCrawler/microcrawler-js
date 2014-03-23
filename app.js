@@ -29,6 +29,8 @@ var deferred = require('deferred'),
     request = require('request'),
     cheerio = require('cheerio');
 
+var mc = require('./lib/microcrawler');
+
 var deferredRequest = function (url) {
     var d = deferred();
 

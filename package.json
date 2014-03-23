@@ -21,7 +21,8 @@
     "node.extend": "^1.0.10",
     "deferred": "^0.6.8",
     "request": "^2.34.0",
-    "nano": "^5.7.1"
+    "nano": "^5.7.1",
+    "amdefine": "^0.1.0"
   },
   "devDependencies": {
     "mocha": "^1.18.2",
