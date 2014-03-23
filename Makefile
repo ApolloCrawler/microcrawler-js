@@ -3,8 +3,6 @@
 REPORTER ?= list
 SRC = $(shell find lib -name "*.js" -type f | sort)
 
-all: clean doc test
-
 clean:
 	rm -rf coverage
 	rm -rf docs/lib
@@ -23,6 +21,8 @@ test-unit:
 		--reporter $(REPORTER) \
 		--growl \
 		test/
+
+all: clean doc test
 
 ci: clean cover
 

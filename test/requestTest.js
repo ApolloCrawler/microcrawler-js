@@ -22,11 +22,51 @@
     var chai = require('chai')
         , should = chai.should();
 
-    var request = require('./../lib/request');
+    var Request = require('./../lib/request');
 
     describe('Request', function () {
-        it('Function is defined', function () {
-            request.should.not.equal(null);
+        it('Module is defined', function () {
+            Request.should.not.equal(null);
+        });
+
+        describe('request()', function() {
+            it('Is defined', function () {
+                Request.request.should.not.equal(null);
+            });
+
+            it('Handles valid url - google.com', function (done) {
+                Request.request("http://google.com").then(function(data) {
+                    data.should.not.equal(null);
+                    done();
+                });
+            });
+
+            var invalidUrlMsg = "This should not happen. " +
+                "Invalid hostname should by handled by error handler";
+
+            it('Handles "" URL', function (done) {
+                Request.request("").then(function(data) {
+                    done(new Error(invalidUrlMsg));
+
+                }, function(err) {
+                    done();
+                });
+            });
+
+            it('Handles null URL', function (done) {
+                Request.request(null).then(function(data) {
+                    done(new Error(invalidUrlMsg));
+
+                }, function(err) {
+                    done();
+                });
+            });
+        });
+
+        describe('limitedRequest()', function() {
+            it('Is defined', function () {
+                Request.limitedRequest.should.not.equal(null);
+            });
         });
     });
 }());
