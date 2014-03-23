@@ -24,9 +24,14 @@
 
     var Mc = require('./../lib');
 
-    describe('Microcrawler', function () {
+    describe('Crawler', function () {
         it('Module is defined', function () {
-            Mc.should.not.equal(null);
+            Mc.Crawler.should.not.equal(null);
+        });
+
+        it('Default constructor works', function () {
+            var instance = new Mc.Crawler();
+            instance.should.not.equal(null);
         });
     });
 

@@ -1,33 +1,37 @@
 {
-  "name": "microcrawler",
-  "version": "0.0.1",
-  "description": "Micro implementation of crawler",
-  "main": "app.js",
-  "scripts": {
-    "test": "make ci"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/korczis/microcrawler.git"
-  },
-  "author": "korczis@gmail.com",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/korczis/microcrawler/issues"
-  },
-  "homepage": "https://github.com/korczis/microcrawler",
-  "dependencies": {
-    "cheerio": "^0.13.1",
-    "node.extend": "^1.0.10",
-    "deferred": "^0.6.8",
-    "request": "^2.34.0",
-    "nano": "^5.7.1",
-    "amdefine": "^0.1.0"
-  },
-  "devDependencies": {
-    "mocha": "^1.18.2",
-    "chai": "^1.9.1",
-    "istanbul": "^0.2.6",
-    "coveralls": "^2.10.0"
-  }
+    "name": "microcrawler",
+    "version": "0.0.1",
+    "description": "Micro implementation of crawler",
+    "main": "app.js",
+    "scripts": {
+        "test": "make ci"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/korczis/microcrawler.git"
+    },
+    "author": "Tomas Korcak <korczis@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/korczis/microcrawler/issues"
+    },
+    "files": [
+        "lib"
+    ],
+    "main": "lib/index.js",
+    "homepage": "https://github.com/korczis/microcrawler",
+    "dependencies": {
+        "cheerio": "^0.13.1",
+        "node.extend": "^1.0.10",
+        "deferred": "^0.6.8",
+        "request": "^2.34.0",
+        "nano": "^5.7.1",
+        "amdefine": "^0.1.0"
+    },
+    "devDependencies": {
+        "mocha": "^1.18.2",
+        "chai": "^1.9.1",
+        "istanbul": "^0.2.6",
+        "coveralls": "^2.10.0"
+    }
 }
