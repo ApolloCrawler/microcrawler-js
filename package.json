@@ -4,7 +4,7 @@
   "description": "Micro implementation of crawler",
   "main": "app.js",
   "scripts": {
-    "test": "make test"
+    "test": "make cover"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
   "devDependencies": {
     "mocha": "^1.18.2",
     "chai": "^1.9.1",
-    "istanbul": "^0.2.6"
+    "istanbul": "^0.2.6",
+    "coveralls": "^2.10.0"
   }
 }

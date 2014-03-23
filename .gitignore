@@ -9,6 +9,7 @@ lib-cov
 
 .idea
 
+coverage
 pids
 logs
 results
