@@ -20,6 +20,10 @@
     ],
     "main": "lib/index.js",
     "homepage": "https://github.com/korczis/microcrawler",
+    "directories": {
+        "bin": "bin",
+        "lib": "lib"
+    },
     "dependencies": {
         "cheerio": "^0.13.1",
         "node.extend": "^1.0.10",
