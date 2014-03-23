@@ -1,0 +1,31 @@
+{
+  "name": "microcrawler",
+  "version": "0.0.1",
+  "description": "Micro implementation of crawler",
+  "main": "app.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/korczis/microcrawler.git"
+  },
+  "author": "korczis@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/korczis/microcrawler/issues"
+  },
+  "homepage": "https://github.com/korczis/microcrawler",
+  "dependencies": {
+    "cheerio": "^0.13.1",
+    "node.extend": "^1.0.10",
+    "deferred": "^0.6.8",
+    "request": "^2.34.0",
+    "nano": "^5.7.1"
+  },
+  "devDependencies": {
+    "mocha": "^1.18.2",
+    "chai": "^1.9.1",
+    "istanbul": "^0.2.6"
+  }
+}
