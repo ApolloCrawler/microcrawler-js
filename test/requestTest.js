@@ -53,8 +53,9 @@
                 });
             });
 
+            var url = null;
             it('Handles null URL', function (done) {
-                Request.request(null).then(function(data) {
+                Request.request(url).then(function(data) {
                     done(new Error(invalidUrlMsg));
 
                 }, function(err) {
@@ -62,8 +63,9 @@
                 });
             });
 
-            it('Handles invalid url http://google.com/invalid.url', function (done) {
-                Request.request(null).then(function(data) {
+            url = 'http://google.com/invalid';
+            it('Handles invalid url ' + url, function (done) {
+                Request.request(url).then(function(data) {
                     done(new Error(invalidUrlMsg));
 
                 }, function(err) {
