@@ -33,7 +33,7 @@
             var instance = new Mc.Persistence();
             instance.should.not.equal(null);
 
-            var Persistence = require('../lib/persistence.js');
+            var Persistence = require('../lib/persistence/index.js');
             instance.should.be.an.instanceof(Persistence);
         });
     });

@@ -19,22 +19,43 @@
 // THE SOFTWARE.
 
 (function () {
-    'use strict';
+    var chai = require('chai')
+        , should = chai.should();
 
-    var define = require('amdefine')(module);
+    var Engine = require('../lib/engine')
+        , Mc = require('./../lib');
 
-    /**
-     * Array of modules this one depends on.
-     * @type {Array}
-     */
-    var deps = [
-        './lib'
-    ];
+    describe('Engine', function () {
+        it('Module is defined', function () {
+            Mc.Engine.should.not.equal(null);
+        });
 
-    define(deps, function(Mc) {
-        var engine = new Mc.Engine();
+        it('Default constructor works', function () {
+            var instance = new Mc.Engine();
+            instance.should.not.equal(null);
+            instance.should.be.an.instanceof(Engine);
+            instance.opts.should.equal(Engine.defaultOptions);
+        });
 
-        engine.run();
+        it('Constructor using options works', function () {
+            function DummyQueue() {
+            };
+
+            var opts = {
+                queueClass: DummyQueue
+            };
+
+            var instance = new Engine(opts);
+            instance.should.not.equal(null);
+            instance.opts.should.equal(opts);
+        });
+
+        it('Creates default queue', function () {
+            var Queue = require('../lib/queue');
+            var instance = new Engine();
+            instance.queue.should.not.equal(null);
+            instance.queue.should.be.an.instanceof(Queue);
+        });
     });
 
 }());
