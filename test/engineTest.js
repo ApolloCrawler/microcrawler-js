@@ -56,6 +56,13 @@
             instance.queue.should.not.equal(null);
             instance.queue.should.be.an.instanceof(Queue);
         });
+
+        describe('run()', function () {
+            it('Works', function () {
+                var instance = new Engine();
+                instance.run();
+            });
+        });
     });
 
 }());
