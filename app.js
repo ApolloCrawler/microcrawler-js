@@ -40,7 +40,7 @@
             var results = [];
 
             // Process pagination
-            $('.pagination-links > li > a').each(function($) {
+            $('.pagination-linkz > li > a').each(function($) {
                 var url = 'http://www.yelp.com' + this.attr('href');
                 results.push({
                     type: 'url',
@@ -102,13 +102,39 @@
 
                 result.listingUrl = item.url;
 
+                /*
                 results.push({
                     type: 'data',
+                    data: result
+                });
+                //*/
+
+                results.push({
+                    type: 'url',
+                    url: result.detailUrl,
+                    processor: 'yelp.listing.details',
                     data: result
                 });
             });
 
             // console.log(JSON.stringify(results, null, 4));
+
+            return results;
+        });
+
+        engine.registerProcessor('yelp.listing.details', function($, item) {
+            var results = [];
+
+            var result = item;
+
+            // TODO: Enrich result with details from $
+
+            // console.log(JSON.stringify(result, null, 4));
+
+            results.push({
+                type: 'data',
+                data: result
+            });
 
             return results;
         });
