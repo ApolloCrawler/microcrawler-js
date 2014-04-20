@@ -39,8 +39,6 @@
         engine.registerProcessor('yelp.listing', function($) {
             var results = [];
 
-            console.log('processor()');
-
             // Process results
             $('.search-result').each(function () {
                 var result = {};
@@ -84,16 +82,21 @@
                 result.address.fullAddress = tmp;
 
                 // Category
-                var categiries = [];
+                var categories = [];
                 $(this).find('.category-str-list a').each(function () {
                     var category = this.text();
-                    categiries.push(category);
+                    categories.push(category);
                 });
 
-                result.categiries = categiries;
+                result.categories = categories;
 
-                console.log(JSON.stringify(result, null, 4));
+                results.push({
+                    type: 'data',
+                    data: result
+                });
             });
+
+            console.log(JSON.stringify(results, null, 4));
 
             return results;
         });
@@ -110,10 +113,8 @@
             console.log('Done!');
         }, function(err) {
             // This is handler of error
-            console.log('Error!');
+            console.log('ERROR: ' + err);
         });
-
-
     });
 
 }());
