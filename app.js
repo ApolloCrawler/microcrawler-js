@@ -113,9 +113,12 @@
             return results;
         });
 
+        var results = [];
+
         // Register on data event handler
-        engine.on('data', function (data) {
-            console.log(JSON.stringify(data, null, 4));
+        engine.on('data', function (result) {
+            results.push(result);
+            console.log(JSON.stringify(result, null, 4));
         });
 
         // Main url where to start scrapping
@@ -127,7 +130,7 @@
         // Now just launch the engine and wait for results
         engine.run().done(function() {
             // This is handler of success
-            console.log('Done!');
+            console.log('Done, ' + results.length + ' results!');
         }, function(err) {
             // This is handler of error
             console.log('ERROR: ' + err);
