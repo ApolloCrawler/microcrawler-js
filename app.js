@@ -36,8 +36,18 @@
         var engine = new Mc.Engine();
 
         // Register listing processor
-        engine.registerProcessor('yelp.listing', function($) {
+        engine.registerProcessor('yelp.listing', function($, item) {
             var results = [];
+
+            // Process pagination
+            $('.pagination-links > li > a').each(function($) {
+                var url = 'http://www.yelp.com' + this.attr('href');
+                results.push({
+                    type: 'url',
+                    url: url,
+                    processor: 'yelp.listing'
+                });
+            });
 
             // Process results
             $('.search-result').each(function () {
@@ -89,6 +99,8 @@
                 });
 
                 result.categories = categories;
+
+                result.listingUrl = item.url;
 
                 results.push({
                     type: 'data',
