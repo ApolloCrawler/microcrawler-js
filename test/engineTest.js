@@ -37,26 +37,6 @@
             instance.opts.should.equal(Engine.defaultOptions);
         });
 
-        it('Constructor using options works', function () {
-            function DummyQueue() {
-            };
-
-            var opts = {
-                queueClass: DummyQueue
-            };
-
-            var instance = new Engine(opts);
-            instance.should.not.equal(null);
-            instance.opts.should.equal(opts);
-        });
-
-        it('Creates default queue', function () {
-            var Queue = require('../lib/queue');
-            var instance = new Engine();
-            instance.queue.should.not.equal(null);
-            instance.queue.should.be.an.instanceof(Queue);
-        });
-
         describe('registerProcessor()', function () {
             it('Is defined', function () {
                 var engine = new Engine();
