@@ -96,9 +96,14 @@
                 });
             });
 
-            console.log(JSON.stringify(results, null, 4));
+            // console.log(JSON.stringify(results, null, 4));
 
             return results;
+        });
+
+        // Register on data event handler
+        engine.on('data', function (data) {
+            console.log(JSON.stringify(data, null, 4));
         });
 
         // Main url where to start scrapping
