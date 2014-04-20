@@ -32,9 +32,88 @@
     ];
 
     define(deps, function(Mc) {
+        // First step is to create engine
         var engine = new Mc.Engine();
 
-        engine.run();
+        // Register listing processor
+        engine.registerProcessor('yelp.listing', function($) {
+            var results = [];
+
+            console.log('processor()');
+
+            // Process results
+            $('.search-result').each(function () {
+                var result = {};
+
+                // Name
+                result.businessName = $(this).find('h3 > span > a').text();
+                result.detailUrl = 'http://www.yelp.com' + $(this).find('h3 > span > a').attr('href');
+
+                // Phone number
+                var tmp = $(this).find('.biz-phone').text();
+                tmp = tmp.replace(/\D/g, '');
+                tmp = parseInt(tmp);
+                result.phoneNumber = tmp;
+
+                // Reviews
+                result.reviews = {};
+
+                // Number of reviews
+                tmp = $(this).find('.review-count').text();
+                tmp = tmp.slice(14, -14);
+                tmp = parseInt(tmp);
+                result.reviews.number = tmp;
+
+                // Stars
+                tmp = $(this).find('.star-img').attr('title');
+                tmp = tmp.slice(0, -12);
+                tmp = parseFloat(tmp);
+                result.reviews.stars = tmp;
+
+                // Address
+                result.address = {};
+
+                // Neighborhood street
+                tmp = $(this).find('.neighborhood-str-list').text();
+                tmp = tmp.slice(13, -8);
+                result.address.neighborhoodStr = tmp;
+
+                // Full address
+                tmp = $(this).find('address').text();
+                tmp = tmp.slice(13, -10);
+                result.address.fullAddress = tmp;
+
+                // Category
+                var categiries = [];
+                $(this).find('.category-str-list a').each(function () {
+                    var category = this.text();
+                    categiries.push(category);
+                });
+
+                result.categiries = categiries;
+
+                console.log(JSON.stringify(result, null, 4));
+            });
+
+            return results;
+        });
+
+        // Main url where to start scrapping
+        var mainUrl = 'http://www.yelp.com/search?find_desc=restaurants&find_loc=Los+Angeles%2C+CA&ns=1&ls=f4de31e623458437';
+
+        // Enqueue URL and use yelp.listing processor registered above
+        engine.enqueueUrl(mainUrl, 'yelp.listing');
+
+        // Now just launch the engine and wait for results
+        engine.run().done(function() {
+            // This is handler of success
+            console.log('Done!');
+        }, function(err) {
+            // This is handler of error
+            console.log('Error!');
+        });
+
+
     });
 
 }());

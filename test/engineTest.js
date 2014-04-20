@@ -20,7 +20,7 @@
 
 (function () {
     var chai = require('chai')
-        , should = chai.should();
+        , expect = chai.expect;
 
     var Engine = require('../lib/engine')
         , Mc = require('./../lib');
@@ -57,6 +57,18 @@
             instance.queue.should.be.an.instanceof(Queue);
         });
 
+        describe('registerProcessor()', function () {
+            it('Is defined', function () {
+                var engine = new Engine();
+                engine.registerProcessor.should.not.equal(null);
+            });
+
+            it('Can be called without arguments', function () {
+                var engine = new Engine();
+                chai.expect(engine.registerProcessor.bind('engine')).to.throw(TypeError);
+            });
+        });
+
         describe('run()', function () {
             it('Works', function () {
                 var instance = new Engine();
@@ -64,5 +76,4 @@
             });
         });
     });
-
 }());
