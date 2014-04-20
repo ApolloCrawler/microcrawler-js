@@ -127,13 +127,21 @@
 
             var result = item;
 
-            // TODO: Enrich result with details from $
+            result.data.openingHours = [];
 
-            // console.log(JSON.stringify(result, null, 4));
+            // TODO: Enrich result with details from $
+            $('.hours-table > tbody > tr > td:not(.extra)').each(function(e) {
+                result.data.openingHours.push({
+                    from: $(this).find('span:nth-child(1)').text(),
+                    to: $(this).find('span:nth-child(2)').text()
+                });
+            });
+
+            console.log(JSON.stringify(result, null, 4));
 
             results.push({
                 type: 'data',
-                data: result
+                data: result.data
             });
 
             return results;
