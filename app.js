@@ -28,18 +28,26 @@
      * @type {Array}
      */
     var deps = [
-        'optimist',
         'path',
         './lib'
     ];
 
-    define(deps, function(optimist, path, Mc) {
+    define(deps, function(path, Mc) {
         // First step is to create engine
         var engine = new Mc.Engine();
 
         // Load example processor from files
         var processorsDir = path.join(__dirname, 'examples');
         engine.loadProcessors(processorsDir);
+
+        // Final results
+        var results = [];
+
+        // Register on data event handler
+        engine.on('data', function (result) {
+            results.push(result);
+            console.log(JSON.stringify(result, null, 4));
+        });
 
         /*
         // Register yelp listing processor
@@ -52,27 +60,8 @@
         engine.registerProcessor('youjizz.listing', require('./examples/youjizz/listing.js'));
         //*/
 
-        // Final results
-        var results = [];
-
-        // Register on data event handler
-        engine.on('data', function (result) {
-            results.push(result);
-            console.log(JSON.stringify(result, null, 4));
-        });
-
-        var argv = optimist.usage('Usage: $0 -p [processor] url')
-            .demand(['p'])
-            .argv;
-
-        for(var i = 0; i < argv._.length; i++) {
-            var url = argv._[i];
-
-            engine.enqueueUrl(url, argv.p);
-        }
-
-        // Now just launch the engine and wait for results
-        engine.run().done(function() {
+        // Run the main function - parse args, set processor, enqueue urls specified
+        engine.main().done(function() {
             // This is handler of success
             console.log('Done, ' + results.length + ' results!');
         }, function(err) {
