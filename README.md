@@ -28,10 +28,6 @@ node app.js -p google.listing http://google.com/search?q=Buena+Vista
 node app.js -p hackernews.index https://news.ycombinator.com/
 ```
 
-```
-node app.js -p google.listing "https://www.google.com/search?q=test"
-```
-
 ### xkcd
 
 ```
