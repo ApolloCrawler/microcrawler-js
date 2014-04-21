@@ -28,11 +28,12 @@
      * @type {Array}
      */
     var deps = [
+        'optimist',
         'path',
         './lib'
     ];
 
-    define(deps, function(path, Mc) {
+    define(deps, function(optimist, path, Mc) {
         // First step is to create engine
         var engine = new Mc.Engine();
 
@@ -60,11 +61,15 @@
             console.log(JSON.stringify(result, null, 4));
         });
 
-        // Main url where to start scrapping
-        var mainUrl = 'http://www.yelp.com/search?find_desc=restaurants&find_loc=Los+Angeles%2C+CA&ns=1&ls=f4de31e623458437';
+        var argv = optimist.usage('Usage: $0 -p [processor] url')
+            .demand(['p'])
+            .argv;
 
-        // Enqueue URL and use yelp.listing processor registered above
-        engine.enqueueUrl(mainUrl, 'yelp.listing');
+        for(var i = 0; i < argv._.length; i++) {
+            var url = argv._[i];
+
+            engine.enqueueUrl(url, argv.p);
+        }
 
         // Now just launch the engine and wait for results
         engine.run().done(function() {
