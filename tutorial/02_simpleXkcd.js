@@ -53,7 +53,8 @@
                 var result = {
                     url: this.attr('src'),
                     title: this.attr('title'),
-                    alt: this.attr('alt')
+                    alt: this.attr('alt'),
+                    listingUrl: item.url
                 };
 
                 results.push({
