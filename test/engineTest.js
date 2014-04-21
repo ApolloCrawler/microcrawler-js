@@ -37,6 +37,13 @@
             instance.opts.should.equal(Engine.defaultOptions);
         });
 
+        describe('isDone()', function() {
+            it('Exists', function() {
+                var engine = new Mc.Engine();
+                engine.isDone.should.not.equal(null);
+            });
+        });
+
         describe('registerProcessor()', function () {
             it('Is defined', function () {
                 var engine = new Engine();
