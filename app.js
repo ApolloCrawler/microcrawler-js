@@ -66,10 +66,6 @@
         // Enqueue URL and use yelp.listing processor registered above
         engine.enqueueUrl(mainUrl, 'yelp.listing');
 
-        // var mainUrl = 'http://youjizz.com'
-
-        // engine.enqueueUrl(mainUrl, 'youjizz.listing');
-
         // Now just launch the engine and wait for results
         engine.run().done(function() {
             // This is handler of success
