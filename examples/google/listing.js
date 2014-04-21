@@ -27,16 +27,29 @@
      * Array of modules this one depends on.
      * @type {Array}
      */
-    var deps = [];
+    var deps = [
+        'querystring',
+        'url'
+    ];
 
-    define(deps, function() {
+    define(deps, function(querystring, url) {
         module.exports = function($, item) {
             var results = [];
 
             // Process pagination
-            $('a').each(function($) {
-                var url = this.attr('href');
-                console.log(url);
+            $('h3 > a').each(function($) {
+                var tmpUrl = 'http://google.com' + this.attr('href');
+                var parsedUrl = url.parse(tmpUrl);
+                var qarqs = querystring.parse(parsedUrl.query);
+
+                var result = {
+                    url: qarqs.q
+                };
+
+                results.push({
+                    type: 'data',
+                    data: result
+                })
             });
 
             return results;
