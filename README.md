@@ -21,3 +21,9 @@ node app.js -p google.listing "https://www.google.com/search?q=test"
 ```
 node app.js -p yelp.listing "http://www.yelp.com/search?find_desc=restaurants&find_loc=Los+Angeles%2C+CA&ns=1&ls=f4de31e623458437"
 ```
+
+### xkcd
+
+```
+node app.js -p xkcd.listing http://xkcd.com
+```
