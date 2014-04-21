@@ -40,7 +40,7 @@
             var results = [];
 
             // Process pagination
-            $('.pagination-linkz > li > a').each(function($) {
+            $('.pagination-links > li > a').each(function($) {
                 var url = 'http://www.yelp.com' + this.attr('href');
                 results.push({
                     type: 'url',
