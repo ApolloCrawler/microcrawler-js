@@ -1,11 +1,12 @@
 {
   "name": "microcrawler",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Micro implementation of crawler",
   "main": "lib/index.js",
   "scripts": {
     "test": "make ci"
   },
+  "bin": "./app",
   "repository": {
     "type": "git",
     "url": "https://github.com/korczis/microcrawler.git"
