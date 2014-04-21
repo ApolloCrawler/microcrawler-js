@@ -10,6 +10,12 @@
 
 ## Example usage
 
+### Google
+
+```
+node app.js -p google.listing "https://www.google.com/search?q=test"
+```
+
 ### Yelp
 
 ```
