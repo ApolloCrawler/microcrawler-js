@@ -29,7 +29,8 @@
     "deferred": "^0.6.8",
     "request": "^2.34.0",
     "nano": "^5.7.1",
-    "amdefine": "^0.1.0"
+    "amdefine": "^0.1.0",
+    "optimist": "^0.6.1"
   },
   "devDependencies": {
     "mocha": "^1.18.2",
