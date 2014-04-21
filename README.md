@@ -10,6 +10,12 @@
 
 ## Example usage
 
+### Craiglist
+
+```
+node app.js -p craiglist.listing http://sfbay.craigslist.org/sfc/sss/
+```
+
 ### Google
 
 ```
