@@ -19,7 +19,23 @@ node app.js -p craiglist.listing http://sfbay.craigslist.org/sfc/sss/
 ### Google
 
 ```
+node app.js -p google.listing http://google.com/search?q=Buena+Vista
+```
+
+### Hacker News
+
+```
+node app.js -p hackernews.index https://news.ycombinator.com/
+```
+
+```
 node app.js -p google.listing "https://www.google.com/search?q=test"
+```
+
+### xkcd
+
+```
+node app.js -p xkcd.listing http://xkcd.com
 ```
 
 ### Yelp
@@ -32,10 +48,4 @@ node app.js -p yelp.listing "http://www.yelp.com/search?find_desc=restaurants&fi
 
 ```
 node app.js -p youjizz.listing http://youjizz.com
-```
-
-### xkcd
-
-```
-node app.js -p xkcd.listing http://xkcd.com
 ```
