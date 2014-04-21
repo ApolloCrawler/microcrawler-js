@@ -28,125 +28,30 @@
      * @type {Array}
      */
     var deps = [
+        'path',
         './lib'
     ];
 
-    define(deps, function(Mc) {
+    define(deps, function(path, Mc) {
         // First step is to create engine
         var engine = new Mc.Engine();
 
-        // Register listing processor
-        engine.registerProcessor('yelp.listing', function($, item) {
-            var results = [];
+        // Load example processor from files
+        var processorsDir = path.join(__dirname, 'examples');
+        engine.loadProcessors(processorsDir);
 
-            // Process pagination
-            $('.pagination-links > li > a').each(function($) {
-                var url = 'http://www.yelp.com' + this.attr('href');
-                results.push({
-                    type: 'url',
-                    url: url,
-                    processor: 'yelp.listing'
-                });
-            });
+        /*
+        // Register yelp listing processor
+        engine.registerProcessor('yelp.listing', require('./examples/yelp/listing.js'));
 
-            // Process results
-            $('.search-result').each(function () {
-                var result = {};
+        // Register yelp details processor
+        engine.registerProcessor('yelp.details', require('./examples/yelp/details.js'));
 
-                // Name
-                result.businessName = $(this).find('h3 > span > a').text();
-                result.detailUrl = 'http://www.yelp.com' + $(this).find('h3 > span > a').attr('href');
+        // Register youjizz listing processor
+        engine.registerProcessor('youjizz.listing', require('./examples/youjizz/listing.js'));
+        //*/
 
-                // Phone number
-                var tmp = $(this).find('.biz-phone').text();
-                tmp = tmp.replace(/\D/g, '');
-                tmp = parseInt(tmp);
-                result.phoneNumber = tmp;
-
-                // Reviews
-                result.reviews = {};
-
-                // Number of reviews
-                tmp = $(this).find('.review-count').text();
-                tmp = tmp.slice(14, -14);
-                tmp = parseInt(tmp);
-                result.reviews.number = tmp;
-
-                // Stars
-                tmp = $(this).find('.star-img').attr('title');
-                tmp = tmp.slice(0, -12);
-                tmp = parseFloat(tmp);
-                result.reviews.stars = tmp;
-
-                // Address
-                result.address = {};
-
-                // Neighborhood street
-                tmp = $(this).find('.neighborhood-str-list').text();
-                tmp = tmp.slice(13, -8);
-                result.address.neighborhoodStr = tmp;
-
-                // Full address
-                tmp = $(this).find('address').text();
-                tmp = tmp.slice(13, -10);
-                result.address.fullAddress = tmp;
-
-                // Category
-                var categories = [];
-                $(this).find('.category-str-list a').each(function () {
-                    var category = this.text();
-                    categories.push(category);
-                });
-
-                result.categories = categories;
-
-                result.listingUrl = item.url;
-
-                /*
-                results.push({
-                    type: 'data',
-                    data: result
-                });
-                //*/
-
-                results.push({
-                    type: 'url',
-                    url: result.detailUrl,
-                    processor: 'yelp.listing.details',
-                    data: result
-                });
-            });
-
-            // console.log(JSON.stringify(results, null, 4));
-
-            return results;
-        });
-
-        engine.registerProcessor('yelp.listing.details', function($, item) {
-            var results = [];
-
-            var result = item;
-
-            result.data.openingHours = [];
-
-            // TODO: Enrich result with details from $
-            $('.hours-table > tbody > tr > td:not(.extra)').each(function(e) {
-                result.data.openingHours.push({
-                    from: $(this).find('span:nth-child(1)').text(),
-                    to: $(this).find('span:nth-child(2)').text()
-                });
-            });
-
-            console.log(JSON.stringify(result, null, 4));
-
-            results.push({
-                type: 'data',
-                data: result.data
-            });
-
-            return results;
-        });
-
+        // Final results
         var results = [];
 
         // Register on data event handler
@@ -160,6 +65,10 @@
 
         // Enqueue URL and use yelp.listing processor registered above
         engine.enqueueUrl(mainUrl, 'yelp.listing');
+
+        // var mainUrl = 'http://youjizz.com'
+
+        // engine.enqueueUrl(mainUrl, 'youjizz.listing');
 
         // Now just launch the engine and wait for results
         engine.run().done(function() {
