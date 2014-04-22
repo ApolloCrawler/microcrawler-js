@@ -67,6 +67,21 @@
                 chai.expect(res).to.equal(true);
             });
 
+            it('Should enqueue unique URL together with data', function() {
+                var engine = new Engine();
+
+                engine.enqueueUrl.should.not.equal(null);
+
+                var data = {
+                    name: "John Doe"
+                };
+
+                var res = engine.enqueueUrl(testData1.url, testData1.processor, data);
+                chai.expect(res).to.equal(true);
+
+                chai.expect(engine.queue.requested[0].data).to.equal(data);
+            });
+
             it('Should enqueue unique same URL only once', function() {
                 var engine = new Engine();
                 engine.enqueueUrl.should.not.equal(null);
