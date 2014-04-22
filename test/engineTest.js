@@ -20,7 +20,7 @@
 
 (function () {
     var chai = require('chai')
-        , expect = chai.expect;
+        , path = require('path');
 
     var Engine = require('../lib/engine')
         , Mc = require('./../lib');
@@ -106,6 +106,17 @@
                 var engine = new Engine();
                 engine.loadProcessors.should.not.equal(null);
             });
+
+            it('Loads example processors', function(done) {
+                var engine = new Engine();
+                engine.loadProcessors(path.join(__dirname, '..', 'examples'))
+                    .done(function(result){
+                        chai.expect(result.length).to.equal(7);
+                        done();
+                    }, function(err) {
+                        throw err;
+                    })
+            });
         });
 
         describe('main()', function () {
@@ -125,7 +136,7 @@
                 engine.registerProcessor.should.not.equal(null);
             });
 
-            it('Can be called without arguments', function () {
+            it('When called without then throws error', function () {
                 var engine = new Engine();
                 chai.expect(engine.registerProcessor.bind('engine')).to.throw(TypeError);
             });
