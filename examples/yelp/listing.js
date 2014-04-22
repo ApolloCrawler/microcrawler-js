@@ -30,6 +30,83 @@
     var deps = [];
 
     define(deps, function() {
+
+        var extractAddress = function($, doc, result) {
+            if(!result) {
+                result = {};
+            }
+
+            // Address
+            result.address = {};
+
+            // Neighborhood street
+            var tmp = $(doc).find('.neighborhood-str-list').text();
+            tmp = tmp.slice(13, -8);
+            result.address.neighborhoodStr = tmp;
+
+            // Full address
+            tmp = $(doc).find('address').text();
+            tmp = tmp.slice(13, -10);
+            result.address.fullAddress = tmp;
+
+            return result;
+        };
+
+        var extractCategories = function($, doc, result) {
+            var categories = [];
+            $(doc).find('.category-str-list a').each(function () {
+                var category = this.text();
+                categories.push(category);
+            });
+
+            result.categories = categories;
+
+            return result;
+        };
+
+        var extractName = function($, doc, result) {
+            result.businessName = $(doc).find('h3 > span > a').text();
+            result.detailUrl = 'http://www.yelp.com' + $(doc).find('h3 > span > a').attr('href');
+
+            return result;
+        };
+
+        var extractPhone = function($, doc, result) {
+            // Phone number
+            var tmp = $(doc).find('.biz-phone').text();
+            tmp = tmp.replace(/\D/g, '');
+            tmp = parseInt(tmp, 10);
+
+            result.phoneNumber = tmp;
+
+            return result
+        };
+
+        var extractReviews = function($, doc, result) {
+            // Reviews
+            result.reviews = {};
+
+            // Number of reviews
+            var tmp = $(doc).find('.review-count').text();
+            tmp = tmp.slice(14, -14);
+            tmp = parseInt(tmp, 10);
+
+            result.reviews.number = tmp;
+
+            return result;
+        };
+
+        var extractStars = function($, doc, result) {
+            // Stars
+            var tmp = $(doc).find('.star-img').attr('title');
+            tmp = tmp.slice(0, -12);
+            tmp = parseFloat(tmp);
+            result.reviews.stars = tmp;
+
+            return result;
+
+        };
+
         module.exports = function($, item) {
             var results = [];
 
@@ -47,54 +124,19 @@
             $('.search-result').each(function () {
                 var result = {};
 
-                // Name
-                result.businessName = $(this).find('h3 > span > a').text();
-                result.detailUrl = 'http://www.yelp.com' + $(this).find('h3 > span > a').attr('href');
-
-                // Phone number
-                var tmp = $(this).find('.biz-phone').text();
-                tmp = tmp.replace(/\D/g, '');
-                tmp = parseInt(tmp, 10);
-                result.phoneNumber = tmp;
-
-                // Reviews
-                result.reviews = {};
-
-                // Number of reviews
-                tmp = $(this).find('.review-count').text();
-                tmp = tmp.slice(14, -14);
-                tmp = parseInt(tmp, 10);
-                result.reviews.number = tmp;
-
-                // Stars
-                tmp = $(this).find('.star-img').attr('title');
-                tmp = tmp.slice(0, -12);
-                tmp = parseFloat(tmp);
-                result.reviews.stars = tmp;
-
-                // Address
-                result.address = {};
-
-                // Neighborhood street
-                tmp = $(this).find('.neighborhood-str-list').text();
-                tmp = tmp.slice(13, -8);
-                result.address.neighborhoodStr = tmp;
-
-                // Full address
-                tmp = $(this).find('address').text();
-                tmp = tmp.slice(13, -10);
-                result.address.fullAddress = tmp;
-
-                // Category
-                var categories = [];
-                $(this).find('.category-str-list a').each(function () {
-                    var category = this.text();
-                    categories.push(category);
-                });
-
-                result.categories = categories;
-
                 result.listingUrl = item.url;
+                
+                result = extractName($, this, result);
+
+                result = extractPhone($, this, result);
+
+                result = extractReviews($, this, result);
+
+                result = extractStars($, this, result);
+
+                result = extractAddress($, this, result);
+
+                result = extractCategories($, this, result);
 
                 results.push({
                     type: 'url',
