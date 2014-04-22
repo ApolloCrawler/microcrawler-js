@@ -38,7 +38,7 @@
 
             var parsedUrl = url.parse(item.url);
 
-            $('a.button.next').each(function($) {
+            $('a.button.next').each(function() {
                 results.push({
                     type: 'url',
                     url: parsedUrl.protocol + '//' + parsedUrl.host + this.attr('href'),
@@ -46,7 +46,7 @@
                 });
             });
 
-            $('div.content > p.row > span.pl > a').each(function($) {
+            $('div.content > p.row > span.pl > a').each(function() {
                 var result = {
                     title: this.text(),
                     url: this.attr('href')
@@ -59,6 +59,6 @@
             });
 
             return results;
-        }
+        };
     });
 }());

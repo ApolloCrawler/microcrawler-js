@@ -33,11 +33,11 @@
     ];
 
     define(deps, function(querystring, url) {
-        module.exports = function($, item) {
+        module.exports = function($) {
             var results = [];
 
             // Process pagination
-            $('h3 > a').each(function($) {
+            $('h3 > a').each(function() {
                 var tmpUrl = 'http://google.com' + this.attr('href');
                 var parsedUrl = url.parse(tmpUrl);
                 var qarqs = querystring.parse(parsedUrl.query);
@@ -49,10 +49,10 @@
                 results.push({
                     type: 'data',
                     data: result
-                })
+                });
             });
 
             return results;
-        }
+        };
     });
 }());

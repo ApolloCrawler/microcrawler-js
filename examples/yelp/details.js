@@ -38,7 +38,7 @@
             result.data.openingHours = [];
 
             // TODO: Enrich result with details from $
-            $('.hours-table > tbody > tr > td:not(.extra)').each(function(e) {
+            $('.hours-table > tbody > tr > td:not(.extra)').each(function() {
                 result.data.openingHours.push({
                     from: $(this).find('span:nth-child(1)').text(),
                     to: $(this).find('span:nth-child(2)').text()
@@ -51,6 +51,6 @@
             });
 
             return results;
-        }
+        };
     });
 }());
