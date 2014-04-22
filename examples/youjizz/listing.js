@@ -34,7 +34,7 @@
             var results = [];
 
             // Process pagination
-            $('#pagination > a').each(function($) {
+            $('#pagination > a').each(function() {
                 var url = "http://youjizz.com" + this.attr('href');
                 results.push({
                     type: 'url',
@@ -44,14 +44,14 @@
             });
 
             // Process results
-            $('#miniatura').each(function(e) {
+            $('#miniatura').each(function() {
                 var title1 = this.find('span#title1')[0].children[0].data;
                 var url = this.find('a').attr('href');
                 var duration = this.find('span.thumbtime span')[0].children[0].data;
-                var views = parseInt(this.find('span.thumbviews span')[0].children[0].data);
+                var views = parseInt(this.find('span.thumbviews span')[0].children[0].data, 10);
 
                 var imgs = [];
-                this.find('img.lazy').each(function(img) {
+                this.find('img.lazy').each(function() {
                     imgs.push(this.attr('data-original'));
                 });
 
@@ -62,7 +62,7 @@
                     imgs: imgs,
                     views: views,
                     listingUrl: item.url
-                }
+                };
 
                 results.push({
                     type: 'data',
@@ -71,6 +71,6 @@
             });
 
             return results;
-        }
+        };
     });
 }());
