@@ -27,17 +27,14 @@
      * Array of modules this one depends on.
      * @type {Array}
      */
-    var deps = [
-        'querystring',
-        'url'
-    ];
+    var deps = [];
 
-    define(deps, function(querystring, url) {
+    define(deps, function() {
         module.exports = function($, item) {
             var results = [];
 
             // Process pagination
-            $('tr > td.title > a').each(function($) {
+            $('tr > td.title > a').each(function() {
                 var result = {
                     url: this.attr('href'),
                     title: this.text(),
@@ -47,7 +44,7 @@
                 results.push({
                     type: 'data',
                     data: result
-                })
+                });
             });
 
             return results;
