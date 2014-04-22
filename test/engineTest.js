@@ -117,6 +117,8 @@
                         throw err;
                     })
             });
+
+            it('Throws error when invalid path specified');
         });
 
         describe('main()', function () {
