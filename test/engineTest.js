@@ -52,13 +52,13 @@
             instance.opts.should.equal(Engine.defaultOptions);
         });
 
-        describe('enqueueUrl()', function() {
-            it('Is defined()', function() {
+        describe('enqueueUrl()', function () {
+            it('Is defined()', function () {
                 var engine = new Engine();
                 engine.enqueueUrl.should.not.equal(null);
             });
 
-            it('Should enqueue unique URL', function() {
+            it('Should enqueue unique URL', function () {
                 var engine = new Engine();
 
                 engine.enqueueUrl.should.not.equal(null);
@@ -67,7 +67,7 @@
                 chai.expect(res).to.equal(true);
             });
 
-            it('Should enqueue unique URL together with data', function() {
+            it('Should enqueue unique URL together with data', function () {
                 var engine = new Engine();
 
                 engine.enqueueUrl.should.not.equal(null);
@@ -82,7 +82,7 @@
                 chai.expect(engine.queue.requested[0].data).to.equal(data);
             });
 
-            it('Should enqueue unique same URL only once', function() {
+            it('Should enqueue unique same URL only once', function () {
                 var engine = new Engine();
                 engine.enqueueUrl.should.not.equal(null);
 
@@ -94,11 +94,29 @@
             });
         });
 
-        describe('isDone()', function() {
-            it('Exists', function() {
+        describe('isDone()', function () {
+            it('Is defined', function () {
                 var engine = new Mc.Engine();
                 engine.isDone.should.not.equal(null);
             });
+        });
+
+        describe('loadProcessors()', function () {
+            it('Is defined', function () {
+                var engine = new Engine();
+                engine.loadProcessors.should.not.equal(null);
+            });
+        });
+
+        describe('main()', function () {
+            it('Is defined', function () {
+                var engine = new Mc.Engine();
+                engine.main.should.not.equal(null);
+            });
+
+            it('Returns promise');
+
+            it('Throws exception if invalid argv passed');
         });
 
         describe('registerProcessor()', function () {
