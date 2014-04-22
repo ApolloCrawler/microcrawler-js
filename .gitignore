@@ -10,6 +10,7 @@ lib-cov
 .idea
 
 coverage
+doc
 docs
 pids
 logs
