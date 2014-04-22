@@ -62,5 +62,61 @@
                 instance.run();
             });
         });
+
+        describe('wasAlreadyEnqueued()', function () {
+            it('Should be defined', function () {
+                var engine = new Engine();
+                engine.wasAlreadyEnqueued.should.not.equal(null);
+            });
+
+            it('Should return true for same url and same processor', function () {
+                var engine = new Engine();
+
+                var testData = {
+                    url: 'http://google.com',
+                    processor: 'google.listing'
+                };
+
+                engine.enqueueUrl(testData.url, testData.processor, null);
+                var res = engine.wasAlreadyEnqueued(testData.url, testData.processor);
+                chai.expect(res).to.equal(true);
+            });
+
+            it('Should return false for same url and different processor', function () {
+                var engine = new Engine();
+
+                var testData1 = {
+                    url: 'http://seznam.cz',
+                    processor: 'seznam.listing'
+                };
+
+                var testData2 = {
+                    url: 'http://seznam.cz',
+                    processor: 'seznam.details'
+                };
+
+                engine.enqueueUrl(testData1.url, testData1.processor, null);
+                var res = engine.wasAlreadyEnqueued(testData2.url, testData2.processor);
+                chai.expect(res).to.equal(false);
+            });
+
+            it('Should return false for different url and same processor', function () {
+                var engine = new Engine();
+
+                var testData1 = {
+                    url: 'http://google.com',
+                    processor: 'seznam.listing'
+                };
+
+                var testData2 = {
+                    url: 'http://seznam.cz',
+                    processor: 'seznam.listing'
+                };
+
+                engine.enqueueUrl(testData1.url, testData1.processor, null);
+                var res = engine.wasAlreadyEnqueued(testData2.url, testData2.processor);
+                chai.expect(res).to.equal(false);
+            });
+        });
     });
 }());
