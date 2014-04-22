@@ -34,7 +34,7 @@
             var results = [];
 
             // Process pagination
-            $('.pagination-links > li > a').each(function($) {
+            $('.pagination-links > li > a').each(function() {
                 var url = 'http://www.yelp.com' + this.attr('href');
                 results.push({
                     type: 'url',
@@ -54,7 +54,7 @@
                 // Phone number
                 var tmp = $(this).find('.biz-phone').text();
                 tmp = tmp.replace(/\D/g, '');
-                tmp = parseInt(tmp);
+                tmp = parseInt(tmp, 10);
                 result.phoneNumber = tmp;
 
                 // Reviews
@@ -63,7 +63,7 @@
                 // Number of reviews
                 tmp = $(this).find('.review-count').text();
                 tmp = tmp.slice(14, -14);
-                tmp = parseInt(tmp);
+                tmp = parseInt(tmp, 10);
                 result.reviews.number = tmp;
 
                 // Stars
