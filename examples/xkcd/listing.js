@@ -27,16 +27,13 @@
      * Array of modules this one depends on.
      * @type {Array}
      */
-    var deps = [
-        'querystring',
-        'url'
-    ];
+    var deps = [];
 
-    define(deps, function(querystring, url) {
+    define(deps, function() {
         module.exports = function($, item) {
             var results = [];
 
-            $('a[rel="prev"]').each(function($) {
+            $('a[rel="prev"]').each(function() {
                 var url = 'http://xkcd.com' + this.attr('href');
                 results.push({
                     type: 'url',
@@ -45,7 +42,7 @@
                 });
             });
 
-            $('div#comic > img').each(function($) {
+            $('div#comic > img').each(function() {
                 var result = {
                     url: this.attr('src'),
                     title: this.attr('title'),
@@ -60,6 +57,6 @@
             });
 
             return results;
-        }
+        };
     });
 }());
