@@ -50,7 +50,6 @@
 
             });
 
-
             for (var i = 0; i < result.data.table.length; i++) {
                 var object = result.data.table[i];
 
@@ -58,7 +57,6 @@
                     result.id = object.value;
                 }
             }
-
 
             results.push({
                 type: 'data',

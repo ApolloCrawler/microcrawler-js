@@ -32,27 +32,6 @@
 
     define(deps, function () {
 
-        var extractAddress = function ($, doc, result) {
-            if (!result) {
-                result = {};
-            }
-
-            // Address
-            result.address = {};
-
-            // Neighborhood street
-            var tmp = $(doc).find('.neighborhood-str-list').text();
-            tmp = tmp.slice(13, -8);
-            result.address.neighborhoodStr = tmp;
-
-            // Full address
-            tmp = $(doc).find('address').text();
-            tmp = tmp.slice(13, -10);
-            result.address.fullAddress = tmp;
-
-            return result;
-        };
-
         var extractHandle = function ($, doc, result) {
             result.handle = $(doc).find('.fn > a').attr('class').replace('clickHandleLink', '');
 
@@ -75,61 +54,6 @@
             return result;
         };
 
-        var extractCategories = function ($, doc, result) {
-            var categories = [];
-            $(doc).find('.category-str-list a').each(function () {
-                var category = this.text();
-                categories.push(category);
-            });
-
-            result.categories = categories;
-
-            return result;
-        };
-
-        var extractName = function ($, doc, result) {
-            result.businessName = $(doc).find('h3 > span > a').text();
-            result.detailUrl = 'http://www.yelp.com' + $(doc).find('h3 > span > a').attr('href');
-
-            return result;
-        };
-
-        var extractPhone = function ($, doc, result) {
-            // Phone number
-            var tmp = $(doc).find('.biz-phone').text();
-            tmp = tmp.replace(/\D/g, '');
-            tmp = parseInt(tmp, 10);
-
-            result.phoneNumber = tmp;
-
-            return result
-        };
-
-        var extractReviews = function ($, doc, result) {
-            // Reviews
-            result.reviews = {};
-
-            // Number of reviews
-            var tmp = $(doc).find('.review-count').text();
-            tmp = tmp.slice(14, -14);
-            tmp = parseInt(tmp, 10);
-
-            result.reviews.number = tmp;
-
-            return result;
-        };
-
-        var extractStars = function ($, doc, result) {
-            // Stars
-            var tmp = $(doc).find('.star-img').attr('title');
-            tmp = tmp.slice(0, -12);
-            tmp = parseFloat(tmp);
-            result.reviews.stars = tmp;
-
-            return result;
-
-        };
-
         module.exports = function ($, item) {
             var results = [];
 
@@ -147,25 +71,11 @@
             $('.result').each(function () {
                 var result = {};
 
-//                result.listingUrl = item.url; // ??
-
                 result = extractHandle($, this, result); //done
 
                 result = extractDate($, this, result); //done
 
                 result = extractDetailUrl($, this, result); //done
-
-//                result = extractName($, this, result);
-//
-//                result = extractPhone($, this, result);
-//
-//                result = extractReviews($, this, result);
-//
-//                result = extractStars($, this, result);
-//
-//                result = extractAddress($, this, result);
-//
-//                result = extractCategories($, this, result);
 
                 results.push({
                     type: 'url',
@@ -179,8 +89,3 @@
         };
     });
 }());
-
-
-//http://www.sreality.cz/search?category_type_cb=1&category_main_cb=1&price_min=&price_max=&region=&distance=0&rg%5B%5D=10&usable_area-min=&usable_area-max=&floor_number-min=&floor_number-max=&age=0&extension=0&sort=0&perPage=10&hideRegions=0&discount=-1
-
-// http://www.sreality.cz/search?category_type_cb=1&category_main_cb=1&price_min=&price_max=&region=&distance=0&rg[]=1&usable_area-min=&usable_area-max=&floor_number-min=&floor_number-max=&age=0&extension=0&sort=0&hideRegions=0&discount=-1&perPage=30
