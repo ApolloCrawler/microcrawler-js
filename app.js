@@ -32,7 +32,7 @@
         './lib'
     ];
 
-    define(deps, function(path, Mc) {
+    define(deps, function (path, Mc) {
         // First step is to create engine
         var engine = new Mc.Engine();
 
@@ -50,21 +50,61 @@
         });
 
         /*
-        // Register yelp listing processor
-        engine.registerProcessor('yelp.listing', require('./examples/yelp/listing.js'));
+         // Register yelp listing processor
+         engine.registerProcessor('yelp.listing', require('./examples/yelp/listing.js'));
 
-        // Register yelp details processor
-        engine.registerProcessor('yelp.details', require('./examples/yelp/details.js'));
+         // Register yelp details processor
+         engine.registerProcessor('yelp.details', require('./examples/yelp/details.js'));
 
-        // Register youjizz listing processor
-        engine.registerProcessor('youjizz.listing', require('./examples/youjizz/listing.js'));
-        //*/
+         // Register youjizz listing processor
+         engine.registerProcessor('youjizz.listing', require('./examples/youjizz/listing.js'));
+         //*/
+
+
+        /**
+         * Return an array of urls for each of 14 regions
+         * @returns {Array}
+         */
+        var baseUrl = exports.baseUrl = 'http://www.sreality.cz/search?category_type_cb=1&category_main_cb=1&price_min=&price_max=&region=&distance=0&rg[]={REGION_CODE_HERE}&usable_area-min=&usable_area-max=&floor_number-min=&floor_number-max=&age=0&extension=0&sort=0&hideRegions=0&discount=-1&perPage=30&page=';
+
+        for (var r = 1; r < 15; r++) {
+            var regionUrl = baseUrl.replace("{REGION_CODE_HERE}", r);
+            engine.queue.enqueueUrl(regionUrl, 'sreality.listing');
+        }
 
         // Run the main function - parse args, set processor, enqueue urls specified
-        engine.main().done(function() {
+        engine.main().done(function () {
             // This is handler of success
             console.log('Done, ' + results.length + ' results!');
-        }, function(err) {
+
+//            // Retrieve
+//            var MongoClient = require('mongodb').MongoClient;
+//
+//            // Connect to the db
+//            MongoClient.connect("mongodb://localhost:27017/exampleDb", function (err, db) {
+//                if (err) {
+//                    return console.dir(err);
+//                }
+//
+//                var collection = db.collection('test');
+//                var doc1 = {'hello': 'doc1'};
+//                var doc2 = {'hello': 'doc2'};
+//                var lotsOfDocs = [
+//                    {'hello': 'doc3'},
+//                    {'hello': 'doc4'}
+//                ];
+//
+//                collection.insert(doc1);
+//
+//                collection.insert(doc2, {w: 1}, function (err, result) {
+//                });
+//
+//                collection.insert(lotsOfDocs, {w: 1}, function (err, result) {
+//                });
+//
+//            });
+
+        }, function (err) {
             // This is handler of error
             console.log('ERROR: ' + err);
         });
