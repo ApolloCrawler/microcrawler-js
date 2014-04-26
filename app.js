@@ -43,10 +43,37 @@
         // Final results
         var results = [];
 
+
+        var nano = require('nano')('http://localhost:5984');
+        var db = null;
+        // clean up the database we created previously
+        nano.db.destroy('sreality', function () {
+            // create a new database
+            nano.db.create('sreality', function () {
+                // specify the database we are going to use
+                db = nano.use('sreality');
+
+            });
+        });
+
         // Register on data event handler
         engine.on('data', function (result) {
             results.push(result);
             console.log(JSON.stringify(result, null, 4));
+
+            result.doc_name = result.data.handle;
+
+            if (db) {
+                // and insert a document in it
+                db.insert(result, result.data.handle, function (err, body, header) {
+                    if (err) {
+                        console.log(err.message);
+                        return;
+                    }
+                    console.log('Object saved.');
+                });
+            }
+
         });
 
         /*
@@ -72,37 +99,16 @@
             engine.queue.enqueueUrl(regionUrl, 'sreality.listing');
         }
 
-        // Run the main function - parse args, set processor, enqueue urls specified
+        //engine.queue.enqueueUrl('http://www.sreality.cz/search?category_type_cb=1&category_main_cb=1&price_min=&price_max=&region=&distance=0&rg[]=1&usable_area-min=&usable_area-max=&floor_number-min=&floor_number-max=&age=0&extension=0&sort=0&hideRegions=0&discount=-1&perPage=30', 'sreality.listing');
+
+        /**
+         * Save to database
+         */
+
+            // Run the main function - parse args, set processor, enqueue urls specified
         engine.main().done(function () {
             // This is handler of success
             console.log('Done, ' + results.length + ' results!');
-
-//            // Retrieve
-//            var MongoClient = require('mongodb').MongoClient;
-//
-//            // Connect to the db
-//            MongoClient.connect("mongodb://localhost:27017/exampleDb", function (err, db) {
-//                if (err) {
-//                    return console.dir(err);
-//                }
-//
-//                var collection = db.collection('test');
-//                var doc1 = {'hello': 'doc1'};
-//                var doc2 = {'hello': 'doc2'};
-//                var lotsOfDocs = [
-//                    {'hello': 'doc3'},
-//                    {'hello': 'doc4'}
-//                ];
-//
-//                collection.insert(doc1);
-//
-//                collection.insert(doc2, {w: 1}, function (err, result) {
-//                });
-//
-//                collection.insert(lotsOfDocs, {w: 1}, function (err, result) {
-//                });
-//
-//            });
 
         }, function (err) {
             // This is handler of error
