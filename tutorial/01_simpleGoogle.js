@@ -48,7 +48,7 @@
             console.log(JSON.stringify(result, null, 4));
         });
 
-        engine.enqueueUrl('https://www.google.com/search?q=test', 'google.listing');
+        engine.queue.enqueueUrl('https://www.google.com/search?q=test', 'google.listing');
 
         // Run the main function - parse args, set processor, enqueue urls specified
         engine.run().done(function() {
