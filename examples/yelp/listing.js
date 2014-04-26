@@ -125,7 +125,7 @@
                 var result = {};
 
                 result.listingUrl = item.url;
-                
+
                 result = extractName($, this, result);
 
                 result = extractPhone($, this, result);
