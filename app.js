@@ -41,18 +41,20 @@
         engine.loadProcessors(processorsDir);
 
         // Final results
-        var results = [];
+        var resultsCount = 0;
 
         // Register on data event handler
         engine.on('data', function (result) {
-            results.push(result);
             console.log(JSON.stringify(result, null, 4));
+
+            // Increment results counter
+            resultsCount++;
         });
 
         // Run the main function - parse args, set processor, enqueue urls specified
         engine.main().done(function() {
             // This is handler of success
-            console.log('Done, ' + results.length + ' results!');
+            console.log('Done, ' + resultsCount + ' results!');
         }, function(err) {
             // This is handler of error
             console.log('ERROR: ' + err);
