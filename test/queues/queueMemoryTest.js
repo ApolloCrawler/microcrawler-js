@@ -61,7 +61,7 @@
 
                 instance.enqueueUrl.should.not.equal(null);
 
-                var res = instance.enqueueUrl(testData1.url, testData1.processor, null);
+                var res = instance.enqueueUrl(testData1);
                 chai.expect(res).to.equal(true);
             });
 
@@ -74,7 +74,11 @@
                     name: "John Doe"
                 };
 
-                var res = instance.enqueueUrl(testData1.url, testData1.processor, data);
+                var res = instance.enqueueUrl({
+                    url: testData1.url,
+                    processor: testData1.processor,
+                    data: data
+                });
                 chai.expect(res).to.equal(true);
 
                 chai.expect(instance.queue.requested[0].data).to.equal(data);
@@ -108,24 +112,24 @@
             it('Should return true for same url and same processor', function () {
                 var instance = new QueueMemory();
 
-                instance.enqueueUrl(testData1.url, testData1.processor, null);
-                var res = instance.wasAlreadyEnqueued(testData1.url, testData1.processor);
+                instance.enqueueUrl(testData1);
+                var res = instance.wasAlreadyEnqueued(testData1);
                 chai.expect(res).to.equal(true);
             });
 
             it('Should return false for same url and different processor', function () {
                 var instance = new QueueMemory();
 
-                instance.enqueueUrl(testData1.url, testData1.processor, null);
-                var res = instance.wasAlreadyEnqueued(testData3.url, testData3.processor);
+                instance.enqueueUrl(testData1);
+                var res = instance.wasAlreadyEnqueued(testData3);
                 chai.expect(res).to.equal(false);
             });
 
             it('Should return false for different url and same processor', function () {
                 var instance = new QueueMemory();
 
-                instance.enqueueUrl(testData1.url, testData1.processor, null);
-                var res = instance.wasAlreadyEnqueued(testData2.url, testData2.processor);
+                instance.enqueueUrl(testData1);
+                var res = instance.wasAlreadyEnqueued(testData2);
                 chai.expect(res).to.equal(false);
             });
         });
