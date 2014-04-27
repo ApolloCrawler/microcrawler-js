@@ -32,7 +32,7 @@
         './lib'
     ];
 
-    define(deps, function (path, Mc) {
+    define(deps, function(path, Mc) {
         // First step is to create engine
         var engine = new Mc.Engine();
 
@@ -41,9 +41,9 @@
         engine.loadProcessors(processorsDir);
 
         // Final results
-        var results = [];
+        var resultsCount = 0;
 
-
+        // Initialize CouchDB
         var nano = require('nano')('http://localhost:5984');
         var db = null;
         // clean up the database we created previously
@@ -58,13 +58,13 @@
 
         // Register on data event handler
         engine.on('data', function (result) {
-            results.push(result);
             console.log(JSON.stringify(result, null, 4));
 
-            result.doc_name = result.data.handle;
+            // Increment results counter
+            resultsCount++;
 
+            // Insert result to CouchDB
             if (db) {
-                // and insert a document in it
                 db.insert(result, result.data.handle, function (err, body, header) {
                     if (err) {
                         console.log(err.message);
@@ -73,23 +73,11 @@
                     console.log('Object saved.');
                 });
             }
-
         });
-
-        /*
-         // Register yelp listing processor
-         engine.registerProcessor('yelp.listing', require('./examples/yelp/listing.js'));
-
-         // Register yelp details processor
-         engine.registerProcessor('yelp.details', require('./examples/yelp/details.js'));
-
-         // Register youjizz listing processor
-         engine.registerProcessor('youjizz.listing', require('./examples/youjizz/listing.js'));
-         //*/
-
 
         /**
          * Return an array of urls for each of 14 regions
+         * and add them to queue to process
          * @returns {Array}
          */
         var baseUrl = exports.baseUrl = 'http://www.sreality.cz/search?category_type_cb=1&category_main_cb=1&price_min=&price_max=&region=&distance=0&rg[]={REGION_CODE_HERE}&usable_area-min=&usable_area-max=&floor_number-min=&floor_number-max=&age=0&extension=0&sort=0&hideRegions=0&discount=-1&perPage=30&page=';
@@ -99,18 +87,11 @@
             engine.queue.enqueueUrl(regionUrl, 'sreality.listing');
         }
 
-        //engine.queue.enqueueUrl('http://www.sreality.cz/search?category_type_cb=1&category_main_cb=1&price_min=&price_max=&region=&distance=0&rg[]=1&usable_area-min=&usable_area-max=&floor_number-min=&floor_number-max=&age=0&extension=0&sort=0&hideRegions=0&discount=-1&perPage=30', 'sreality.listing');
-
-        /**
-         * Save to database
-         */
-
-            // Run the main function - parse args, set processor, enqueue urls specified
-        engine.main().done(function () {
+        // Run the main function - parse args, set processor, enqueue urls specified
+        engine.main().done(function() {
             // This is handler of success
-            console.log('Done, ' + results.length + ' results!');
-
-        }, function (err) {
+            console.log('Done, ' + resultsCount + ' results!');
+        }, function(err) {
             // This is handler of error
             console.log('ERROR: ' + err);
         });
