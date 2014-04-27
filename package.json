@@ -30,7 +30,8 @@
     "request": "^2.34.0",
     "nano": "^5.7.1",
     "amdefine": "^0.1.0",
-    "minimist": "0.0.8"
+    "minimist": "0.0.8",
+    "winston": "^0.7.3"
   },
   "devDependencies": {
     "mocha": "^1.18.2",
