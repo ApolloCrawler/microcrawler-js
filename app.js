@@ -49,17 +49,6 @@
             console.log(JSON.stringify(result, null, 4));
         });
 
-        /*
-        // Register yelp listing processor
-        engine.registerProcessor('yelp.listing', require('./examples/yelp/listing.js'));
-
-        // Register yelp details processor
-        engine.registerProcessor('yelp.details', require('./examples/yelp/details.js'));
-
-        // Register youjizz listing processor
-        engine.registerProcessor('youjizz.listing', require('./examples/youjizz/listing.js'));
-        //*/
-
         // Run the main function - parse args, set processor, enqueue urls specified
         engine.main().done(function() {
             // This is handler of success
