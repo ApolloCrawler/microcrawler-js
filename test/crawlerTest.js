@@ -22,7 +22,7 @@
     var chai = require('chai')
         , should = chai.should();
 
-    var Crawler = require('../lib/crawler.js')
+    var Crawler = require('../lib/crawlers/index.js')
         , Mc = require('./../lib');
 
     describe('Crawler', function () {
