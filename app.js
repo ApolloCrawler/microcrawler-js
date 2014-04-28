@@ -54,9 +54,13 @@
             resultsCount++;
         });
 
-        var statsInterval = setInterval(function() {
+        var printStats = function() {
             var stats = engine.getStats();
             logger.info('STATS: ' + JSON.stringify(stats, null, 4));
+        };
+
+        var statsInterval = setInterval(function() {
+            printStats();
         }, 3000);
 
         // Run the main function - parse args, set processor, enqueue urls specified
@@ -64,8 +68,13 @@
             logger.info('Engine initialized.');
             return engine.main();
         }).done(function() {
-            // This is handler of success
+            // Clear stats interval
             clearInterval(statsInterval);
+
+            // Print stats
+            printStats();
+
+            // Print finish message
             logger.info('Crawling Done, ' + resultsCount + ' results!');
         }, function(err) {
             // This is handler of error
