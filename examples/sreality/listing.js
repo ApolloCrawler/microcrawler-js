@@ -28,7 +28,6 @@
      * @type {Array}
      */
     var deps = [];
-    var result = {};
 
     define(deps, function () {
 
@@ -54,7 +53,7 @@
             return result;
         };
 
-        module.exports = function ($, item) {
+        module.exports = function ($) {
             var results = [];
 
             // Process pagination

@@ -79,7 +79,7 @@
 
             result.phoneNumber = tmp;
 
-            return result
+            return result;
         };
 
         var extractReviews = function($, doc, result) {
