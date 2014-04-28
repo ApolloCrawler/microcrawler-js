@@ -31,7 +31,8 @@
     "nano": "^5.7.1",
     "amdefine": "^0.1.0",
     "minimist": "0.0.8",
-    "winston": "^0.7.3"
+    "winston": "^0.7.3",
+    "faye": "^1.0.1"
   },
   "devDependencies": {
     "mocha": "^1.18.2",

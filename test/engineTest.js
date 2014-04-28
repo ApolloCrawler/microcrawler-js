@@ -151,7 +151,7 @@
         describe('isDone()', function () {
             it('Is defined', function () {
                 var instance = new Engine();
-                instance.isDone.should.not.equal(null);
+                instance.isCrawlingDone.should.not.equal(null);
             });
         });
 
