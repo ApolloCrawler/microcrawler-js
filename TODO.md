@@ -13,3 +13,8 @@
 - [ ] Choose crawler engine ($)
   - [ ] Cheerio
   - [ ] Phantomjs
+
+- [ ] Additional CLI switches/commands
+  - [ ] -u, --urls - Load start URLs from file
+  - [ ] -c, --config - Load settings from config file specified
+  - [ ] -v, --verbose - Optionally increases verbosity of logger
