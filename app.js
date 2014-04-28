@@ -48,7 +48,7 @@
 
         // Register on data event handler
         engine.on('data', function (result) {
-            logger.info(JSON.stringify(result, null, 4));
+            logger.info('DATA: ' + JSON.stringify(result, null, 4));
 
             // Increment results counter
             resultsCount++;
