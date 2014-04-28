@@ -62,7 +62,7 @@
                 var engine = new Engine();
                 engine.loadProcessors(path.join(__dirname, '..', 'examples'))
                     .done(function(result){
-                        chai.expect(result.length).to.equal(7);
+                        chai.expect(result.length).to.equal(9);
                         done();
                     }, function(err) {
                         throw err;
