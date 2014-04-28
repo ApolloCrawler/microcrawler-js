@@ -12,10 +12,10 @@
   * Phantomjs
 
 - [x] One
-  - [x] Two
- -- [x] Two Point Five
- -- [x] Three
- -- [ ] Four
- +- [ ] Two Point Five
- +- [ ] Three
- +- [x] Four
+- [x] Two
+-- [x] Two Point Five
+-- [x] Three
+-- [ ] Four
++- [ ] Two Point Five
++- [ ] Three
++- [x] Four
