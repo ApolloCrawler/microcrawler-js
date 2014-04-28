@@ -46,13 +46,49 @@
         // Final results
         var resultsCount = 0;
 
+        // Initialize CouchDB
+        var nano = require('nano')('http://localhost:5984');
+        var db = null;
+        // clean up the database we created previously
+        nano.db.destroy('sreality', function () {
+            // create a new database
+            nano.db.create('sreality', function () {
+                // specify the database we are going to use
+                db = nano.use('sreality');
+
+            });
+        });
+
         // Register on data event handler
         engine.on('data', function (result) {
             logger.info('DATA: ' + JSON.stringify(result, null, 4));
 
             // Increment results counter
             resultsCount++;
+
+            // Insert result to CouchDB
+            if (db) {
+                db.insert(result, result.data.handle, function (err, body, header) {
+                    if (err) {
+                        console.log(err.message);
+                        return;
+                    }
+                    console.log('Object saved.');
+                });
+            }
         });
+
+        /**
+         * Return an array of urls for each of 14 regions
+         * and add them to queue to process
+         * @returns {Array}
+         */
+        var baseUrl = exports.baseUrl = 'http://www.sreality.cz/search?category_type_cb=1&category_main_cb=1&price_min=&price_max=&region=&distance=0&rg[]={REGION_CODE_HERE}&usable_area-min=&usable_area-max=&floor_number-min=&floor_number-max=&age=0&extension=0&sort=0&hideRegions=0&discount=-1&perPage=30&page=';
+
+        for (var r = 1; r < 15; r++) {
+            var regionUrl = baseUrl.replace("{REGION_CODE_HERE}", r);
+            engine.queue.enqueueUrl(regionUrl, 'sreality.listing');
+        }
 
         // Run the main function - parse args, set processor, enqueue urls specified
         engine.main().done(function() {
