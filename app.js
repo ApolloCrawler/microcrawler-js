@@ -29,15 +29,18 @@
      */
     var deps = [
         'path',
-        './lib'
+        './lib',
+        './lib/logger'
     ];
 
-    define(deps, function(path, Mc) {
+    define(deps, function(path, Mc, logger) {
         // First step is to create engine
         var engine = new Mc.Engine();
 
         // Load example processor from files
         var processorsDir = path.join(__dirname, 'examples');
+
+        logger.info("Loading example processors - '" + processorsDir + "'");
         engine.loadProcessors(processorsDir);
 
         // Final results
@@ -45,7 +48,7 @@
 
         // Register on data event handler
         engine.on('data', function (result) {
-            console.log(JSON.stringify(result, null, 4));
+            logger.info(JSON.stringify(result, null, 4));
 
             // Increment results counter
             resultsCount++;
@@ -54,10 +57,10 @@
         // Run the main function - parse args, set processor, enqueue urls specified
         engine.main().done(function() {
             // This is handler of success
-            console.log('Done, ' + resultsCount + ' results!');
+            logger.info('Crawling Done, ' + resultsCount + ' results!');
         }, function(err) {
             // This is handler of error
-            console.log('ERROR: ' + err);
+            logger.error(err);
         });
     });
 
