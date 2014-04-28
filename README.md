@@ -8,13 +8,28 @@
 [![Coverage Status](https://coveralls.io/repos/korczis/microcrawler/badge.png)](https://coveralls.io/r/korczis/microcrawler)
 [![Build Status](https://travis-ci.org/korczis/microcrawler.png)](https://travis-ci.org/korczis/microcrawler)
 
+## Prerequisites
+
+- [node.js](http://nodejs.org/)
+- [npm](https://www.npmjs.org/)
+- [grunt](http://gruntjs.com/getting-started)
+
 ## Getting started
 
 Just clone.
 
 ```
+# Clone repository
 git clone https://github.com/korczis/microcrawler.git
+
+# Enter folder
 cd microcrawler
+
+# Install required packages
+npm install
+
+# Run tests
+grunt
 ```
 
 ## Example usage
