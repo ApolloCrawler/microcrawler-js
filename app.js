@@ -54,12 +54,18 @@
             resultsCount++;
         });
 
+        var statsInterval = setInterval(function() {
+            var stats = engine.getStats();
+            logger.info('STATS: ' + JSON.stringify(stats, null, 4));
+        }, 3000);
+
         // Run the main function - parse args, set processor, enqueue urls specified
         engine.init().then(function() {
             logger.info('Engine initialized.');
             return engine.main();
         }).done(function() {
             // This is handler of success
+            clearInterval(statsInterval);
             logger.info('Crawling Done, ' + resultsCount + ' results!');
         }, function(err) {
             // This is handler of error
