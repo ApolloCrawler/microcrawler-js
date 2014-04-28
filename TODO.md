@@ -10,3 +10,12 @@
 * Choose crawler engine ($)
   * Cheerio
   * Phantomjs
+
+- [x] One
+  - [x] Two
+ -- [x] Two Point Five
+ -- [x] Three
+ -- [ ] Four
+ +- [ ] Two Point Five
+ +- [ ] Three
+ +- [x] Four
