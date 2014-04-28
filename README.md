@@ -8,6 +8,15 @@
 [![Coverage Status](https://coveralls.io/repos/korczis/microcrawler/badge.png)](https://coveralls.io/r/korczis/microcrawler)
 [![Build Status](https://travis-ci.org/korczis/microcrawler.png)](https://travis-ci.org/korczis/microcrawler)
 
+## Getting started
+
+Just clone.
+
+```
+git clone https://github.com/korczis/microcrawler.git
+cd microcrawler
+```
+
 ## Example usage
 
 ### Craiglist
