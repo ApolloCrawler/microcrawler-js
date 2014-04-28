@@ -55,7 +55,10 @@
         });
 
         // Run the main function - parse args, set processor, enqueue urls specified
-        engine.main().done(function() {
+        engine.init().then(function() {
+            logger.info('Engine initialized.');
+            return engine.main();
+        }).done(function() {
             // This is handler of success
             logger.info('Crawling Done, ' + resultsCount + ' results!');
         }, function(err) {
