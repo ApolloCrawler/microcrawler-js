@@ -60,7 +60,7 @@
             logger.info('Crawling Done, ' + resultsCount + ' results!');
         }, function(err) {
             // This is handler of error
-            logger.error(err);
+            logger.error('' + err);
         });
     });
 
