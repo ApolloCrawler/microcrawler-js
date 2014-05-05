@@ -69,3 +69,7 @@ node app.js -p yelp.listing "http://www.yelp.com/search?find_desc=restaurants&fi
 ```
 node app.js -p youjizz.listing http://youjizz.com
 ```
+
+## Credits
+
+- [@pavelbinar](https://github.com/pavelbinar) for QA and not just that.
