@@ -46,9 +46,21 @@
         // Final results
         var resultsCount = 0;
 
+        var dbName = 'microcrawler-couchapp';
+        var nano = require('nano')('http://localhost:5985');
+        nano.db.create(dbName);
+        var db = nano.db.use(dbName);
+
         // Register on data event handler
         engine.on('data', function (result) {
             logger.info('DATA: ' + JSON.stringify(result, null, 4));
+
+            db.insert(result, null, function(err, body, header) {
+                if (err) {
+                    console.log(err.message);
+                    return;
+                }
+            });
 
             // Increment results counter
             resultsCount++;
