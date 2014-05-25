@@ -43,11 +43,16 @@
             });
 
             $('div#comic > img').each(function() {
+                var src = this.attr('src');
+
                 var result = {
-                    url: this.attr('src'),
+                    url: src,
                     title: this.attr('title'),
                     alt: this.attr('alt'),
-                    listingUrl: item.url
+                    listingUrl: item.url,
+                    thumbnails: [
+                        src
+                    ]
                 };
 
                 results.push({

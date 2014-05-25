@@ -59,7 +59,7 @@
                     title: title1,
                     duration: duration,
                     url: "http://youjizz.com" + url,
-                    imgs: imgs,
+                    thumbnails: imgs,
                     views: views,
                     listingUrl: item.url
                 };
