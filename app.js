@@ -27,71 +27,13 @@
      * Array of modules this one depends on.
      * @type {Array}
      */
-    var deps = [
-        'path',
-        './lib',
-        './lib/logger'
-    ];
+    var deps = [];
 
-    define(deps, function(path, Mc, logger) {
-        // First step is to create engine
-        var engine = new Mc.Engine();
+    define(deps, function() {
+        var Mc = require('./lib');
 
-        // Load example processor from files
-        var processorsDir = path.join(__dirname, 'examples');
-
-        logger.info("Loading example processors - '" + processorsDir + "'");
-        engine.loadProcessors(processorsDir);
-
-        // Final results
-        var resultsCount = 0;
-
-        var dbName = 'microcrawler-couchapp';
-        var nano = require('nano')('http://localhost:5985');
-        nano.db.create(dbName);
-        var db = nano.db.use(dbName);
-
-        // Register on data event handler
-        engine.on('data', function (result) {
-            logger.info('DATA: ' + JSON.stringify(result, null, 4));
-
-            db.insert(result, null, function(err, body, header) {
-                if (err) {
-                    console.log(err.message);
-                    return;
-                }
-            });
-
-            // Increment results counter
-            resultsCount++;
-        });
-
-        var printStats = function() {
-            var stats = engine.getStats();
-            logger.info('STATS: ' + JSON.stringify(stats, null, 4));
-        };
-
-        var statsInterval = setInterval(function() {
-            printStats();
-        }, 3000);
-
-        // Run the main function - parse args, set processor, enqueue urls specified
-        engine.init().then(function() {
-            logger.info('Engine initialized.');
-            return engine.main();
-        }).done(function() {
-            // Clear stats interval
-            clearInterval(statsInterval);
-
-            // Print stats
-            printStats();
-
-            // Print finish message
-            logger.info('Crawling Done, ' + resultsCount + ' results!');
-        }, function(err) {
-            // This is handler of error
-            logger.error('' + err);
-        });
+        var app = new Mc.App();
+        app.run();
     });
 
 }());
