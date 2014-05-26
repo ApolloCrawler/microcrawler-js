@@ -43,7 +43,8 @@
                 var qarqs = querystring.parse(parsedUrl.query);
 
                 var result = {
-                    url: qarqs.q
+                    url: qarqs.q,
+                    title: this.text()
                 };
 
                 results.push({
