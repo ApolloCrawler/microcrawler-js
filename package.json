@@ -33,7 +33,8 @@
     "minimist": "0.0.8",
     "winston": "^0.7.3",
     "faye": "^1.0.1",
-    "moment": "^2.6.0"
+    "moment": "^2.6.0",
+    "deepmerge": "^0.2.7"
   },
   "devDependencies": {
     "mocha": "^1.18.2",
