@@ -46,7 +46,7 @@
         });
 
         it('Default constructor works');
-        
+
         /*
         it('Default constructor works', function () {
             var instance = new Mc.Engine();
