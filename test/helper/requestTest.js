@@ -22,7 +22,7 @@
     var chai = require('chai')
         , should = chai.should();
 
-    var Request = require('./../lib/helpers/request');
+    var Request = require('../../lib/helper/request');
 
     describe('Request', function () {
         it('Module is defined', function () {
