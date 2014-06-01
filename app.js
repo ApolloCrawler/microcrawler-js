@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 // Copyright, 2013-2014, by Tomas Korcak. <korczis@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
