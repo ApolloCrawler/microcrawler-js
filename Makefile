@@ -9,7 +9,7 @@ clean:
 
 cover:
 	istanbul cover ./node_modules/mocha/bin/_mocha \
-	    --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+	    --report lcovonly -- --recursive -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
 doc:
 	@jsdoc --verbose --destination docs/lib lib/*.js
@@ -21,7 +21,7 @@ report:
 test: test-unit
 
 test-unit:
-	@./node_modules/.bin/mocha \
+	@./node_modules/.bin/mocha --recursive \
 		--reporter $(REPORTER) \
 		--growl \
 		test/
