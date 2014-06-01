@@ -20,10 +20,14 @@
 
 (function () {
     var chai = require('chai')
-        , path = require('path');
+        , path = require('path')
+        , should = chai.should();
 
-    var Engine = require('../lib/engine')
-        , Mc = require('./../lib');
+    var Mc = require('./../../../lib/index');
+
+    var createEngine = function() {
+        return new Mc.Engine.default();
+    }
 
     describe('Engine', function () {
         var testData1 = {
@@ -58,13 +62,13 @@
 
         describe('loadProcessors()', function () {
             it('Is defined', function () {
-                var engine = new Engine();
+                var engine = createEngine();
                 engine.loadProcessors.should.not.equal(null);
             });
 
             it('Loads example processors', function(done) {
-                var engine = new Engine();
-                engine.loadProcessors(path.join(__dirname, '..', 'examples'))
+                var engine = createEngine();
+                engine.loadProcessors(path.join(__dirname, '..', '..', '..', 'examples'))
                     .done(function(result){
                         chai.expect(result.length).to.equal(8);
                         done();
@@ -78,7 +82,7 @@
 
         describe('main()', function () {
             it('Is defined', function () {
-                var engine = new Mc.Engine();
+                var engine = new Mc.Engine.default();
                 engine.main.should.not.equal(null);
             });
 
@@ -89,31 +93,31 @@
 
         describe('registerProcessor()', function () {
             it('Is defined', function () {
-                var engine = new Engine();
+                var engine = createEngine();
                 engine.registerProcessor.should.not.equal(null);
             });
 
             it('When called without then throws error', function () {
-                var engine = new Engine();
+                var engine = createEngine();
                 chai.expect(engine.registerProcessor.bind('engine')).to.throw(TypeError);
             });
         });
 
         describe('run()', function () {
             it('Works', function () {
-                var instance = new Engine();
+                var instance = createEngine();
                 instance.run();
             });
         });
 
         describe('enqueueUrl()', function () {
             it('Is defined()', function () {
-                var instance = new Engine();
+                var instance = createEngine();
                 instance.enqueueUrl.should.not.equal(null);
             });
 
             it('Should enqueue unique URL', function () {
-                var instance = new Engine();
+                var instance = createEngine();
 
                 instance.enqueueUrl.should.not.equal(null);
 
@@ -122,7 +126,7 @@
             });
 
             it('Should enqueue unique URL together with data', function () {
-                var instance = new Engine();
+                var instance = createEngine();
 
                 instance.enqueueUrl.should.not.equal(null);
 
@@ -141,7 +145,7 @@
             });
 
             it('Should enqueue unique same URL only once', function () {
-                var instance = new Engine();
+                var instance = createEngine();
                 instance.enqueueUrl.should.not.equal(null);
 
                 var res = instance.enqueueUrl(testData1.url, testData1.processor, null);
@@ -154,19 +158,19 @@
 
         describe('isDone()', function () {
             it('Is defined', function () {
-                var instance = new Engine();
+                var instance = createEngine();
                 instance.isCrawlingDone.should.not.equal(null);
             });
         });
 
         describe('wasAlreadyEnqueued()', function () {
             it('Should be defined', function () {
-                var instance = new Engine();
+                var instance = createEngine();
                 instance.wasAlreadyEnqueued.should.not.equal(null);
             });
 
             it('Should return true for same url and same processor', function () {
-                var instance = new Engine();
+                var instance = createEngine();
 
                 instance.enqueueUrl(testData1);
                 var res = instance.wasAlreadyEnqueued(testData1);
@@ -174,7 +178,7 @@
             });
 
             it('Should return false for same url and different processor', function () {
-                var instance = new Engine();
+                var instance = createEngine();
 
                 instance.enqueueUrl(testData1);
                 var res = instance.wasAlreadyEnqueued(testData3);
@@ -182,7 +186,7 @@
             });
 
             it('Should return false for different url and same processor', function () {
-                var instance = new Engine();
+                var instance = createEngine();
 
                 instance.enqueueUrl(testData1);
                 var res = instance.wasAlreadyEnqueued(testData2);

@@ -22,7 +22,7 @@
     var chai = require('chai')
         , path = require('path');
 
-    var QueueMemory = require('../../lib/queues/queueMemory');
+    var QueueMemory = require('../../lib/queue/queueMemory');
 
     describe('QueueMemory', function () {
         it('Module is defined', function () {
