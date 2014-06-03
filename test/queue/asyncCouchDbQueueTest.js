@@ -53,6 +53,10 @@
             });
         });
 
+        describe('clear', function () {
+            it('Removes items from queue');
+        });
+
         describe('count', function () {
             it('Gets count of items in queue', function (done) {
                 var instance = createInstance();
@@ -69,8 +73,6 @@
                     throw err;
                 });
             });
-
-            it('Throws Error when no URI specified');
         });
 
         describe('get', function () {
@@ -119,8 +121,6 @@
                     throw err;
                 });
             });
-
-            it('Throws Error when no URI specified');
         });
     });
 }());
