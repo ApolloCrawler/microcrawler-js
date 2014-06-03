@@ -43,7 +43,7 @@
             it('Clears initialized engine', function (done) {
                 var instance = createInstance();
 
-                instance.init().then(function () {
+                instance.init().then(function (count) {
                     return instance.cleanup();
                 }).done(function () {
                     done();
@@ -54,7 +54,24 @@
         });
 
         describe('clear', function () {
-            it('Removes items from queue');
+            it('Removes items from queue', function (done) {
+                var instance = createInstance();
+                instance.init().then(function () {
+                    var data = {
+                        url: 'blah'
+                    };
+                    return instance.put(data);
+                }).then(function () {
+                    return instance.count();
+                }).then(function (count) {
+                    return instance.cleanup();
+                }).done(function () {
+                        done();
+                    }, function (err) {
+                        throw err;
+                    }
+                );
+            });
         });
 
         describe('count', function () {
@@ -67,6 +84,8 @@
                     return instance.put(data);
                 }).then(function () {
                     return instance.count();
+                }).then(function (count) {
+                    return instance.cleanup();
                 }).done(function (count) {
                     done();
                 }, function (err) {
@@ -85,7 +104,9 @@
                     return instance.put(data);
                 }).then(function () {
                     return instance.get();
-                }).done(function (res) {
+                }).then(function () {
+                    return instance.cleanup();
+                }).done(function () {
                     done();
                 }, function (err) {
                     throw err;
@@ -97,7 +118,9 @@
         describe('init', function () {
             it('Returns promise', function (done) {
                 var instance = createInstance();
-                instance.init().done(function () {
+                instance.init().then(function (count) {
+                    return instance.cleanup();
+                }).done(function () {
                     done();
                 }, function (err) {
                     throw err;
@@ -115,6 +138,8 @@
                         url: 'blah'
                     };
                     return instance.put(data);
+                }).then(function (count) {
+                    return instance.cleanup();
                 }).done(function () {
                     done();
                 }, function (err) {
