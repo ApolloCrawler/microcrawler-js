@@ -10,3 +10,6 @@ before_install:
   - "export NODE_ENV=test"
   - "npm config set strict-ssl false"
   - "npm install -g chai istanbul jsdoc mocha"
+before_script:
+  - curl -X PUT localhost:5984/microcrawler
+  - curl -HContent-Type:application/json -vXPUT http://localhost:5984/_users/org.couchdb.user:wubble --data-binary '{"_id": "org.couchdb.user:wubble","name": "wubble","roles": ["admin"],"type": "user","apollo": "apollo"}'
