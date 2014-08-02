@@ -24,13 +24,13 @@
     "lib": "lib"
   },
   "dependencies": {
-    "cheerio": "^0.13.1",
+    "cheerio": "^0.17.0",
     "node.extend": "^1.0.10",
-    "deferred": "^0.6.8",
+    "deferred": "^0.7.1",
     "request": "^2.34.0",
     "nano": "^5.7.1",
     "amdefine": "^0.1.0",
-    "minimist": "0.0.8",
+    "minimist": "0.2.0",
     "winston": "^0.7.3",
     "faye": "^1.0.1",
     "moment": "^2.6.0",
