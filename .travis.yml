@@ -12,6 +12,6 @@ before_install:
   - "npm install -g chai istanbul jsdoc mocha"
 before_script:
   - "sleep 10"
-  - "curl -X PUT http://127.0.0.1:5984/microcrawler-couchapp"
-  - "curl -X PUT http://127.0.0.1:5984/microcrawler-test"
   - "curl -HContent-Type:application/json -vXPUT http://localhost:5984/_users/org.couchdb.user:apollo --data-binary '{\"_id\": \"org.couchdb.user:apollo\",\"name\": \"apollo\",\"roles\": [\"admin\"],\"type\": \"user\",\"password\": \"apollo\"}'"
+  - "curl -X PUT http://apollo:apollo@localhost:5984/microcrawler-couchapp"
+  - "curl -X PUT http://apollo:apollo@localhost:5984/microcrawler-test"
