@@ -18,8 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-// For crawling http://vdb.czso.cz/vdb/ukazatele.jsp?typ=0
-
 (function () {
     'use strict';
 
@@ -32,24 +30,24 @@
     var deps = [];
 
     define(deps, function() {
+
         module.exports = function($, item) {
             var results = [];
 
             $('table.orient100 > tbody > tr').each(function() {
-                var first = $(this).find('td:nth-child(1)').text();
-                var second = $(this).find('td:nth-child(2) > a:nth-child(1)').text();
-                var href =  $(this).find('td:nth-child(2) > a:nth-child(2)').attr('href');
+                var code = $(this).find('td:nth-child(1) > a').text();
+                var title = $(this).find('td:nth-child(2) > a:nth-child(1)').text();
 
-                if(!first || !second || !href) {
+                if(!code || !title) {
                     return;
                 }
-                
-                var url = "http://vdb.czso.cz/vdb/" + href.trim();
 
                 results.push({
-                    type: 'url',
-                    url: url,
-                    processor: 'czso.details'
+                    type: 'data',
+                    data: {
+                        code: code,
+                        title: title.split(/\r\n/)[0]
+                    }
                 });
             });
 
