@@ -55,7 +55,7 @@
         var extractCategories = function($, doc, result) {
             var categories = [];
             $(doc).find('.category-str-list a').each(function () {
-                var category = this.text();
+                var category = $(this).text();
                 categories.push(category);
             });
 
@@ -112,7 +112,7 @@
 
             // Process pagination
             $('.pagination-links > li > a').each(function() {
-                var url = 'http://www.yelp.com' + this.attr('href');
+                var url = 'http://www.yelp.com' + $(this).attr('href');
                 results.push({
                     type: 'url',
                     url: url,
