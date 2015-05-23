@@ -27,21 +27,22 @@
      * Array of modules this one depends on.
      * @type {Array}
      */
-    var deps = [];
+    var deps = [
+        'querystring',
+        'url'
+    ];
 
-    define(deps, function () {
-        var persistenceBase = require('./persistenceBase');
+    define(deps, function(querystring, url) {
+        module.exports = function($, item) {
+            var results = [];
 
-        /**
-         * Base Interface for Persistence Class
-         * @class
-         */
-        function PersistenceBase(opts) {
-            opts = opts || {};
+            var result = {
+                type: 'data',
+                name: $('div.box > h1').text(),
+                url: $('#companyUrl').attr('href')
+            };
 
-            return this;
-        }
-
-        module.exports = PersistenceBase;
+            return results.push(result);
+        };
     });
 }());

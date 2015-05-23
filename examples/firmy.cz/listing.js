@@ -27,19 +27,44 @@
      * Array of modules this one depends on.
      * @type {Array}
      */
-    var deps = [];
+    var deps = [
+        'querystring',
+        'url'
+    ];
 
-    define(deps, function () {
-        /**
-         * Base Interface for Persistence Class
-         * @class
-         */
-        function PersistenceBase(opts) {
-            opts = opts || {};
+    define(deps, function(querystring, url) {
+        module.exports = function($, item) {
+            var results = [];
 
-            return this;
-        }
+            $('#nextBtn').each(function() {
+                var tmpUrl = 'http://firmy.cz' + $(this).attr('href') + '&_escaped_fragment_=';
+                var parsedUrl = url.parse(tmpUrl);
+                var qarqs = querystring.parse(parsedUrl.query);
 
-        module.exports = PersistenceBase;
+                var result = {
+                    type: 'url',
+                    url: tmpUrl,
+                    processor: 'firmy.cz.listing'
+                };
+
+                results.push(result);
+            });
+
+            $('.companyTitle').each(function() {
+                var tmpUrl = 'http://firmy.cz' + $(this).attr('href') + '?blah=1&_escaped_fragment_=';
+                var parsedUrl = url.parse(tmpUrl);
+                var qarqs = querystring.parse(parsedUrl.query);
+
+                var result = {
+                    type: 'url',
+                    url: tmpUrl,
+                    processor: 'firmy.cz.details'
+                };
+
+                results.push(result);
+            });
+
+            return results;
+        };
     });
 }());
