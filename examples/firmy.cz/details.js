@@ -38,7 +38,7 @@
 
             var result = {
                 type: 'data',
-                name: $('div.box > h1').text(),
+                name: $('div.box > h1').text().replace(/(\r\n|\n|\r|\t)/gm, ''),
                 url: $('#companyUrl').attr('href')
             };
 
