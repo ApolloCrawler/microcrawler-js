@@ -23,10 +23,10 @@
         , path = require('path')
         , should = chai.should();
 
-    var Mc = require('./../../lib/index');
+    var Mc = require('../../lib');
 
     var createEngine = function() {
-        return new Mc.Engine.default();
+        return new Mc.Engine;
     }
 
     describe('Engine', function () {
@@ -68,9 +68,9 @@
 
             it('Loads example processors', function(done) {
                 var engine = createEngine();
-                engine.loadProcessors(path.join(__dirname, '..', '..', '..', 'examples'))
+                engine.loadProcessors(path.join(__dirname, '..', '..', 'examples'))
                     .done(function(result){
-                        chai.expect(result.length).to.equal(8);
+                        chai.expect(result.length).to.equal(12);
                         done();
                     }, function(err) {
                         throw err;
@@ -82,7 +82,7 @@
 
         describe('main()', function () {
             it('Is defined', function () {
-                var engine = new Mc.Engine.default();
+                var engine = new Mc.Engine;
                 engine.main.should.not.equal(null);
             });
 
