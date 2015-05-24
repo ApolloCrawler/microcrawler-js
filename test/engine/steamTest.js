@@ -23,7 +23,7 @@
         , path = require('path')
         , should = chai.should();
 
-    var Mc = require('./../../../lib/index');
+    var Mc = require('./../../lib/index');
 
     var createEngine = function() {
         return new Mc.Engine.default();
