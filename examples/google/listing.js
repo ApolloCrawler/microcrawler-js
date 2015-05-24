@@ -38,13 +38,13 @@
 
             // Process pagination
             $('h3 > a').each(function() {
-                var tmpUrl = 'http://google.com' + this.attr('href');
+                var tmpUrl = 'http://google.com' + $(this).attr('href');
                 var parsedUrl = url.parse(tmpUrl);
                 var qarqs = querystring.parse(parsedUrl.query);
 
                 var result = {
                     url: qarqs.q,
-                    title: this.text()
+                    title: $(this).text()
                 };
 
                 results.push({

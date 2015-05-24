@@ -34,7 +34,7 @@
             var results = [];
 
             $('a[rel="prev"]').each(function() {
-                var url = 'http://xkcd.com' + this.attr('href');
+                var url = 'http://xkcd.com' + $(this).attr('href');
                 results.push({
                     type: 'url',
                     url: url,
@@ -43,12 +43,14 @@
             });
 
             $('div#comic > img').each(function() {
-                var src = this.attr('src');
+                var element = $(this);
+
+                var src = element.attr('src');
 
                 var result = {
                     url: src,
-                    title: this.attr('title'),
-                    alt: this.attr('alt'),
+                    title: element.attr('title'),
+                    alt: element.attr('alt'),
                     listingUrl: item.url,
                     thumbnails: [
                         src

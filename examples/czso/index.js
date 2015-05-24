@@ -36,9 +36,11 @@
             var results = [];
 
             $('table.orient100 > tbody > tr').each(function() {
-                var first = $(this).find('td:nth-child(1)').text();
-                var second = $(this).find('td:nth-child(2) > a:nth-child(1)').text();
-                var href =  $(this).find('td:nth-child(2) > a:nth-child(2)').attr('href');
+                var element = $(this);
+
+                var first = element.find('td:nth-child(1)').text();
+                var second = element.find('td:nth-child(2) > a:nth-child(1)').text();
+                var href =  element.find('td:nth-child(2) > a:nth-child(2)').attr('href');
 
                 if(!first || !second || !href) {
                     return;

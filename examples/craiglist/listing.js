@@ -41,15 +41,17 @@
             $('a.button.next').each(function() {
                 results.push({
                     type: 'url',
-                    url: parsedUrl.protocol + '//' + parsedUrl.host + this.attr('href'),
+                    url: parsedUrl.protocol + '//' + parsedUrl.host + $(this).attr('href'),
                     processor: 'craiglist.listing'
                 });
             });
 
             $('div.content > p.row > span.pl > a').each(function() {
+                var element = $(this);
+
                 var result = {
-                    title: this.text(),
-                    url: this.attr('href')
+                    title: element.text(),
+                    url: element.attr('href')
                 };
 
                 results.push({

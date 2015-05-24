@@ -35,9 +35,11 @@
 
             // Process pagination
             $('tr > td.title > a').each(function() {
+                var element = $(this);
+
                 var result = {
-                    url: this.attr('href'),
-                    title: this.text(),
+                    url: element.attr('href'),
+                    title: element.text(),
                     listingUrl: item.url
                 };
 
