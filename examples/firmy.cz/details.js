@@ -34,15 +34,13 @@
 
     define(deps, function(querystring, url) {
         module.exports = function($, item) {
-            var results = [];
-
-            var result = {
+            return [{
                 type: 'data',
-                name: $('div.box > h1').text().replace(/(\r\n|\n|\r|\t)/gm, ''),
-                url: $('#companyUrl').attr('href')
-            };
-
-            return results.push(result);
+                data: {
+                    name: $('div.box > h1').text().replace(/(\r\n|\n|\r|\t)/gm, ''),
+                    url: $('#companyUrl').attr('href')
+                }
+            }];
         };
     });
 }());
