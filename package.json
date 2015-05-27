@@ -35,6 +35,7 @@
     "nano": "^6.0.2",
     "node.extend": "^1.1.3",
     "request": "^2.55.0",
+    "sqlite3": "^3.0.8",
     "winston": "^1.0.0"
   },
   "devDependencies": {
