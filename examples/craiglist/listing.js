@@ -49,14 +49,12 @@
             $('div.content > p.row > span.pl > a').each(function() {
                 var element = $(this);
 
-                var result = {
-                    title: element.text(),
-                    url: element.attr('href')
-                };
-
                 results.push({
                     type: 'data',
-                    data: result
+                    data: {
+                        title: element.text(),
+                        url: element.attr('href')
+                    }
                 });
             });
 

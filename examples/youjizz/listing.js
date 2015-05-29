@@ -56,18 +56,16 @@
                     imgs.push($(this).attr('data-original'));
                 });
 
-                var result = {
-                    title: title1,
-                    duration: duration,
-                    url: "http://youjizz.com" + url,
-                    thumbnails: imgs,
-                    views: views,
-                    listingUrl: item.url
-                };
-
                 results.push({
                     type: 'data',
-                    data: result
+                    data: {
+                        title: title1,
+                        duration: duration,
+                        url: "http://youjizz.com" + url,
+                        thumbnails: imgs,
+                        views: views,
+                        listingUrl: item.url
+                    }
                 });
             });
 

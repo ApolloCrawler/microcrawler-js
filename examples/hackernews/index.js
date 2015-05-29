@@ -37,15 +37,13 @@
             $('tr > td.title > a').each(function() {
                 var element = $(this);
 
-                var result = {
-                    url: element.attr('href'),
-                    title: element.text(),
-                    listingUrl: item.url
-                };
-
                 results.push({
                     type: 'data',
-                    data: result
+                    data: {
+                        url: element.attr('href'),
+                        title: element.text(),
+                        listingUrl: item.url
+                    }
                 });
             });
 

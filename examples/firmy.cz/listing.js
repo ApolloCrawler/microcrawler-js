@@ -39,29 +39,23 @@
             $('#nextBtn').each(function() {
                 var tmpUrl = 'http://firmy.cz' + $(this).attr('href') + '&_escaped_fragment_=';
                 var parsedUrl = url.parse(tmpUrl);
-                var qarqs = querystring.parse(parsedUrl.query);
 
-                var result = {
+                results.push({
                     type: 'url',
                     url: tmpUrl,
                     processor: 'firmy.cz.listing'
-                };
-
-                results.push(result);
+                });
             });
 
             $('.companyTitle').each(function() {
                 var tmpUrl = 'http://firmy.cz' + $(this).attr('href') + '?blah=1&_escaped_fragment_=';
                 var parsedUrl = url.parse(tmpUrl);
-                var qarqs = querystring.parse(parsedUrl.query);
 
-                var result = {
+                results.push({
                     type: 'url',
                     url: tmpUrl,
                     processor: 'firmy.cz.details'
-                };
-
-                results.push(result);
+                });
             });
 
             return results;

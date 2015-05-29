@@ -42,14 +42,12 @@
                 var parsedUrl = url.parse(tmpUrl);
                 var qarqs = querystring.parse(parsedUrl.query);
 
-                var result = {
-                    url: qarqs.q,
-                    title: $(this).text()
-                };
-
                 results.push({
                     type: 'data',
-                    data: result
+                    data: {
+                        url: qarqs.q,
+                        title: $(this).text()
+                    }
                 });
             });
 
