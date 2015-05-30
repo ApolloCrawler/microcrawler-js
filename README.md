@@ -49,6 +49,7 @@ Options:
    -n, --num-connections   Max count of parallel requests  [10]
    -o, --output            Print crawled data  [true]
    -p, --processor         Processor to be used for URLs
+   -r, --rest              Start Web Interface at port 3000  [false]
    -s, --stats             Shows statistics  [false]
    -i, --stats-interval    Interval between printing statistics  [10]
    -v, --version           print version and exit
