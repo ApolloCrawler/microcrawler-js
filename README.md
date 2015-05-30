@@ -13,7 +13,8 @@
 
 ## Screenshots
 
-![kibana](https://raw.githubusercontent.com/korczis/microcrawler/master/images/kibana.png)
+![search physics]https://raw.githubusercontent.com/korczis/microcrawler/master/images/kibana-search-physics.png)
+![search physics details](https://raw.githubusercontent.com/korczis/microcrawler/master/images/kibana-search-physics-details.png)
 
 ## Prerequisites
 
