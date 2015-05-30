@@ -195,6 +195,12 @@ http://localhost:9200/_search?q=wikipedia
 node app.js -p craiglist.listing http://sfbay.craigslist.org/sfc/sss/
 ```
 
+### Firmy.cz
+
+```
+node app.js -p firmy.cz.listing "http://www.firmy.cz/Auto-moto?page=1&_escaped_fragment_="
+```
+
 ### Google
 
 ```
