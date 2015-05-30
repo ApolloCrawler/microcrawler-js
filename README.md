@@ -35,6 +35,9 @@ npm install
 grunt
 ```
 
+## Usage
+
+
 ## Example usage
 
 ### Craiglist
