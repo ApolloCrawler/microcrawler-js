@@ -49,7 +49,10 @@ Options:
    -n, --num-connections   Max count of parallel requests  [10]
    -o, --output            Print crawled data  [true]
    -p, --processor         Processor to be used for URLs
-   -r, --rest              Start Web Interface at port 3000  [false]
+   --queue-file            Path where to store SQLite data  [queue.db]
+   -q, --queue-name        Queue name (SQLite Table name)  [queue]
+   -r, --rest              Start Web Interface  [false]
+   --rest-port             Web Interface port  [3000]
    -s, --stats             Shows statistics  [false]
    -i, --stats-interval    Interval between printing statistics  [10]
    -v, --version           print version and exit
