@@ -65,7 +65,7 @@ Options:
 ### Pull elasticsearch
 
 ```
-$ ./scripts/pull.sh
+$ ./scripts/elasticsearch/pull.sh
 Pulling repository elasticsearch
 35f93b783f17: Download complete
 ....
@@ -76,7 +76,7 @@ Status: Image is up to date for elasticsearch:latest
 ### Start elasticsearch
 
 ```
-$ ./scripts/run.sh
+$ ./scripts/elasticsearch/run.sh
 d5b0de6bc84f92cc7fc98da2d8e839c8f3886d5fa779d3fdc96e41b6945e5867
 ```
 
@@ -158,7 +158,7 @@ http://localhost:9200/_search?q=wikipedia
       },
 
       ...
-      
+
       {
         "_index": "myindex",
         "_type": "mytype",
