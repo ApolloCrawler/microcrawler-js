@@ -158,19 +158,19 @@ http://localhost:9200/_search?q=wikipedia
       },
 
       ...
-
+      
       {
         "_index": "myindex",
         "_type": "mytype",
-        "_id": "AU2kuYULf7k4d9ydehVe",
-        "_score": 0.7640276,
+        "_id": "AU2kub30f7k4d9ydehXF",
+        "_score": 0.91683316,
         "_source": {
-          "url": "\/\/imgs.xkcd.com\/comics\/choices_part_2.jpg",
-          "title": "Maybe someday I'll get to write the Wikipedia article about this place!  Wait, damn, original research.",
-          "alt": "Choices: Part 2",
-          "listingUrl": "http:\/\/xkcd.com\/265\/",
+          "url": "\/\/imgs.xkcd.com\/comics\/the_problem_with_wikipedia.png",
+          "title": "'Taft in a wet t-shirt contest' is the key image here.",
+          "alt": "The Problem with Wikipedia",
+          "listingUrl": "http:\/\/xkcd.com\/214\/",
           "thumbnails": [
-            "\/\/imgs.xkcd.com\/comics\/choices_part_2.jpg"
+            "\/\/imgs.xkcd.com\/comics\/the_problem_with_wikipedia.png"
           ],
           "processor": "xkcd.listing"
         }
