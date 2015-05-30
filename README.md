@@ -11,6 +11,10 @@
 
 [![NPM](https://nodei.co/npm/microcrawler.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/microcrawler/)
 
+## Screenshots
+
+![kibana](https://raw.githubusercontent.com/korczis/microcrawler/master/images/kibana.png)
+
 ## Prerequisites
 
 - [node.js](http://nodejs.org/)
