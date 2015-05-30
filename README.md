@@ -43,15 +43,16 @@ $ node app.js -h
 Usage: node app.js [options]
 
 Options:
-   -e, --elasticsearch     Index data in elasticsearch
+   -e, --elasticsearch     Index data in elasticsearch  [false]
    -d, --directory         Directory with processors  [/Users/tomaskorcak/dev/microcrawler/examples]
    -f, --flush             Flush existing queue  [false]
    -n, --num-connections   Max count of parallel requests  [10]
    -o, --output            Print crawled data  [true]
-   -p, --processor         Shows statistics
+   -p, --processor         Processor to be used for URLs
    -s, --stats             Shows statistics  [false]
    -i, --stats-interval    Interval between printing statistics  [10]
-   --version               print version and exit
+   -v, --version           print version and exit
+
 ```
 
 ## Example usage
