@@ -44,6 +44,7 @@ Usage: node app.js [options]
 
 Options:
    -e, --elasticsearch     Index data in elasticsearch  [false]
+   --elasticsearch-host    Address of elasticsearch server  [localhost:9200]
    -d, --directory         Directory with processors  [/Users/tomaskorcak/dev/microcrawler/examples]
    -f, --flush             Flush existing queue  [false]
    -n, --num-connections   Max count of parallel requests  [10]
