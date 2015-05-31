@@ -36,6 +36,14 @@
         module.exports = function($) {
             var results = [];
 
+            $('td > a.fl').each(function() {
+                results.push({
+                    type: 'url',
+                    url: 'http://google.com'+ $(this).attr('href'),
+                    processor: 'google.listing'
+                });
+            });
+
             // Process pagination
             $('h3 > a').each(function() {
                 var tmpUrl = 'http://google.com' + $(this).attr('href');

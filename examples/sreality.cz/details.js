@@ -32,8 +32,34 @@
         'url'
     ];
 
-    define(deps, function(querystring, url) {
-        module.exports = function($, item) {
+    define(deps, function (querystring, url) {
+        var tryConvertValue = function (value) {
+            var tmp = value.match(/\d+/g);
+            if (!tmp) {
+                return value;
+            }
+
+            tmp = parseInt(tmp.join(''));
+            if (tmp != NaN) {
+                return tmp;
+            }
+
+            return value;
+        };
+
+        var shouldConvert = function (label) {
+            var convertible = [
+                'Celková cena',
+                'Plocha zastavěná',
+                'Užitná plocha',
+                'Plocha zahrady',
+                'Podlaží'
+            ];
+
+            return convertible.indexOf(label) >= 0;
+        };
+
+        module.exports = function ($, item) {
             var loc = $('span.location').first().text();
 
             var result = {
@@ -42,35 +68,29 @@
                     Web: item.url,
                     Jmeno: $('div.property-title > h1 > span > span.name').first().text(),
                     Mesto: loc.split(', ')[1],
-                    Ulice: loc.split(', ')[0]
+                    Ulice: loc.split(', ')[0],
+                    Cena: parseInt($('span.norm-price').first().text().match(/\d+/g).join(''))
                 }
             };
 
-            $('ul.params1 > li.param').each(function() {
-                var doc = $(this);
-                var label = doc.find('label:nth-child(1)').text().replace(':', '');
-                var value = doc.find('span:nth-child(1)').text();
+            var selectors = ['ul.params1 > li.param', 'ul.params2 > li.param'];
+            for(var i = 0; i < selectors.length; i++) {
+                $(selectors[i]).each(function () {
+                    var doc = $(this);
+                    var label = doc.find('label:nth-child(1)').text().replace(':', '');
+                    var value = doc.find('span:nth-child(1)').text();
 
-                if(label == 'Celková cena' || label == 'Užitná plocha') {
-                    value = parseInt(value.match(/\d+/g).join(''))
-                }
+                    if(label == 'Podlaží') {
+                        value = value.split(' ')[0]
+                    }
 
-                result.data[label] = value;
-                console.log(label);
-            });
+                    if(label == 'Elektřina') {
+                        value = value.split(', ');
+                    }
 
-            $('ul.params2 > li.param').each(function() {
-                var doc = $(this);
-                var label = doc.find('label:nth-child(1)').text().replace(':', '');
-                var value = doc.find('span:nth-child(1)').text();
-
-                if(label == 'Celková cena' || label == 'Užitná plocha') {
-                    value = parseInt(value.match(/\d+/g).join(''))
-                }
-
-                result.data[label] = value;
-                console.log(label);
-            });
+                    result.data[label] = shouldConvert(label) ? tryConvertValue(value) : value;
+                });
+            }
 
             return [result];
         };
