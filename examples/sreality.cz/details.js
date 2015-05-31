@@ -33,10 +33,10 @@
     ];
 
     define(deps, function (querystring, url) {
-        var tryConvertValue = function (value) {
+        var tryConvertValue = function (value, defaultValue) {
             var tmp = value.match(/\d+/g);
             if (!tmp) {
-                return value;
+                return defaultValue ? defaultValue : value;
             }
 
             tmp = parseInt(tmp.join(''));
@@ -44,7 +44,7 @@
                 return tmp;
             }
 
-            return value;
+            return defaultValue ? defaultValue : value;
         };
 
         var shouldConvert = function (label) {
@@ -53,7 +53,11 @@
                 'Plocha zastavěná',
                 'Užitná plocha',
                 'Plocha zahrady',
-                'Podlaží'
+                'Počet domů',
+                'Podlaží',
+                'Původní cena',
+                'Rok kolaudace',
+                'Rok rekonstrukce'
             ];
 
             return convertible.indexOf(label) >= 0;
@@ -68,8 +72,7 @@
                     Web: item.url,
                     Jmeno: $('div.property-title > h1 > span > span.name').first().text(),
                     Mesto: loc.split(', ')[1],
-                    Ulice: loc.split(', ')[0],
-                    Cena: parseInt($('span.norm-price').first().text().match(/\d+/g).join(''))
+                    Ulice: loc.split(', ')[0]
                 }
             };
 
@@ -91,6 +94,9 @@
                     result.data[label] = shouldConvert(label) ? tryConvertValue(value) : value;
                 });
             }
+
+            var tmp = tryConvertValue($('span.norm-price').first().text(), -1);
+            result.data.Cena = tmp == -1 ? null : tmp;
 
             return [result];
         };
