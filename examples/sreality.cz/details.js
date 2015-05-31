@@ -50,14 +50,20 @@
         var shouldConvert = function (label) {
             var convertible = [
                 'Celková cena',
-                'Plocha zastavěná',
-                'Užitná plocha',
+                'Cena za m²',
+                'Plocha bazénu',
                 'Plocha zahrady',
+                'Plocha zastavěná',
+                'Počet bytů',
                 'Počet domů',
+                'Počet kanceláří',
+                'Počet lůžek',
                 'Podlaží',
                 'Původní cena',
                 'Rok kolaudace',
-                'Rok rekonstrukce'
+                'Rok rekonstrukce',
+                'Užitná plocha',
+                'Výška stropu'
             ];
 
             return convertible.indexOf(label) >= 0;
