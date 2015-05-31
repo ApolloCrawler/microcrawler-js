@@ -52,6 +52,7 @@
                 'Celková cena',
                 'Cena za m²',
                 'Plocha bazénu',
+                'Plocha pozemku',
                 'Plocha zahrady',
                 'Plocha zastavěná',
                 'Počet bytů',
