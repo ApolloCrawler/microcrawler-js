@@ -102,13 +102,13 @@
                 });
             }
 
-            if(result.data['Užitná plocha'] && result.data['Cena'] && result.data['Cena'] > 0) {
-                result.data['Cena/m²'] = result.data['Užitná plocha'] / result.data['Cena'];
-            }
-
             var tmp = tryConvertValue($('span.norm-price').first().text(), -1);
             result.data.Cena = tmp == -1 ? null : tmp;
 
+            if(result.data['Užitná plocha'] && result.data['Cena'] && result.data['Cena'] > 0) {
+                result.data['Cena/m²'] = result.data['Užitná plocha'] / result.data['Cena'];
+            }
+            
             return [result];
         };
     });
