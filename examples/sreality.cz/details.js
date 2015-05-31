@@ -105,10 +105,10 @@
             var tmp = tryConvertValue($('span.norm-price').first().text(), -1);
             result.data.Cena = tmp == -1 ? null : tmp;
 
-            if(result.data['Užitná plocha'] && result.data['Cena'] && result.data['Cena'] > 0) {
-                result.data['Cena/m²'] = result.data['Užitná plocha'] / result.data['Cena'];
+            if(result.data['Cena'] && result.data['Užitná plocha'] && result.data['Užitná plocha'] > 0) {
+                result.data['Cena/m²'] = parseFloat(result.data['Cena']) / parseFloat(result.data['Užitná plocha']);
             }
-            
+
             return [result];
         };
     });
