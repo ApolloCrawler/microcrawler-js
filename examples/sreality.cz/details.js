@@ -28,11 +28,12 @@
      * @type {Array}
      */
     var deps = [
+        'diacritics',
         'querystring',
         'url'
     ];
 
-    define(deps, function (querystring, url) {
+    define(deps, function (diacritics, querystring, url) {
         var tryConvertValue = function (value, defaultValue) {
             var tmp = value.match(/\d+/g);
             if (!tmp) {
@@ -70,6 +71,10 @@
             return convertible.indexOf(label) >= 0;
         };
 
+        var fixLabel = function(str) {
+            return diacritics.remove(str).replace(/\W+/g, "_").toLowerCase();
+        }
+
         module.exports = function ($, item) {
             var loc = $('span.location').first().text();
 
@@ -98,15 +103,16 @@
                         value = value.split(', ');
                     }
 
-                    result.data[label] = shouldConvert(label) ? tryConvertValue(value) : value;
+                    result.data[fixLabel(label)] = shouldConvert(label) ? tryConvertValue(value) : value;
                 });
             }
 
             var tmp = tryConvertValue($('span.norm-price').first().text(), -1);
             result.data.Cena = tmp == -1 ? null : tmp;
 
-            if(result.data['Cena'] && result.data['Užitná plocha'] && result.data['Užitná plocha'] > 0) {
-                result.data['Cena/m²'] = parseFloat(result.data['Cena']) / parseFloat(result.data['Užitná plocha']);
+            var plocha = result.data[fixLabel('Užitná plocha')];
+            if(result.data['Cena'] && plocha && plocha > 0) {
+                result.data[fixLabel('Cena za m2')] = parseFloat(result.data['Cena']) / parseFloat(plocha);
             }
 
             return [result];
