@@ -78,13 +78,17 @@
         module.exports = function ($, item) {
             var loc = $('span.location').first().text();
 
+            var urlSegments = item.url.split('/'); // ["prodej", "dum", "rodinny"]
             var result = {
                 type: 'data',
                 data: {
-                    Web: item.url,
-                    Jmeno: $('div.property-title > h1 > span > span.name').first().text(),
-                    Mesto: loc.split(', ')[1],
-                    Ulice: loc.split(', ')[0]
+                    web: item.url,
+                    jmeno: $('div.property-title > h1 > span > span.name').first().text(),
+                    mesto: loc.split(', ')[1],
+                    ulice: loc.split(', ')[0],
+                    operace: urlSegments[4],
+                    kategorie: urlSegments[5],
+                    subkategorie: urlSegments[6]
                 }
             };
 
@@ -108,11 +112,11 @@
             }
 
             var tmp = tryConvertValue($('span.norm-price').first().text(), -1);
-            result.data.Cena = tmp == -1 ? null : tmp;
+            result.data.cena = tmp == -1 ? null : tmp;
 
             var plocha = result.data[fixLabel('Užitná plocha')];
-            if(result.data['Cena'] && plocha && plocha > 0) {
-                result.data[fixLabel('Cena za m2')] = parseFloat(result.data['Cena']) / parseFloat(plocha);
+            if(result.data['cena'] && plocha && plocha > 0) {
+                result.data[fixLabel('Cena za m2')] = parseFloat(result.data['cena']) / parseFloat(plocha);
             }
 
             return [result];
