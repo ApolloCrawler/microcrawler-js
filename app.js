@@ -22,7 +22,7 @@
 
 require("babel/register");
 
-var Mc = require('./lib');
+var App = require('./lib/app/app');
 
-var app = new Mc.App();
+var app = new App();
 app.run();

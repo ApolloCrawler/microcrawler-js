@@ -4,7 +4,7 @@
   "description": "Micro implementation of crawler",
   "main": "lib/index.js",
   "scripts": {
-    "eslint": "node ./node_modules/eslint/bin/eslint.js lib/",
+    "eslint": "node ./node_modules/eslint/bin/eslint.js lib/ test/",
     "test": "make ci"
   },
   "repository": {

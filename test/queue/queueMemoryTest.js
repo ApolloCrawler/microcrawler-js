@@ -21,15 +21,15 @@
 import chai from 'chai';
 const should = chai.should();
 
-var QueueMemory = require('../../lib/queue/queueMemory');
+import QueueMemory from '../../lib/queue/queueMemory';
 
-describe('QueueMemory', function () {
-  it('Module is defined', function () {
+describe('QueueMemory', function() {
+  it('Module is defined', function() {
     QueueMemory.should.not.equal(null);
   });
 
-  it('Default constructor works', function () {
-    var instance = new QueueMemory();
+  it('Default constructor works', function() {
+    const instance = new QueueMemory();
     instance.should.not.equal(null);
     instance.should.be.an.instanceof(QueueMemory);
   });

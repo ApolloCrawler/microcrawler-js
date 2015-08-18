@@ -23,63 +23,59 @@ const should = chai.should();
 
 import Request from '../../lib/helper/request';
 
-describe('Request', function () {
-  it('Module is defined', function () {
+describe('Request', function() {
+  it('Module is defined', function() {
     Request.should.not.equal(null);
   });
 
-  var invalidUrlMsg = "This should not happen. " +
-    "Invalid hostname should by handled by error handler";
+  const invalidUrlMsg = 'This should not happen. Invalid hostname should by handled by error handler';
 
   describe('request()', function() {
-    it('Is defined', function () {
+    it('Is defined', function() {
       Request.request.should.not.equal(null);
     });
 
-    it('Handles valid url - http://google.com', function (done) {
-      Request.request("http://google.com").then(function(data) {
+    it('Handles valid url - http://google.com', function(done) {
+      Request.request('http://google.com').then(function(data) {
         data.should.not.equal(null);
         done();
       });
     });
 
-    it('Handles "" URL', function (done) {
-      Request.request("").then(function(data) {
+    it('Handles "" URL', function(done) {
+      Request.request('').then(function() {
         done(new Error(invalidUrlMsg));
-
-      }, function(err) {
+      }, function() {
         done();
       });
     });
 
-    var url = null;
-    it('Handles null URL', function (done) {
-      Request.request(url).then(function(data) {
+    let url = null;
+    it('Handles null URL', function(done) {
+      Request.request(url).then(function() {
         done(new Error(invalidUrlMsg));
-
-      }, function(err) {
+      }, function() {
         done();
       });
     });
 
     url = 'http://google.com/invalid';
-    it('Handles invalid url ' + url, function (done) {
-      Request.request(url).then(function(data) {
+    it('Handles invalid url ' + url, function(done) {
+      Request.request(url).then(function() {
         done(new Error(invalidUrlMsg));
-
-      }, function(err) {
+      }, function() {
         done();
       });
     });
   });
 
   describe('limitedRequest()', function() {
-    it('Is defined', function () {
+    it('Is defined', function() {
       Request.limitedRequest.should.not.equal(null);
     });
 
-    it('Handles valid url - http://google.com', function (done) {
-      Request.limitedRequest("http://google.com").then(function(data) {
+    it('Handles valid url - http://google.com', function(done) {
+      Request.limitedRequest('http://google.com').then(function(data) {
         data.should.not.equal(null);
         done();
       });

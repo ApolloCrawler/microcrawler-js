@@ -19,39 +19,36 @@
 // THE SOFTWARE.
 
 import chai from 'chai';
-import path from 'path';
 const should = chai.should();
 
-import Mc from '../../lib';
+import path from 'path';
 
-var createEngine = function () {
-  return new Mc.Engine;
-}
+import Engine from '../../lib/engine/engine';
 
-describe('Engine', function () {
-  var testData1 = {
+describe('Engine', function() {
+  const testData1 = {
     url: 'http://google.com',
     processor: 'google.listing'
   };
 
-  var testData2 = {
+  const testData2 = {
     url: 'http://seznam.cz',
     processor: 'seznam.listing'
   };
 
-  var testData3 = {
+  const testData3 = {
     url: 'http://google.com',
     processor: 'google.details'
   };
 
-  it('Module is defined', function () {
-    Mc.Engine.should.not.equal(null);
+  it('Module is defined', function() {
+    Engine.should.not.equal(null);
   });
 
   it('Default constructor works');
 
   /*
-   it('Default constructor works', function () {
+   it('Default constructor works', function() {
    var instance = new Mc.Engine();
    instance.should.not.equal(null);
    instance.should.be.an.instanceof(Engine);
@@ -59,29 +56,29 @@ describe('Engine', function () {
    });
    */
 
-  describe('loadProcessors()', function () {
-    it('Is defined', function () {
-      var engine = createEngine();
+  describe('loadProcessors()', function() {
+    it('Is defined', function() {
+      const engine = new Engine();
       engine.loadProcessors.should.not.equal(null);
     });
 
-    it('Loads example processors', function (done) {
-      var engine = createEngine();
+    it('Loads example processors', function(done) {
+      const engine = new Engine();
       engine.loadProcessors(path.join(__dirname, '..', '..', 'examples'))
-        .done(function (result) {
-          chai.expect(result.length).to.equal(12);
+        .done(function(result) {
+          chai.expect(result.length).to.equal(14);
           done();
-        }, function (err) {
+        }, function(err) {
           throw err;
-        })
+        });
     });
 
     it('Throws error when invalid path specified');
   });
 
-  describe('main()', function () {
-    it('Is defined', function () {
-      var engine = new Mc.Engine;
+  describe('main()', function() {
+    it('Is defined', function() {
+      const engine = new Mc.Engine;
       engine.main.should.not.equal(null);
     });
 
@@ -90,120 +87,117 @@ describe('Engine', function () {
     it('Throws exception if invalid argv passed');
   });
 
-  describe('registerProcessor()', function () {
-    it('Is defined', function () {
-      var engine = createEngine();
+  describe('registerProcessor()', function() {
+    it('Is defined', function() {
+      const engine = new Engine();
       engine.registerProcessor.should.not.equal(null);
     });
 
-    it('When called without then throws error', function () {
-      var engine = createEngine();
+    it('When called without then throws error', function() {
+      const engine = new Engine();
       chai.expect(engine.registerProcessor.bind('engine')).to.throw(TypeError);
     });
   });
 
-  describe('run()', function () {
-    it('Works', function () {
-      var instance = createEngine();
+  describe('run()', function() {
+    it('Works', function() {
+      const instance = new Engine();
       instance.run();
     });
   });
 
-  describe('enqueueUrl()', function () {
-    it('Is defined()', function () {
-      var instance = createEngine();
+  describe('enqueueUrl()', function() {
+    it('Is defined()', function() {
+      const instance = new Engine();
       instance.enqueueUrl.should.not.equal(null);
     });
 
-    it('Should enqueue unique URL', function (done) {
-      var instance = createEngine();
+    it('Should enqueue unique URL', function(done) {
+      const instance = new Engine();
 
-      instance.enqueueUrl(testData1).then(function (data) {
+      instance.enqueueUrl(testData1).then(function(data) {
         chai.expect(data).to.equal(true);
         done();
       }).done();
     });
 
-    it('Should enqueue unique URL together with data', function (done) {
-      var instance = createEngine();
+    it('Should enqueue unique URL together with data', function(done) {
+      const instance = new Engine();
 
-      var data = {
-        name: "John Doe"
+      const userData = {
+        name: 'John Doe'
       };
 
       instance.enqueueUrl({
         url: testData1.url,
         processor: testData1.processor,
-        data: data
-      }).then(function (data) {
+        data: userData
+      }).then(function(data) {
         chai.expect(data).to.equal(true);
-      }).then(function () {
+      }).then(function() {
         return instance.queue.get('requested');
-      }).then(function (res) {
+      }).then(function(res) {
         chai.expect(res.data).to.equal(data);
         done();
       }).done();
     });
 
-    it('Should enqueue unique same URL only once', function (done) {
-      var instance = createEngine();
+    it('Should enqueue unique same URL only once', function(done) {
+      const instance = new Engine();
 
-      instance.enqueueUrl(testData1.url, testData1.processor, null).then(function (res) {
+      instance.enqueueUrl(testData1.url, testData1.processor, null).then(function(res) {
         chai.expect(res).to.equal(true);
         return instance.enqueueUrl(testData1.url, testData1.processor, null);
-      }).then(function (res) {
+      }).then(function(res) {
         chai.expect(res).to.equal(false);
         done();
       }).done();
     });
   });
 
-  describe('isDone()', function () {
-    it('Is defined', function () {
-      var instance = createEngine();
+  describe('isDone()', function() {
+    it('Is defined', function() {
+      const instance = new Engine();
       instance.isCrawlingDone.should.not.equal(null);
     });
   });
 
-  describe('wasAlreadyEnqueued()', function (done) {
-    it('Should be defined', function () {
-      var instance = createEngine();
+  describe('wasAlreadyEnqueued()', function() {
+    it('Should be defined', function() {
+      const instance = new Engine();
       instance.wasAlreadyEnqueued.should.not.equal(null);
     });
 
-    it('Should return true for same url and same processor', function (done) {
-      var instance = createEngine();
+    it('Should return true for same url and same processor', function(done) {
+      const instance = new Engine();
 
-      instance.enqueueUrl(testData1).then(function () {
-        return instance.wasAlreadyEnqueued(testData1)
-      }).then(function (res) {
+      instance.enqueueUrl(testData1).then(function() {
+        return instance.wasAlreadyEnqueued(testData1);
+      }).then(function(res) {
         chai.expect(res).to.equal(true);
         done();
       }).done();
-
     });
 
-    it('Should return false for same url and different processor', function (done) {
-      var instance = createEngine();
+    it('Should return false for same url and different processor', function(done) {
+      const instance = new Engine();
 
-      instance.enqueueUrl(testData1).then(function () {
+      instance.enqueueUrl(testData1).then(function() {
         return instance.wasAlreadyEnqueued(testData3);
-      }).then(function (res) {
+      }).then(function(res) {
         chai.expect(res).to.equal(false);
         done();
       });
-
     });
 
-    it('Should return false for different url and same processor', function () {
-      var instance = createEngine();
+    it('Should return false for different url and same processor', function() {
+      const instance = new Engine();
 
-      instance.enqueueUrl(testData1).then(function () {
+      instance.enqueueUrl(testData1).then(function() {
         return instance.wasAlreadyEnqueued(testData2);
-      }).then(function (res) {
+      }).then(function(res) {
         return chai.expect(res).to.equal(false);
       });
     });
   });
-
 });

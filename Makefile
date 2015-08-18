@@ -9,13 +9,13 @@ clean:
 
 cover:
 	istanbul cover ./node_modules/mocha/bin/_mocha \
-	    --report lcovonly -- --recursive -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+	    --report lcovonly -- --recursive -R spec --compilers js:mocha-traceur && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
 doc:
 	@jsdoc --verbose --destination docs/lib lib/*.js
 
 report:
-	istanbul cover ./node_modules/mocha/bin/_mocha && \
+	istanbul cover ./node_modules/mocha/bin/_mocha  && \
 	istanbul report
 
 test: test-unit
