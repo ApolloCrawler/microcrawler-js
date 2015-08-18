@@ -20,22 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function () {
-    'use strict';
+require("babel/register");
 
-    var define = require('amdefine')(module);
+var Mc = require('./lib');
 
-    /**
-     * Array of modules this one depends on.
-     * @type {Array}
-     */
-    var deps = [];
-
-    define(deps, function() {
-        var Mc = require('./lib');
-
-        var app = new Mc.App();
-        app.run();
-    });
-
-}());
+var app = new Mc.App();
+app.run();
