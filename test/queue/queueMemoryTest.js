@@ -18,21 +18,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function () {
-    var chai = require('chai')
-        , path = require('path');
+import chai from 'chai';
+const should = chai.should();
 
-    var QueueMemory = require('../../lib/queue/queueMemory');
+var QueueMemory = require('../../lib/queue/queueMemory');
 
-    describe('QueueMemory', function () {
-        it('Module is defined', function () {
-            QueueMemory.should.not.equal(null);
-        });
+describe('QueueMemory', function () {
+  it('Module is defined', function () {
+    QueueMemory.should.not.equal(null);
+  });
 
-        it('Default constructor works', function () {
-            var instance = new QueueMemory();
-            instance.should.not.equal(null);
-            instance.should.be.an.instanceof(QueueMemory);
-        });
-    });
-}());
+  it('Default constructor works', function () {
+    var instance = new QueueMemory();
+    instance.should.not.equal(null);
+    instance.should.be.an.instanceof(QueueMemory);
+  });
+});

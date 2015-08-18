@@ -55,6 +55,7 @@
     "grunt-jsdoc": "^0.5.4",
     "grunt-mocha-test": "^0.10.2",
     "istanbul": "^0.2.6",
-    "mocha": "^1.18.2"
+    "mocha": "^1.18.2",
+    "mocha-traceur": "^2.1.0"
   }
 }

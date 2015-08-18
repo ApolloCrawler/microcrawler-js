@@ -18,16 +18,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function () {
-    var chai = require('chai')
-        , should = chai.should();
+import chai from 'chai';
+const should = chai.should();
 
-    var Mc = require('./../lib');
+import Mc from './../lib';
 
-    describe('Microcrawler', function () {
-        it('Module is defined', function () {
-            Mc.should.not.equal(null);
-        });
-    });
-
-}());
+describe('Microcrawler', function () {
+  it('Module is defined', function () {
+    Mc.should.not.equal(null);
+  });
+});

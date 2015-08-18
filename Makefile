@@ -24,6 +24,7 @@ test-unit:
 	@./node_modules/.bin/mocha --recursive \
 		--reporter $(REPORTER) \
 		--growl \
+		--compilers js:mocha-traceur  \
 		test/
 
 all: clean doc test
