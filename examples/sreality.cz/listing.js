@@ -18,47 +18,33 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function () {
-    'use strict';
+import querystring from 'querystring';
+import url from 'url';
 
-    var define = require('amdefine')(module);
+export default function($, item) {
+  var results = [];
 
-    /**
-     * Array of modules this one depends on.
-     * @type {Array}
-     */
-    var deps = [
-        'querystring',
-        'url'
-    ];
+  $('a.btn-paging').each(function() {
+    var tmpUrl = 'http://sreality.cz' + $(this).attr('href') + '&_escaped_fragment_=';
+    var parsedUrl = url.parse(tmpUrl);
 
-    define(deps, function(querystring, url) {
-        module.exports = function($, item) {
-            var results = [];
-
-            $('a.btn-paging').each(function() {
-                var tmpUrl = 'http://sreality.cz' + $(this).attr('href') + '&_escaped_fragment_=';
-                var parsedUrl = url.parse(tmpUrl);
-
-                results.push({
-                    type: 'url',
-                    url: tmpUrl,
-                    processor: 'sreality.cz.listing'
-                });
-            });
-
-            $('span.basic > h2 > a').each(function() {
-                var tmpUrl = 'http://sreality.cz' + $(this).attr('href') + '?blah=1&_escaped_fragment_=';
-                var parsedUrl = url.parse(tmpUrl);
-
-                results.push({
-                    type: 'url',
-                    url: tmpUrl,
-                    processor: 'sreality.cz.details'
-                });
-            });
-
-            return results;
-        };
+    results.push({
+      type: 'url',
+      url: tmpUrl,
+      processor: 'sreality.cz.listing'
     });
-}());
+  });
+
+  $('span.basic > h2 > a').each(function() {
+    var tmpUrl = 'http://sreality.cz' + $(this).attr('href') + '?blah=1&_escaped_fragment_=';
+    var parsedUrl = url.parse(tmpUrl);
+
+    results.push({
+      type: 'url',
+      url: tmpUrl,
+      processor: 'sreality.cz.details'
+    });
+  });
+
+  return results;
+};

@@ -18,40 +18,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function () {
-    'use strict';
+import querystring from 'querystring';
+import url from 'url';
 
-    var define = require('amdefine')(module);
+export default function($, item) {
+  var results = [];
 
-    /**
-     * Array of modules this one depends on.
-     * @type {Array}
-     */
-    var deps = [];
+  $('table.orient100 > tbody > tr').each(function() {
+    var code = $(this).find('td:nth-child(1) > a').text();
+    var title = $(this).find('td:nth-child(2) > a:nth-child(1)').text();
 
-    define(deps, function() {
+    if(!code || !title) {
+      return;
+    }
 
-        module.exports = function($, item) {
-            var results = [];
-
-            $('table.orient100 > tbody > tr').each(function() {
-                var code = $(this).find('td:nth-child(1) > a').text();
-                var title = $(this).find('td:nth-child(2) > a:nth-child(1)').text();
-
-                if(!code || !title) {
-                    return;
-                }
-
-                results.push({
-                    type: 'data',
-                    data: {
-                        code: code,
-                        title: title.split(/\r\n/)[0]
-                    }
-                });
-            });
-
-            return results;
-        };
+    results.push({
+      type: 'data',
+      data: {
+        code: code,
+        title: title.split(/\r\n/)[0]
+      }
     });
-}());
+  });
+
+  return results;
+};

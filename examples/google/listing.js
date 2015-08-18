@@ -18,48 +18,34 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function () {
-    'use strict';
+import querystring from 'querystring';
+import url from 'url';
 
-    var define = require('amdefine')(module);
+export default function($) {
+  var results = [];
 
-    /**
-     * Array of modules this one depends on.
-     * @type {Array}
-     */
-    var deps = [
-        'querystring',
-        'url'
-    ];
-
-    define(deps, function(querystring, url) {
-        module.exports = function($) {
-            var results = [];
-
-            $('td > a.fl').each(function() {
-                results.push({
-                    type: 'url',
-                    url: 'http://google.com'+ $(this).attr('href'),
-                    processor: 'google.listing'
-                });
-            });
-
-            // Process pagination
-            $('h3 > a').each(function() {
-                var tmpUrl = 'http://google.com' + $(this).attr('href');
-                var parsedUrl = url.parse(tmpUrl);
-                var qarqs = querystring.parse(parsedUrl.query);
-
-                results.push({
-                    type: 'data',
-                    data: {
-                        url: qarqs.q,
-                        title: $(this).text()
-                    }
-                });
-            });
-
-            return results;
-        };
+  $('td > a.fl').each(function() {
+    results.push({
+      type: 'url',
+      url: 'http://google.com'+ $(this).attr('href'),
+      processor: 'google.listing'
     });
-}());
+  });
+
+  // Process pagination
+  $('h3 > a').each(function() {
+    var tmpUrl = 'http://google.com' + $(this).attr('href');
+    var parsedUrl = url.parse(tmpUrl);
+    var qarqs = querystring.parse(parsedUrl.query);
+
+    results.push({
+      type: 'data',
+      data: {
+        url: qarqs.q,
+        title: $(this).text()
+      }
+    });
+  });
+
+  return results;
+};

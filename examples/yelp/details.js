@@ -18,39 +18,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function () {
-    'use strict';
+import querystring from 'querystring';
+import url from 'url';
 
-    var define = require('amdefine')(module);
+export default function($, item) {
+  var results = [];
 
-    /**
-     * Array of modules this one depends on.
-     * @type {Array}
-     */
-    var deps = [];
+  var result = item;
 
-    define(deps, function() {
-        module.exports = function($, item) {
-            var results = [];
+  result.data.openingHours = [];
 
-            var result = item;
-
-            result.data.openingHours = [];
-
-            // TODO: Enrich result with details from $
-            $('.hours-table > tbody > tr > td:not(.extra)').each(function() {
-                result.data.openingHours.push({
-                    from: $(this).find('span:nth-child(1)').text(),
-                    to: $(this).find('span:nth-child(2)').text()
-                });
-            });
-
-            results.push({
-                type: 'data',
-                data: result.data
-            });
-
-            return results;
-        };
+  // TODO: Enrich result with details from $
+  $('.hours-table > tbody > tr > td:not(.extra)').each(function() {
+    result.data.openingHours.push({
+      from: $(this).find('span:nth-child(1)').text(),
+      to: $(this).find('span:nth-child(2)').text()
     });
-}());
+  });
+
+  results.push({
+    type: 'data',
+    data: result.data
+  });
+
+  return results;
+};

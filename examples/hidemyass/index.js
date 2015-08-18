@@ -18,38 +18,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function () {
-    'use strict';
+import querystring from 'querystring';
+import url from 'url';
 
-    var define = require('amdefine')(module);
+export default function($, item) {
+  var results = [];
 
-    /**
-     * Array of modules this one depends on.
-     * @type {Array}
-     */
-    var deps = [];
+  // Process pagination
+  $('tr > td.title > a').each(function() {
+    var element = $(this);
 
-    define(deps, function() {
-        module.exports = function($, item) {
-            var results = [];
+    var result = {
+      url: element.attr('href'),
+      title: element.text(),
+      listingUrl: item.url
+    };
 
-            // Process pagination
-            $('tr > td.title > a').each(function() {
-                var element = $(this);
-
-                var result = {
-                    url: element.attr('href'),
-                    title: element.text(),
-                    listingUrl: item.url
-                };
-
-                results.push({
-                    type: 'data',
-                    data: result
-                });
-            });
-
-            return results;
-        };
+    results.push({
+      type: 'data',
+      data: result
     });
-}());
+  });
+
+  return results;
+};

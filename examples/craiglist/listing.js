@@ -18,47 +18,33 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function () {
-    'use strict';
+import querystring from 'querystring';
+import url from 'url';
 
-    var define = require('amdefine')(module);
+export default function($, item) {
+  var results = [];
 
-    /**
-     * Array of modules this one depends on.
-     * @type {Array}
-     */
-    var deps = [
-        'querystring',
-        'url'
-    ];
+  var parsedUrl = url.parse(item.url);
 
-    define(deps, function(querystring, url) {
-        module.exports = function($, item) {
-            var results = [];
-
-            var parsedUrl = url.parse(item.url);
-
-            $('a.button.next').each(function() {
-                results.push({
-                    type: 'url',
-                    url: parsedUrl.protocol + '//' + parsedUrl.host + $(this).attr('href'),
-                    processor: 'craiglist.listing'
-                });
-            });
-
-            $('div.content > p.row > span.pl > a').each(function() {
-                var element = $(this);
-
-                results.push({
-                    type: 'data',
-                    data: {
-                        title: element.text(),
-                        url: element.attr('href')
-                    }
-                });
-            });
-
-            return results;
-        };
+  $('a.button.next').each(function() {
+    results.push({
+      type: 'url',
+      url: parsedUrl.protocol + '//' + parsedUrl.host + $(this).attr('href'),
+      processor: 'craiglist.listing'
     });
-}());
+  });
+
+  $('div.content > p.row > span.pl > a').each(function() {
+    var element = $(this);
+
+    results.push({
+      type: 'data',
+      data: {
+        title: element.text(),
+        url: element.attr('href')
+      }
+    });
+  });
+
+  return results;
+};

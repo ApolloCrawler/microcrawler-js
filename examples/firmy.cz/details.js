@@ -18,29 +18,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function () {
-    'use strict';
+import querystring from 'querystring';
+import url from 'url';
 
-    var define = require('amdefine')(module);
-
-    /**
-     * Array of modules this one depends on.
-     * @type {Array}
-     */
-    var deps = [
-        'querystring',
-        'url'
-    ];
-
-    define(deps, function(querystring, url) {
-        module.exports = function($, item) {
-            return [{
-                type: 'data',
-                data: {
-                    name: $('div.box > h1').text().replace(/(\r\n|\n|\r|\t)/gm, ''),
-                    url: $('#companyUrl').attr('href')
-                }
-            }];
-        };
-    });
-}());
+export default function($, item) {
+  return [{
+    type: 'data',
+    data: {
+      name: $('div.box > h1').text().replace(/(\r\n|\n|\r|\t)/gm, ''),
+      url: $('#companyUrl').attr('href')
+    }
+  }];
+};

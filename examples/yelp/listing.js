@@ -18,135 +18,120 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function () {
-    'use strict';
+export default function($, doc, result) {
+  if(!result) {
+    result = {};
+  }
 
-    var define = require('amdefine')(module);
+  // Address
+  result.address = {};
 
-    /**
-     * Array of modules this one depends on.
-     * @type {Array}
-     */
-    var deps = [];
+  // Neighborhood street
+  var tmp = $(doc).find('.neighborhood-str-list').text();
+  tmp = tmp.slice(13, -8);
+  result.address.neighborhoodStr = tmp;
 
-    define(deps, function() {
+  // Full address
+  tmp = $(doc).find('address').text();
+  tmp = tmp.slice(13, -10);
+  result.address.fullAddress = tmp;
 
-        var extractAddress = function($, doc, result) {
-            if(!result) {
-                result = {};
-            }
+  return result;
+};
 
-            // Address
-            result.address = {};
+var extractCategories = function($, doc, result) {
+  var categories = [];
+  $(doc).find('.category-str-list a').each(function () {
+    var category = $(this).text();
+    categories.push(category);
+  });
 
-            // Neighborhood street
-            var tmp = $(doc).find('.neighborhood-str-list').text();
-            tmp = tmp.slice(13, -8);
-            result.address.neighborhoodStr = tmp;
+  result.categories = categories;
 
-            // Full address
-            tmp = $(doc).find('address').text();
-            tmp = tmp.slice(13, -10);
-            result.address.fullAddress = tmp;
+  return result;
+};
 
-            return result;
-        };
+var extractName = function($, doc, result) {
+  result.businessName = $(doc).find('h3 > span > a').text();
+  result.detailUrl = 'http://www.yelp.com' + $(doc).find('h3 > span > a').attr('href');
 
-        var extractCategories = function($, doc, result) {
-            var categories = [];
-            $(doc).find('.category-str-list a').each(function () {
-                var category = $(this).text();
-                categories.push(category);
-            });
+  return result;
+};
 
-            result.categories = categories;
+var extractPhone = function($, doc, result) {
+  // Phone number
+  var tmp = $(doc).find('.biz-phone').text();
+  tmp = tmp.replace(/\D/g, '');
+  tmp = parseInt(tmp, 10);
 
-            return result;
-        };
+  result.phoneNumber = tmp;
 
-        var extractName = function($, doc, result) {
-            result.businessName = $(doc).find('h3 > span > a').text();
-            result.detailUrl = 'http://www.yelp.com' + $(doc).find('h3 > span > a').attr('href');
+  return result;
+};
 
-            return result;
-        };
+var extractReviews = function($, doc, result) {
+  // Reviews
+  result.reviews = {};
 
-        var extractPhone = function($, doc, result) {
-            // Phone number
-            var tmp = $(doc).find('.biz-phone').text();
-            tmp = tmp.replace(/\D/g, '');
-            tmp = parseInt(tmp, 10);
+  // Number of reviews
+  var tmp = $(doc).find('.review-count').text();
+  tmp = tmp.slice(14, -14);
+  tmp = parseInt(tmp, 10);
 
-            result.phoneNumber = tmp;
+  result.reviews.number = tmp;
 
-            return result;
-        };
+  return result;
+};
 
-        var extractReviews = function($, doc, result) {
-            // Reviews
-            result.reviews = {};
+var extractStars = function($, doc, result) {
+  // Stars
+  var tmp = $(doc).find('.star-img').attr('title');
+  tmp = tmp.slice(0, -12);
+  tmp = parseFloat(tmp);
+  result.reviews.stars = tmp;
 
-            // Number of reviews
-            var tmp = $(doc).find('.review-count').text();
-            tmp = tmp.slice(14, -14);
-            tmp = parseInt(tmp, 10);
+  return result;
 
-            result.reviews.number = tmp;
+};
 
-            return result;
-        };
+module.exports = function($, item) {
+  var results = [];
 
-        var extractStars = function($, doc, result) {
-            // Stars
-            var tmp = $(doc).find('.star-img').attr('title');
-            tmp = tmp.slice(0, -12);
-            tmp = parseFloat(tmp);
-            result.reviews.stars = tmp;
-
-            return result;
-
-        };
-
-        module.exports = function($, item) {
-            var results = [];
-
-            // Process pagination
-            $('.pagination-links > li > a').each(function() {
-                var url = 'http://www.yelp.com' + $(this).attr('href');
-                results.push({
-                    type: 'url',
-                    url: url,
-                    processor: 'yelp.listing'
-                });
-            });
-
-            // Process results
-            $('.search-result').each(function () {
-                var result = {};
-
-                result.listingUrl = item.url;
-
-                result = extractName($, this, result);
-
-                result = extractPhone($, this, result);
-
-                result = extractReviews($, this, result);
-
-                result = extractStars($, this, result);
-
-                result = extractAddress($, this, result);
-
-                result = extractCategories($, this, result);
-
-                results.push({
-                    type: 'url',
-                    url: result.detailUrl,
-                    processor: 'yelp.details',
-                    data: result
-                });
-            });
-
-            return results;
-        };
+  // Process pagination
+  $('.pagination-links > li > a').each(function() {
+    var url = 'http://www.yelp.com' + $(this).attr('href');
+    results.push({
+      type: 'url',
+      url: url,
+      processor: 'yelp.listing'
     });
-}());
+  });
+
+  // Process results
+  $('.search-result').each(function () {
+    var result = {};
+
+    result.listingUrl = item.url;
+
+    result = extractName($, this, result);
+
+    result = extractPhone($, this, result);
+
+    result = extractReviews($, this, result);
+
+    result = extractStars($, this, result);
+
+    result = extractAddress($, this, result);
+
+    result = extractCategories($, this, result);
+
+    results.push({
+      type: 'url',
+      url: result.detailUrl,
+      processor: 'yelp.details',
+      data: result
+    });
+  });
+
+  return results;
+};

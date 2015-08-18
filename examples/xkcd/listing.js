@@ -18,52 +18,41 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function () {
-    'use strict';
+import querystring from 'querystring';
+import url from 'url';
 
-    var define = require('amdefine')(module);
+export default function($, item) {
+  var results = [];
 
-    /**
-     * Array of modules this one depends on.
-     * @type {Array}
-     */
-    var deps = [];
-
-    define(deps, function() {
-        module.exports = function($, item) {
-            var results = [];
-
-            $('a[rel="prev"]').each(function() {
-                var url = 'http://xkcd.com' + $(this).attr('href');
-                results.push({
-                    type: 'url',
-                    url: url,
-                    processor: 'xkcd.listing'
-                });
-            });
-
-            $('div#comic > img').each(function() {
-                var element = $(this);
-
-                var src = element.attr('src');
-
-                var result = {
-                    url: src,
-                    title: element.attr('title'),
-                    alt: element.attr('alt'),
-                    listingUrl: item.url,
-                    thumbnails: [
-                        src
-                    ]
-                };
-
-                results.push({
-                    type: 'data',
-                    data: result
-                });
-            });
-
-            return results;
-        };
+  $('a[rel="prev"]').each(function() {
+    var url = 'http://xkcd.com' + $(this).attr('href');
+    results.push({
+      type: 'url',
+      url: url,
+      processor: 'xkcd.listing'
     });
-}());
+  });
+
+  $('div#comic > img').each(function() {
+    var element = $(this);
+
+    var src = element.attr('src');
+
+    var result = {
+      url: src,
+      title: element.attr('title'),
+      alt: element.attr('alt'),
+      listingUrl: item.url,
+      thumbnails: [
+        src
+      ]
+    };
+
+    results.push({
+      type: 'data',
+      data: result
+    });
+  });
+
+  return results;
+};

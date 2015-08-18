@@ -20,42 +20,31 @@
 
 // For crawling http://vdb.czso.cz/vdb/ukazatele.jsp?typ=0
 
-(function () {
-    'use strict';
+import querystring from 'querystring';
+import url from 'url';
 
-    var define = require('amdefine')(module);
+export default function($, item) {
+  var results = [];
 
-    /**
-     * Array of modules this one depends on.
-     * @type {Array}
-     */
-    var deps = [];
+  $('table.orient100 > tbody > tr').each(function() {
+    var element = $(this);
 
-    define(deps, function() {
-        module.exports = function($, item) {
-            var results = [];
+    var first = element.find('td:nth-child(1)').text();
+    var second = element.find('td:nth-child(2) > a:nth-child(1)').text();
+    var href =  element.find('td:nth-child(2) > a:nth-child(2)').attr('href');
 
-            $('table.orient100 > tbody > tr').each(function() {
-                var element = $(this);
+    if(!first || !second || !href) {
+      return;
+    }
 
-                var first = element.find('td:nth-child(1)').text();
-                var second = element.find('td:nth-child(2) > a:nth-child(1)').text();
-                var href =  element.find('td:nth-child(2) > a:nth-child(2)').attr('href');
+    var url = "http://vdb.czso.cz/vdb/" + href.trim();
 
-                if(!first || !second || !href) {
-                    return;
-                }
-
-                var url = "http://vdb.czso.cz/vdb/" + href.trim();
-
-                results.push({
-                    type: 'url',
-                    url: url,
-                    processor: 'czso.details'
-                });
-            });
-
-            return results;
-        };
+    results.push({
+      type: 'url',
+      url: url,
+      processor: 'czso.details'
     });
-}());
+  });
+
+  return results;
+};
