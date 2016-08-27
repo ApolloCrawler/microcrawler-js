@@ -1,0 +1,9 @@
+#! /usr/bin/env node
+
+require("babel-register");
+
+var Collector = require('../lib/collector').default;
+
+var collector = new Collector();
+
+collector.main();

@@ -1,0 +1,9 @@
+#! /usr/bin/env node
+
+require("babel-register");
+
+var Worker = require('../lib/worker').default;
+
+var worker = new Worker();
+
+worker.main();
