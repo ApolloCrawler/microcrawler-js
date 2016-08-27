@@ -23,8 +23,9 @@ export default {
     viewTimeout: 10 * 1000 * 1000
   },
 
-  elastic: {
-    host: 'localhost',
-    port: 9200
+  elasticsearch: {
+    uri: '<YOUR_ELASTICSEARCH_HOST>:9200',
+    index: 'microcrawler',
+    log: 'debug'
   }
 }
