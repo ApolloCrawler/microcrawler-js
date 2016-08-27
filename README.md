@@ -228,7 +228,7 @@ node app.js -p yelp.listing "http://www.yelp.com/search?find_desc=restaurants&fi
 ### Youjizz
 
 ```
-node app.js -p youjizz.listing http://youjizz.com
+node app.js -p youjizz.com.listing http://youjizz.com
 ```
 
 ## Credits

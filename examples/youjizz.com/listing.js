@@ -30,7 +30,7 @@ export default function($, item) {
     results.push({
       type: 'url',
       url: url,
-      processor: 'youjizz.listing'
+      processor: 'youjizz.com.listing'
     });
   });
 
