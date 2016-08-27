@@ -26,7 +26,16 @@ export default function($, item) {
     type: 'data',
     data: {
       name: $('div.box > h1').text().replace(/(\r\n|\n|\r|\t)/gm, ''),
-      url: $('#companyUrl').attr('href')
+      url: $('#companyUrl').attr('href'),
+      phone: $('div[itemprop="telephone"]').text(),
+      email: $('a.companyMail').text(),
+      address: {
+        street: $('div[itemprop="streetAddress"]').text(),
+        postalCode: $('div[itemprop="postalCode"]').text(),
+        city: $('div[itemprop="addressLocality"]').text()
+      },
+      description: $('p[itemprop="description"]').text(),
+      logo: $('img[itemprop="logo"]').attr('src')
     }
   }];
 };
