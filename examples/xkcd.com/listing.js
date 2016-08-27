@@ -29,7 +29,7 @@ export default function($, item) {
     results.push({
       type: 'url',
       url: url,
-      processor: 'xkcd.listing'
+      processor: 'xkcd.com.listing'
     });
   });
 
