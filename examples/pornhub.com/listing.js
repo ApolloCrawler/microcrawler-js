@@ -24,16 +24,16 @@ import url from 'url';
 export default function($, item) {
   var results = [];
 
-  $('a[rel="prev"]').each(function() {
-    var url = 'http://xkcd.com' + $(this).attr('href');
+  $('a[class="greyButton"]').each(function() {
+    var url = 'http://pornhub.com' + $(this).attr('href');
     results.push({
       type: 'url',
       url: url,
-      processor: 'xkcd.listing'
+      processor: 'pornhub.com.listing'
     });
   });
 
-  $('div#comic > img').each(function() {
+  $('li[class="videoblock videoBox"]').each(function() {
     var element = $(this);
 
     var src = element.attr('src');

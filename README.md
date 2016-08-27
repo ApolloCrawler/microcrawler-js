@@ -89,7 +89,7 @@ d5b0de6bc84f92cc7fc98da2d8e839c8f3886d5fa779d3fdc96e41b6945e5867
 ### Crawl xkcd, store data in elasticsearch
 
 ```
-node app.js -p xkcd.listing -e http://xkcd.com
+node app.js -p xkcd.com.listing -e http://xkcd.com
 
 2015-05-30T12:03:14.390Z - info: ARGV: undefined
 2015-05-30T12:03:14.393Z - info: OPTS: {

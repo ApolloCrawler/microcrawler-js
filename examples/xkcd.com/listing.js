@@ -18,6 +18,41 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import App from './app';
+import querystring from 'querystring';
+import url from 'url';
 
-export default App;
+export default function($, item) {
+  var results = [];
+
+  $('a[rel="prev"]').each(function() {
+    var url = 'http://xkcd.com' + $(this).attr('href');
+    results.push({
+      type: 'url',
+      url: url,
+      processor: 'xkcd.listing'
+    });
+  });
+
+  $('div#comic > img').each(function() {
+    var element = $(this);
+
+    var src = `https:${element.attr('src')}`;
+
+    var result = {
+      url: src,
+      title: element.attr('title'),
+      alt: element.attr('alt'),
+      listingUrl: item.url,
+      thumbnails: [
+        src
+      ]
+    };
+
+    results.push({
+      type: 'data',
+      data: result
+    });
+  });
+
+  return results;
+};

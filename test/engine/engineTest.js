@@ -49,7 +49,7 @@ describe('Engine', function() {
 
   /*
    it('Default constructor works', function() {
-   var instance = new Mc.Engine();
+   var instance = new Engine();
    instance.should.not.equal(null);
    instance.should.be.an.instanceof(Engine);
    instance.opts.should.equal(Engine.defaultOptions);
@@ -78,7 +78,7 @@ describe('Engine', function() {
 
   describe('main()', function() {
     it('Is defined', function() {
-      const engine = new Mc.Engine;
+      const engine = new Engine();
       engine.main.should.not.equal(null);
     });
 
