@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-require("babel/register");
+require("babel-core/register");
 
-var App = require('./lib/app/app');
+var App = require('./lib/app/app').default;
 
 var app = new App();
 app.run();
