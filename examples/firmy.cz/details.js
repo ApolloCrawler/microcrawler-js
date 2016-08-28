@@ -23,10 +23,14 @@ import url from 'url';
 
 export default function($, item) {
   const categories = [];
-
   $('li.category > a').map(function() {
     categories.push($(this).text());
   });
+
+  let category = null;
+  if (categories.length > 0) {
+    category = categories[0];
+  }
 
   const res = [{
     type: 'data',
@@ -42,7 +46,7 @@ export default function($, item) {
       },
       description: $('p[itemprop="description"]').text(),
       logo: $('img[itemprop="logo"]').attr('src'),
-      category: categories[0],
+      category,
       categories
     }
   }];
