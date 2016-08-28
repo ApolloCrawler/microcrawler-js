@@ -25,6 +25,12 @@ export default {
     ]
   },
 
+  natFaker: {
+    enabled: true,
+    base: '192.168.1.1',
+    bits: 16
+  },
+
   amqp: {
     uri: 'amqp://<YOUR_AMQP_HOST>',
     queues: {
