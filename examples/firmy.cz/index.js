@@ -1,4 +1,4 @@
-// Copyright, 2013-2015, by Tomas Korcak. <korczis@gmail.com>
+// Copyright, 2013-2016, by Tomas Korcak. <korczis@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,29 +22,18 @@ import querystring from 'querystring';
 import url from 'url';
 
 export default function($, item) {
-  const categories = [];
+  var results = [];
 
-  $('li.category > a').map(function() {
-    categories.push($(this).text());
+  $('h3 > a').each(function() {
+    var tmpUrl = 'http://firmy.cz' + $(this).attr('href') + '?page=1&_escaped_fragment_=';
+    var parsedUrl = url.parse(tmpUrl);
+
+    results.push({
+      type: 'url',
+      url: tmpUrl,
+      processor: 'firmy.cz.listing'
+    });
   });
 
-  const res = [{
-    type: 'data',
-    data: {
-      name: $('div.box > h1').text().replace(/(\r\n|\n|\r|\t)/gm, ''),
-      url: $('#companyUrl').attr('href'),
-      phone: $('div[itemprop="telephone"]').text(),
-      email: $('a.companyMail').text(),
-      address: {
-        street: $('div[itemprop="streetAddress"]').text(),
-        postalCode: $('div[itemprop="postalCode"]').text(),
-        city: $('div[itemprop="addressLocality"]').text()
-      },
-      description: $('p[itemprop="description"]').text(),
-      logo: $('img[itemprop="logo"]').attr('src'),
-      category: categories
-    }
-  }];
-
-  return res;
+  return results;
 };
