@@ -1,4 +1,30 @@
 export default {
+  throttler: {
+    active: true,  // set false to pause queue
+    rate: 20,      // how many requests can be sent every `ratePer`
+    ratePer: 1000, // number of ms in which `rate` requests may be sent
+    concurrent: 8  // how many requests can be sent concurrently
+  },
+
+  retry: {
+    count: 2  // One regular attempt + 2 retries => 3 total attempts
+  },
+
+  headers: {
+    'Accept': '*/*',
+    'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+    'From': 'googlebot(at)googlebot.com'
+  },
+
+  proxy: {
+    enabled: true,
+
+    // See http://proxylist.hidemyass.com/
+    list: [
+      'https://168.63.20.19:8145'
+    ]
+  },
+
   amqp: {
     uri: 'amqp://korczis.com',
     queues: {
