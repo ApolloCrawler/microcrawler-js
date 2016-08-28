@@ -36,9 +36,6 @@ cd microcrawler
 
 # Install required packages
 npm install
-
-# Run tests
-grunt
 ```
 
 ## Usage
@@ -198,7 +195,7 @@ node app.js -p craiglist.listing http://sfbay.craigslist.org/sfc/sss/
 ### Firmy.cz
 
 ```
-node app.js -p firmy.cz.listing "http://www.firmy.cz/Auto-moto?page=1&_escaped_fragment_="
+node app.js -p firmy.cz.index "https://www.firmy.cz?_escaped_fragment_="
 ```
 
 ### Google
