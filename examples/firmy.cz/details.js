@@ -42,7 +42,8 @@ export default function($, item) {
       },
       description: $('p[itemprop="description"]').text(),
       logo: $('img[itemprop="logo"]').attr('src'),
-      category: categories
+      category: categories[0],
+      categories
     }
   }];
 
