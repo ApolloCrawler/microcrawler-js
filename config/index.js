@@ -1,9 +1,14 @@
 export default {
+  client: 'superagent', // Can be 'superagent' or 'simple'
+
+  timeout: 10 * 1000, // HTTP request timeout in msec
+
   throttler: {
-    active: true,  // set false to pause queue
-    rate: 20,      // how many requests can be sent every `ratePer`
-    ratePer: 1000, // number of ms in which `rate` requests may be sent
-    concurrent: 8  // how many requests can be sent concurrently
+    enabled: false, // use throttler
+    active: true,   // set false to pause queue
+    rate: 20,       // how many requests can be sent every `ratePer`
+    ratePer: 1000,  // number of ms in which `rate` requests may be sent
+    concurrent: 8   // how many requests can be sent concurrently
   },
 
   retry: {
@@ -17,7 +22,7 @@ export default {
   },
 
   proxy: {
-    enabled: true,
+    enabled: false,
 
     // See http://proxylist.hidemyass.com/
     list: [

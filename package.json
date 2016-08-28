@@ -45,6 +45,7 @@
     "node.extend": "^1.1.3",
     "nomnom": "^1.8.1",
     "random-ip": "0.0.1",
+    "request": "^2.74.0",
     "sqlite3": "^3.0.8",
     "superagent": "^2.2.0",
     "superagent-cache": "^1.6.0",
