@@ -1,0 +1,11 @@
+#! /usr/bin/env node
+
+require("babel-register");
+
+var process = require('process');
+
+var App = require('../lib/app').default;
+
+var app = new App();
+
+app.crawl(process.argv);
