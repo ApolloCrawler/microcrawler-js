@@ -27,7 +27,7 @@ var exports = module.exports = function($, item) {
     categories.push($(this).text());
   });
 
-  let category = null;
+  var category = null;
   if (categories.length > 0) {
     category = categories[0];
   }
