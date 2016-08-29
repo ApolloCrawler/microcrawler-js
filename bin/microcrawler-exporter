@@ -1,0 +1,11 @@
+#! /usr/bin/env node
+
+require("babel-register");
+
+var process = require('process');
+
+var Exporter = require('../lib/exporter').default;
+
+var exporter = new Exporter();
+
+exporter.main(process.argv);

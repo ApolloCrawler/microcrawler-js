@@ -25,7 +25,7 @@
 
 ## Getting started
 
-Just clone.
+### Clone
 
 ```
 # Clone repository

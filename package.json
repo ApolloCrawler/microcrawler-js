@@ -16,6 +16,15 @@
   "bugs": {
     "url": "https://github.com/korczis/microcrawler/issues"
   },
+  "bin": {
+    "microcrawler": "./bin/microcrawler",
+    "microcrawler-collector": "./bin/microcrawler-collector",
+    "microcrawler-config": "./bin/microcrawler-config",
+    "microcrawler-config-init": "./bin/microcrawler-config-init",
+    "microcrawler-config-show": "./bin/microcrawler-config-show",
+    "microcrawler-exporter": "./bin/microcrawler-exporter",
+    "microcrawler-worker": "./bin/microcrawler-worker"
+  },
   "files": [
     "lib"
   ],
@@ -32,6 +41,7 @@
     "babel-register": "^6.3.13",
     "babel-runtime": "^6.3.19",
     "cheerio": "^0.20.0",
+    "commander": "^2.9.0",
     "couchbase": "^2.2.2",
     "crypto": "0.0.3",
     "csv-write-stream": "^2.0.0",
@@ -41,10 +51,10 @@
     "elasticsearch": "^11.0.1",
     "express": "^4.12.4",
     "faye": "^1.1.1",
+    "mkdirp": "^0.5.1",
     "moment": "^2.10.3",
     "nano": "^6.0.2",
     "node.extend": "^1.1.3",
-    "nomnom": "^1.8.1",
     "random-ip": "0.0.1",
     "request": "^2.74.0",
     "sqlite3": "^3.0.8",

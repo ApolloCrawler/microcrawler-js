@@ -1,0 +1,65 @@
+{
+  "client": "superagent",
+
+  "timeout": 10000,
+
+  "throttler": {
+    "enabled": false,
+    "active": true,
+    "rate": 20,
+    "ratePer": 1000,
+    "concurrent": 8
+  },
+
+  "retry": {
+    "count": 2
+  },
+
+  "headers": {
+    "Accept": "*/*",
+    "User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    "From": "googlebot(at)googlebot.com"
+  },
+
+  "proxy": {
+    "enabled": false,
+    "list": [
+      "https://168.63.20.19:8145"
+    ]
+  },
+
+  "natFaker": {
+    "enabled": true,
+    "base": "192.168.1.1",
+    "bits": 16
+  },
+
+  "amqp": {
+    "uri": "amqp://localhost",
+    "queues": {
+      "collector": "collector",
+      "worker": "worker"
+    }
+  },
+
+  "couchbase": {
+    "uri": "couchbase://localhost:8091",
+
+    "bucket": "microcrawler",
+    "username": "Administrator",
+    "password": "Administrator",
+
+    "connectionTimeout": 60000000,
+    "durabilityTimeout": 60000000,
+    "managementTimeout": 60000000,
+    "nodeConnectionTimeout": 10000000,
+    "operationTimeout": 10000000,
+    "viewTimeout": 10000000
+  },
+
+  "elasticsearch": {
+    "uri": "localhost:9200",
+    "index": "microcrawler",
+    "log": "debug"
+  }
+}

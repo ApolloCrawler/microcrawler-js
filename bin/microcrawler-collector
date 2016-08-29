@@ -2,8 +2,10 @@
 
 require("babel-register");
 
+var process = require('process');
+
 var Collector = require('../lib/collector').default;
 
 var collector = new Collector();
 
-collector.main();
+collector.main(process.argv);

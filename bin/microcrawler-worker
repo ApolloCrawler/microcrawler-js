@@ -2,8 +2,10 @@
 
 require("babel-register");
 
+var process = require('process');
+
 var Worker = require('../lib/worker').default;
 
 var worker = new Worker();
 
-worker.main();
+worker.main(process.argv);

@@ -1,0 +1,11 @@
+#! /usr/bin/env node
+
+require("babel-register");
+
+var process = require('process');
+
+var Config = require('../lib/config').default;
+
+var config = new Config();
+
+config.init(process.argv);
