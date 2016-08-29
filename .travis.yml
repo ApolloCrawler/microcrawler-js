@@ -23,3 +23,6 @@ before_install:
 
 before_script:
   - "sleep 10"
+
+install:
+    - ./.travis/install.sh
