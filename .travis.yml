@@ -23,6 +23,3 @@ before_install:
 
 before_script:
   - "sleep 10"
-  - "curl -HContent-Type:application/json -vXPUT http://localhost:5984/_users/org.couchdb.user:apollo --data-binary '{\"_id\": \"org.couchdb.user:apollo\",\"name\": \"apollo\",\"roles\": [\"admin\"],\"type\": \"user\",\"password\": \"apollo\"}'"
-  - "curl -X PUT http://localhost:5984/microcrawler-couchapp -u \"apollo:apollo\""
-  - "curl -X PUT http://localhost:5984/microcrawler-test -u \"apollo:apollo\""
