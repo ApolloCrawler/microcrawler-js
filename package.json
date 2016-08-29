@@ -1,6 +1,6 @@
 {
   "name": "microcrawler",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Micro implementation of crawler",
   "main": "lib/index.js",
   "scripts": {
