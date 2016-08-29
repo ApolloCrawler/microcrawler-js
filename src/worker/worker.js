@@ -58,19 +58,6 @@ export default class Worker {
       const msg = JSON.parse(data.content);
       this.process(channel, msg);
     }, {noAck: true});
-
-    const msg = {
-      url: 'https://www.firmy.cz?_escaped_fragment_=',
-      processor: 'firmy.cz.index'
-
-      // url: 'http://www.firmy.cz/Auto-moto?page=1&_escaped_fragment_=',
-      // processor: 'firmy.cz.listing'
-
-      // url: 'https://xkcd.com',
-      // processor: 'xkcd.com.listing'
-    };
-
-    channel.sendToQueue(config.amqp.queues.worker, Buffer.from(JSON.stringify(msg)));
   }
 
   process(channel, msg) {
@@ -94,7 +81,7 @@ export default class Worker {
         result: res
       }
 
-      // console.log(res);
+      console.log(res);
 
       const json = JSON.stringify(collect);
       const buffer = Buffer.from(json);
