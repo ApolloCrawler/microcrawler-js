@@ -6,7 +6,7 @@
   "scripts": {
     "eslint": "node ./node_modules/eslint/bin/eslint.js lib/ test/",
     "test": "mocha --compilers js:babel-register test/**/*Test.js",
-    "build": "babel src -d lib"
+    "build": "gulp babel"
   },
   "repository": {
     "type": "git",
