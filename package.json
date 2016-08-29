@@ -34,6 +34,7 @@
     "cheerio": "^0.20.0",
     "couchbase": "^2.2.2",
     "crypto": "0.0.3",
+    "csv-write-stream": "^2.0.0",
     "deepmerge": "^0.2.7",
     "deferred": "^0.7.2",
     "diacritics": "^1.2.1",
