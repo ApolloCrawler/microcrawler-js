@@ -19,7 +19,7 @@ services:
 before_install:
   - "export NODE_ENV=test"
   - "npm config set strict-ssl false"
-  - "npm install -g chai istanbul jsdoc mocha"
+  - "npm install -g chai istanbul jsdoc mocha babel-register"
 
 before_script:
   - "sleep 10"
