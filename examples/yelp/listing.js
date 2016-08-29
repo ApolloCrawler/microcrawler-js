@@ -18,7 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-export default function($, doc, result) {
+var querystring = require('querystring');
+var url = require('url');
+
+module.exports = function($, doc, result) {
   if(!result) {
     result = {};
   }

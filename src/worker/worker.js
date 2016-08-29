@@ -133,7 +133,7 @@ export default class Worker {
       throw new TypeError('name must be specified');
     }
 
-    this.processors[name] = processor.default;
+    this.processors[name] = processor;
     return processor;
   }
 }

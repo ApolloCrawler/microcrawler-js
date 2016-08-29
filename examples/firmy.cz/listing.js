@@ -18,10 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import querystring from 'querystring';
-import url from 'url';
+var querystring = require('querystring');
+var url = require('url');
 
-export default function($, item) {
+module.exports = function($, item) {
   var results = [];
 
   $('#nextBtn').each(function() {

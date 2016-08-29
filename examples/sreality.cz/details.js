@@ -18,8 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import querystring from 'querystring';
-import url from 'url';
+var querystring = require('querystring');
+var url = require('url');
 
 var tryConvertValue = function (value, defaultValue) {
   var tmp = value.match(/\d+/g);
@@ -62,7 +62,7 @@ var fixLabel = function(str) {
   return diacritics.remove(str).replace(/\W+/g, "_").toLowerCase();
 }
 
-export default function ($, item) {
+module.exports = function ($, item) {
   var loc = $('span.location').first().text();
 
   var urlSegments = item.url.split('/'); // ["prodej", "dum", "rodinny"]
