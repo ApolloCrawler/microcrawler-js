@@ -21,7 +21,7 @@
 var querystring = require('querystring');
 var url = require('url');
 
-module.exports = function($) {
+var exports = module.exports = function($) {
   var results = [];
 
   $('td > a.fl').each(function() {

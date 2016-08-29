@@ -21,7 +21,7 @@
 var querystring = require('querystring');
 var url = require('url');
 
-module.exports = function($, doc, result) {
+var exports = module.exports = function($, doc, result) {
   if(!result) {
     result = {};
   }

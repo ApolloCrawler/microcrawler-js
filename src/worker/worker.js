@@ -98,12 +98,13 @@ export default class Worker {
       .replace(path.extname(fullPath), '')
       .replace(path.sep, '.');
 
-    this.registerProcessor(name, require(fullPath));
+    const processor = require(fullPath);
+    this.registerProcessor(name, processor);
 
     return {
       name: name,
       path: fullPath,
-      processor: require(fullPath)
+      processor: processor
     };
   }
 

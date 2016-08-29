@@ -62,7 +62,7 @@ var fixLabel = function(str) {
   return diacritics.remove(str).replace(/\W+/g, "_").toLowerCase();
 }
 
-module.exports = function ($, item) {
+var exports = module.exports = function ($, item) {
   var loc = $('span.location').first().text();
 
   var urlSegments = item.url.split('/'); // ["prodej", "dum", "rodinny"]

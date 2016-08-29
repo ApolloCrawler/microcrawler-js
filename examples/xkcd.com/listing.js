@@ -21,7 +21,7 @@
 var querystring = require('querystring');
 var url = require('url');;
 
-module.exports = function($, item) {
+var exports = module.exports = function($, item) {
   var results = [];
 
   $('a[rel="prev"]').each(function() {
