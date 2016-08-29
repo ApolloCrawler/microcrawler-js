@@ -34,6 +34,8 @@ export default class Worker {
         return;
       }
 
+      console.log(`Worker is connected to "${config.amqp.uri}" and waiting for work.`);
+
       connection.createChannel((err, channel) => {
         if (err) {
           console.log(err);
