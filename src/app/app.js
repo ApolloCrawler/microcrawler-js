@@ -42,15 +42,18 @@ export default class App {
         });
 
         const msg = {
-          url,
-          processor
+          url: url,
+          processor: processor
         };
 
         console.log(`Initializing crawling of '${url}' using '${processor}' processor.`);
 
-        // channel.sendToQueue(config.amqp.queues.worker, Buffer.from(JSON.stringify(msg)));
+        const res = channel.sendToQueue(config.amqp.queues.worker, Buffer.from(JSON.stringify(msg)));
+        // console.log(res);
 
-        process.exit(0);
+        setTimeout(() => {
+          process.exit(0);
+        }, 1000);
       });
     });
   }
