@@ -1,5 +1,4 @@
-import pkg from '../../package.json'
-import process from 'process';
+import pkg from '../../package.json';
 import program from 'commander';
 
 export default class App {

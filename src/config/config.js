@@ -1,8 +1,7 @@
 import fs from 'fs';
 import mkdirp from 'mkdirp';
 import path from 'path';
-import pkg from '../../package.json'
-import process from 'process';
+import pkg from '../../package.json';
 import program from 'commander';
 
 import config from '../../config';
