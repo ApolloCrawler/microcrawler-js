@@ -8,7 +8,9 @@ gulp.task('babel', function () {
     .pipe(gulp.dest('lib'));
 });
 
-gulp.task('default', ['babel']);
+gulp.task('build', ['babel']);
+
+gulp.task('default', ['build']);
 
 //the watch task
 gulp.task('watch', function() {

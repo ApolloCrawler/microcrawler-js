@@ -1,16 +1,34 @@
-import os from 'os';
-import path from 'path';
-import process from 'process';
+'use strict';
 
-export function configDir() {
-  return '~/.microcrawler'.replace('~', os.homedir());
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.configDir = configDir;
+exports.configPath = configPath;
+
+var _os = require('os');
+
+var _os2 = _interopRequireDefault(_os);
+
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
+var _process = require('process');
+
+var _process2 = _interopRequireDefault(_process);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function configDir() {
+  return '~/.microcrawler'.replace('~', _os2.default.homedir());
 };
 
-export function configPath() {
-  return path.join(configDir(), 'config.json');
+function configPath() {
+  return _path2.default.join(configDir(), 'config.json');
 }
 
-export default (() => {
+exports.default = function () {
   try {
     return require(configPath());
   } catch (err) {
@@ -20,4 +38,5 @@ export default (() => {
 
     return null;
   }
-})();
+}();
+
