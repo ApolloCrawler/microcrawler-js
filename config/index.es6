@@ -1,6 +1,5 @@
 import os from 'os';
 import path from 'path';
-import process from 'process';
 
 export function configDir() {
   return '~/.microcrawler'.replace('~', os.homedir());
