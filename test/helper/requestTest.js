@@ -21,7 +21,7 @@
 import chai from 'chai';
 const should = chai.should();
 
-import request from '../../lib/helper/request';
+import request from '../../src/helper/request';
 
 describe('Request', function() {
   const invalidUrlMsg = 'This should not happen. Invalid hostname should by handled by error handler';

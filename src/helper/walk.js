@@ -1,9 +1,3 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.guid = guid;
 // Copyright, 2013-2016, by Tomas Korcak. <korczis@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,14 +18,40 @@ exports.guid = guid;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-/**
- * Generates GUID - Globaly Unique Identifier
- * @returns {string} String with GUID
- */
-function guid() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-  }
+import fs from 'fs';
+import path from 'path';
 
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+/**
+ * Recursively walks folder specified
+ * @param dir Dir to be walked
+ * @param done Callback to be used for processing files
+ */
+export default function walk(dir, done) {
+  let results = [];
+  fs.readdir(dir, function(err, list) {
+    if (err) {
+      return done(err);
+    }
+
+    let i = 0;
+    (function next() {
+      let file = list[i++];
+      if (!file) {
+        return done(null, results);
+      }
+
+      file = dir + path.sep + file;
+      fs.stat(file, function(statErr, stat) {
+        if (stat && stat.isDirectory()) {
+          walk(file, function(_, res) {
+            results = results.concat(res);
+            next();
+          });
+        } else {
+          results.push(file);
+          next();
+        }
+      });
+    })();
+  });
 }

@@ -1,9 +1,3 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.guid = guid;
 // Copyright, 2013-2016, by Tomas Korcak. <korczis@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,10 +22,13 @@ exports.guid = guid;
  * Generates GUID - Globaly Unique Identifier
  * @returns {string} String with GUID
  */
-function guid() {
+export function guid() {
   function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
   }
 
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
 }
