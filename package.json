@@ -1,6 +1,6 @@
 {
   "name": "microcrawler",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "description": "Micro implementation of crawler",
   "main": "lib/index.js",
   "scripts": {
@@ -10,12 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/korczis/microcrawler.git"
+    "url": "https://github.com/ApolloCrawler/microcrawler.git"
   },
   "author": "Tomas Korcak <korczis@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/korczis/microcrawler/issues"
+    "url": "https://github.com/ApolloCrawler/microcrawler/issues"
   },
   "bin": {
     "microcrawler": "./bin/microcrawler",
@@ -34,7 +34,7 @@
     "lib",
     "test"
   ],
-  "homepage": "https://github.com/korczis/microcrawler",
+  "homepage": "https://github.com/ApolloCrawler/microcrawler",
   "directories": {
     "bin": "bin",
     "lib": "lib"
