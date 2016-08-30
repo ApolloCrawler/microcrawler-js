@@ -3,6 +3,7 @@ import program from 'commander';
 
 import amqp from 'amqplib/callback_api';
 import cheerio from 'cheerio';
+import fs from 'fs';
 import path from 'path';
 
 import config from '../../config';
@@ -21,6 +22,7 @@ export default class Worker {
 
     const processorsPath = path.join(__dirname, '..', '..', 'examples');
     this.loadProcessors(processorsPath).then((processors) => {
+      this.processors = processors;
       this.connect();
     }).catch((err) => {
       console.log(err);
@@ -70,13 +72,13 @@ export default class Worker {
     request(msg.url).then((data) => {
       const doc = cheerio.load(data);
 
-      const fn = processors[msg.processor];
-      if (!fn) {
+      const processor = processors[msg.processor];
+      if (!processor || !processor.processor) {
         console.log('Unable to find processor', msg.processor);
         return;
       }
 
-      const res = fn(doc, msg);
+      const res = processor.processor(doc, msg);
 
       const collect = {
         request: msg,
@@ -110,21 +112,45 @@ export default class Worker {
 
   loadProcessors(pathDir) {
     return new Promise((resolve, reject) => {
-      walk(pathDir, (err, results) => {
+      const dir = path.join(__dirname, '..', '..', 'node_modules');
+      fs.readdir(dir, (err, items) => {
         if (err) {
-          console.log(err);
-          reject(err);
+          return reject(err);
         }
 
-        const processors = [];
+        let res = {};
 
-        for (let i = 0; i < results.length; i++) {
-          const fullPath = results[i];
-          const proc = this.loadProcessor(pathDir, fullPath);
-          processors.push(proc);
+        const prefix = 'microcrawler-crawler-';
+        for (let i = 0; i < items.length; i++) {
+          const item = items[i];
+          if (item.indexOf(prefix) != 0) {
+            continue;
+          }
+
+          const name = item.replace(prefix, '');
+          const pkg = require(`${item}/package.json`);
+
+          const crawler = pkg.crawler || {};
+          const processors = crawler.processors || {};
+          const processorNames = Object.keys(processors);
+          for (let j = 0; j < processorNames.length; j++) {
+            const processorName = processorNames[j];
+            const processorPath = path.join(dir, item, processors[processorName]);
+            const processor = require(processorPath);
+
+            const fullName = `${name}.${processorName}`;
+            res[fullName] = {
+              crawler: name,
+              name: processorName,
+              fullName,
+              path: processorPath,
+              processor,
+              meta: pkg.crawler
+            };
+          }
         }
 
-        resolve(processors);
+        resolve(res);
       });
     });
   }

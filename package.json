@@ -1,6 +1,6 @@
 {
   "name": "microcrawler",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "Micro implementation of crawler",
   "main": "lib/index.js",
   "scripts": {
@@ -62,7 +62,7 @@
     "elasticsearch": "^11.0.1",
     "express": "^4.12.4",
     "faye": "^1.1.1",
-    "microcrawler-crawler-all": "0.0.1",
+    "microcrawler-crawler-all": "0.0.6",
     "mkdirp": "^0.5.1",
     "moment": "^2.10.3",
     "nano": "^6.0.2",
@@ -73,6 +73,7 @@
     "superagent": "^2.2.0",
     "superagent-cache": "^1.6.0",
     "superagent-proxy": "^1.0.1",
+    "superagent-retry": "^0.6.0",
     "superagent-throttle": "^0.1.1",
     "superagent-use": "0.0.1",
     "traceur": "0.0.111",

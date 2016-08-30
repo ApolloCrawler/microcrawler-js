@@ -24,8 +24,11 @@ import randomip from 'random-ip';
 import request from 'request';
 
 import superagent from 'superagent-use';
-import Throttle from 'superagent-throttle';
 import Proxy from 'superagent-proxy';
+import retry from 'superagent-retry';
+import Throttle from 'superagent-throttle';
+
+retry(superagent);
 
 let throttle = new Throttle({
   active:     config.throttler.active,    // set false to pause queue
@@ -73,6 +76,7 @@ export function requestSuperagent(url, retry = 0) {
       let req = superagent
         .get(url)
         .timeout(config.timeout)
+        .retry(config.retry.count)
         .redirects(5);
 
       const headers = Object.keys(config.headers);
@@ -91,11 +95,7 @@ export function requestSuperagent(url, retry = 0) {
 
       req.end(function (err, res) {
         if (err) {
-          if (retry < config.retry.count) {
-            return resolve(requestSuperagent(url, retry + 1));
-          } else {
-            return reject(err);
-          }
+          return reject(err);
         }
 
         return resolve(res.text);
