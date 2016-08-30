@@ -41,6 +41,8 @@ export default class Collector {
         return;
       }
 
+      console.log(`Collector is connected to "${config.amqp.uri}" and waiting for results.`);
+
       connection.createChannel((err, channel) => {
         if (err) {
           console.log(err);
@@ -61,6 +63,7 @@ export default class Collector {
       durable: false
     });
 
+    console.log(`Collector is consuming results at channel "${config.amqp.queues.collector}"`);
     channel.consume(config.amqp.queues.collector, (data) => {
       const msg = JSON.parse(data.content);
 
