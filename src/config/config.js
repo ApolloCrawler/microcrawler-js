@@ -29,8 +29,11 @@ export default class Config {
 
       const configTemplate = path.normalize(path.join(__dirname, '..', '..', 'config', 'config.template.json'));
       console.log(`Copying config template "${configTemplate}" -> "${configPath()}"`)
-      fs.createReadStream(configTemplate).pipe(fs.createWriteStream(configPath()));
-      this.show(args);
+      const stream = fs.createReadStream(configTemplate).pipe(fs.createWriteStream(configPath()));
+
+      stream.on('finish', () => {
+        this.show(args);
+      });
     });
   }
 
