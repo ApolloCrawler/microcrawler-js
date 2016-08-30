@@ -1,6 +1,4 @@
-#! /usr/bin/env babel-node --
-
-require("babel-register");
+#! /usr/bin/env node
 
 var process = require('process');
 
