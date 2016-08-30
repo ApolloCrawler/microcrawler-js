@@ -95,7 +95,14 @@ export function requestSuperagent(url, retry = 0) {
 
       req.end(function (err, res) {
         if (err) {
-          return reject(err);
+          if (retry < config.retry.count) {
+            const retryNo = retry + 1;
+            setTimeout(() => {
+              return resolve(requestSuperagent(url, retryNo));
+            }, 1000 * retryNo);
+          } else {
+            return reject(err);
+          }
         }
 
         return resolve(res.text);
