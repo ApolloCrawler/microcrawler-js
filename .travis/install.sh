@@ -11,4 +11,7 @@ else
   # Will install or upgrade packages
   sudo apt-get update
   sudo apt-get install libcouchbase-dev libcouchbase2-bin build-essential
+
+  wget http://packages.couchbase.com/releases/4.1.0/couchbase-server-community_4.1.0-ubuntu14.04_amd64.deb
+  sudo dpkg -i couchbase-server-community_4.1.0-ubuntu14.04_amd64.deb
 fi
