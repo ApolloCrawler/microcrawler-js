@@ -30,7 +30,7 @@ List of official publicly available crawlers.
 
 ## Prerequisites
 
-- [node.js](http://nodejs.org/)
+- [node.js 4+](http://nodejs.org/)
 - [npm](https://www.npmjs.org/)
 - [libcouchbase](http://developer.couchbase.com/documentation/server/current/sdk/c/start-using-sdk.html)
 - [docker](https://www.docker.com/)
