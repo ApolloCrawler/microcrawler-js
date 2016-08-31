@@ -5,6 +5,7 @@ os:
   - "osx"
 
 node_js:
+  - node
   - 4
   - 5
   - 6
