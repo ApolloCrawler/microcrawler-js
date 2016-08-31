@@ -25,6 +25,8 @@ before_script:
   - "sleep 10"
 
 install:
+    - wget http://packages.couchbase.com/releases/4.1.0/couchbase-server-community_4.1.0-ubuntu14.04_amd64.deb
+    - dpkg -i couchbase-server-community_4.1.0-ubuntu14.04_amd64.deb
     - ./.travis/install.sh
     - npm install
     - ./bin/microcrawler config init
