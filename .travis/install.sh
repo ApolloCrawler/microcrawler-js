@@ -4,6 +4,9 @@ if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
   brew update # get list of latest packages
   brew install libcouchbase
 else
+  sudo apt-get -qq update
+  sudo apt-get -qq upgrade
+
   # Only needed during first-time setup:
   wget http://packages.couchbase.com/releases/couchbase-release/couchbase-release-1.0-2-amd64.deb
   sudo dpkg -i couchbase-release-1.0-2-amd64.deb
