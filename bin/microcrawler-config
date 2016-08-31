@@ -1,7 +1,5 @@
 #! /usr/bin/env node
 
-var process = require('process');
-
 var Config = require('../lib/config').default;
 
 var config = new Config();

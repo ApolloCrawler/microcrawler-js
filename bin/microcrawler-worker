@@ -1,7 +1,5 @@
 #! /usr/bin/env node
 
-var process = require('process');
-
 var Worker = require('../lib/worker').default;
 
 var worker = new Worker();

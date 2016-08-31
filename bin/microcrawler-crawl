@@ -1,7 +1,5 @@
 #! /usr/bin/env node
 
-var process = require('process');
-
 var App = require('../lib/app').default;
 
 var app = new App();

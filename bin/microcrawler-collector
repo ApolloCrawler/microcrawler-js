@@ -1,7 +1,5 @@
 #! /usr/bin/env node
 
-var process = require('process');
-
 var Collector = require('../lib/collector').default;
 
 var collector = new Collector();

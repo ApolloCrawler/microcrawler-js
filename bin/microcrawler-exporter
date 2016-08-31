@@ -1,7 +1,5 @@
 #! /usr/bin/env node
 
-var process = require('process');
-
 var Exporter = require('../lib/exporter').default;
 
 var exporter = new Exporter();
