@@ -17,4 +17,8 @@ else
 
   wget http://packages.couchbase.com/releases/4.1.0/couchbase-server-community_4.1.0-ubuntu14.04_amd64.deb
   sudo dpkg -i couchbase-server-community_4.1.0-ubuntu14.04_amd64.deb
+
+  sudo service couchbase-server restart
+  /opt/couchbase/bin/couchbase-cli cluster-init -c 127.0.0.1:8091 --cluster-username=Administrator --cluster-password=Administrator --cluster-ramsize=512
+
 fi
