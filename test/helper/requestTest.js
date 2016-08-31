@@ -31,35 +31,34 @@ describe('Request', function() {
       request.should.not.equal(null);
     });
 
-    it('Handles valid url - http://google.com', function(done) {
+    it('Handles valid url - http://google.com', (done) => {
       request('http://google.com').then(function(data) {
         data.should.not.equal(null);
         done();
       });
     });
 
-    it('Handles "" URL', function(done) {
+    it('Handles "" URL', (done) => {
       request('').then(function() {
         done(new Error(invalidUrlMsg));
-      }, function() {
+      }).catch(() => {
         done();
       });
     });
 
-    let url = null;
-    it('Handles null URL', function(done) {
-      request(url).then(function() {
+    it('Handles null URL', (done) => {
+      request(null).then(() => {
         done(new Error(invalidUrlMsg));
-      }, function() {
+      }).catch(() => {
         done();
       });
     });
 
-    url = 'http://google.com/invalid';
-    it('Handles invalid url ' + url, function(done) {
-      request(url).then(function() {
+    const url = 'http://google.com/invalid';
+    it('Handles invalid url ' + url, (done) => {
+      request(url).then(() => {
         done(new Error(invalidUrlMsg));
-      }, function() {
+      }).catch(() => {
         done();
       });
     });

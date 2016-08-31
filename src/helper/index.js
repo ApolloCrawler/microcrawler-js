@@ -18,6 +18,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import fs from 'fs';
+import path from 'path';
+
 /**
  * Generates GUID - Globaly Unique Identifier
  * @returns {string} String with GUID
@@ -31,4 +34,49 @@ export function guid() {
 
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
     s4() + '-' + s4() + s4() + s4();
+}
+
+export function loadProcessors() {
+  return new Promise((resolve, reject) => {
+    const dir = path.join(__dirname, '..', '..', 'node_modules');
+    fs.readdir(dir, (err, items) => {
+      if (err) {
+        return reject(err);
+      }
+
+      let res = {};
+
+      const prefix = 'microcrawler-crawler-';
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        if (item.indexOf(prefix) != 0) {
+          continue;
+        }
+
+        const name = item.replace(prefix, '');
+        const pkg = require(`${item}/package.json`);
+
+        const crawler = pkg.crawler || {};
+        const processors = crawler.processors || {};
+        const processorNames = Object.keys(processors);
+        for (let j = 0; j < processorNames.length; j++) {
+          const processorName = processorNames[j];
+          const processorPath = path.join(dir, item, processors[processorName]);
+          const processor = require(processorPath);
+
+          const fullName = `${name}.${processorName}`;
+          res[fullName] = {
+            crawler: name,
+            name: processorName,
+            fullName,
+            path: processorPath,
+            processor,
+            meta: pkg.crawler
+          };
+        }
+      }
+
+      resolve(res);
+    });
+  });
 }

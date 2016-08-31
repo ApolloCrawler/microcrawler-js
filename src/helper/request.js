@@ -105,12 +105,20 @@ export function requestSuperagent(url, retry = 0) {
           }
         }
 
+        if (res.statusType != 2) {
+          return reject(`${res.statusCode} - ${res.res.statusMessage}`);
+        }
+
         return resolve(res.text);
       });
   });
 };
 
 export default function(url, retry = 0) {
+  if (url == null || url == '') {
+    return Promise.reject(`Invalid URL specified: "${url}"`);
+  }
+
   if (config.client == 'superagent') {
     return requestSuperagent(url, retry);
   }

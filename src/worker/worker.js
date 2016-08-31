@@ -10,6 +10,8 @@ import config from '../../config';
 import request from '../helper/request';
 import walk from '../helper/walk';
 
+import {loadProcessors} from '../helper';
+
 export default class Worker {
   constructor(args) {
     this.processors = {};
@@ -20,8 +22,7 @@ export default class Worker {
       .version(pkg.version)
       .parse(args);
 
-    const processorsPath = path.join(__dirname, '..', '..', 'examples');
-    this.loadProcessors(processorsPath).then((processors) => {
+    loadProcessors().then((processors) => {
       this.processors = processors;
       this.connect();
     }).catch((err) => {
@@ -93,74 +94,5 @@ export default class Worker {
     }).catch((err) => {
       console.log(err);
     });
-  }
-
-  loadProcessor(pathDir, fullPath) {
-    const name = path.relative(pathDir, fullPath)
-      .replace(path.extname(fullPath), '')
-      .replace(path.sep, '.');
-
-    const processor = require(fullPath);
-    this.registerProcessor(name, processor);
-
-    return {
-      name: name,
-      path: fullPath,
-      processor: processor
-    };
-  }
-
-  loadProcessors(pathDir) {
-    return new Promise((resolve, reject) => {
-      const dir = path.join(__dirname, '..', '..', 'node_modules');
-      fs.readdir(dir, (err, items) => {
-        if (err) {
-          return reject(err);
-        }
-
-        let res = {};
-
-        const prefix = 'microcrawler-crawler-';
-        for (let i = 0; i < items.length; i++) {
-          const item = items[i];
-          if (item.indexOf(prefix) != 0) {
-            continue;
-          }
-
-          const name = item.replace(prefix, '');
-          const pkg = require(`${item}/package.json`);
-
-          const crawler = pkg.crawler || {};
-          const processors = crawler.processors || {};
-          const processorNames = Object.keys(processors);
-          for (let j = 0; j < processorNames.length; j++) {
-            const processorName = processorNames[j];
-            const processorPath = path.join(dir, item, processors[processorName]);
-            const processor = require(processorPath);
-
-            const fullName = `${name}.${processorName}`;
-            res[fullName] = {
-              crawler: name,
-              name: processorName,
-              fullName,
-              path: processorPath,
-              processor,
-              meta: pkg.crawler
-            };
-          }
-        }
-
-        resolve(res);
-      });
-    });
-  }
-
-  registerProcessor(name, processor) {
-    if (!name) {
-      throw new TypeError('name must be specified');
-    }
-
-    this.processors[name] = processor;
-    return processor;
   }
 }
