@@ -17,7 +17,11 @@ var _path2 = _interopRequireDefault(_path);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function configDir() {
-  return '~/.microcrawler'.replace('~', _os2.default.homedir());
+  if (_os2.default.homedir) {
+    return '~/.microcrawler'.replace('~', _os2.default.homedir());
+  }
+
+  return require('homedir')();
 };
 
 function configPath() {

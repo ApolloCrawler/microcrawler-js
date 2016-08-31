@@ -49,7 +49,7 @@
     "babel-preset-stage-1": "^6.13.0",
     "babel-preset-stage-2": "^6.13.0",
     "babel-preset-stage-3": "^6.11.0",
-    "babel-register": "^6.3.13",
+    "babel-register": "^6.3.14",
     "babel-runtime": "^6.11.6",
     "cheerio": "^0.22.0",
     "commander": "^2.9.0",
@@ -62,6 +62,7 @@
     "elasticsearch": "^11.0.1",
     "express": "^4.14.0",
     "faye": "^1.2.2",
+    "homedir": "^0.6.0",
     "microcrawler-crawler-all": "0.0.6",
     "mkdirp": "^0.5.1",
     "moment": "^2.14.1",
@@ -81,7 +82,6 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
-    "babel-register": "^6.14.0",
     "chai": "^3.5.0",
     "coveralls": "^2.11.12",
     "eslint": "^3.4.0",

@@ -2,7 +2,11 @@ import os from 'os';
 import path from 'path';
 
 export function configDir() {
-  return '~/.microcrawler'.replace('~', os.homedir());
+  if (os.homedir) {
+    return '~/.microcrawler'.replace('~', os.homedir());
+  }
+
+  return require('homedir')();
 };
 
 export function configPath() {
