@@ -35,7 +35,7 @@
   },
 
   "amqp": {
-    "uri": "amqp://localhost",
+    "uri": "amqp://rabbitmq",
     "queues": {
       "collector": "collector",
       "worker": "worker"
@@ -43,7 +43,7 @@
   },
 
   "couchbase": {
-    "uri": "couchbase://localhost:8091",
+    "uri": "couchbase://couchbase:8091",
 
     "bucket": "microcrawler",
     "username": "Administrator",
@@ -58,7 +58,7 @@
   },
 
   "elasticsearch": {
-    "uri": "localhost:9200",
+    "uri": "elasticsearch:9200",
     "index": "microcrawler",
     "log": "debug"
   }
