@@ -105,6 +105,10 @@ export function requestSuperagent(url, retry = 0) {
           }
         }
 
+        if (!res) {
+          return reject(`Unable to fetch URL "${url}"`);
+        }
+
         if (res.statusType != 2) {
           return reject(`${res.statusCode} - ${res.res.statusMessage}`);
         }
