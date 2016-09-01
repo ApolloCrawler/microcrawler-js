@@ -22,8 +22,8 @@ export default class App {
       .version(pkg.version)
       .parse(args);
 
-    const url = args[2];
-    const processor = args[3];
+    const processor = args[2];
+    const url = args[3];
 
     amqp.connect(config.amqp.uri, (err, connection) => {
       if (err) {
