@@ -1,0 +1,36 @@
+version: '2'
+services:
+  microcrawler:
+    build: .
+    depends_on:
+     - couchbase
+     - elasticsearch
+     - kibana
+     - rabbitmq
+  couchbase:
+    image: "korczis/couchbase"
+    ports:
+      - "8091:8091"
+      - "8092:8092"
+      - "11207:11207"
+      - "11209:11209"
+      - "11210:11210"
+      - "11211:11211"
+      - "11214:11214"
+      - "11215:11215"
+      - "18091:18091"
+      - "18092:18092"
+      - "4369:4369"
+  elasticsearch:
+    image: elasticsearch
+    ports:
+      - "9200:9200"
+  kibana:
+    image: kibana
+    ports:
+      - "5601:5601"
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
