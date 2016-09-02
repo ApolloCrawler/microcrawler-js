@@ -110,7 +110,7 @@ export function requestSuperagent(url, retry = 0) {
         }
 
         if (res.statusType != 2) {
-          return reject(`${res.statusCode} - ${res.res.statusMessage}`);
+          return reject(`${res.statusCode} - ${res.res.statusMessage}, url: ${url}`);
         }
 
         return resolve(res.text);
