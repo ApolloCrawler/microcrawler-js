@@ -6,6 +6,7 @@ import program from 'commander';
 
 import config from '../../config';
 import {configDir, configPath} from '../../config';
+import logger from '../logger';
 
 export default class Config {
   main(args = process.argv) {
@@ -23,12 +24,12 @@ export default class Config {
 
     mkdirp(configDir(), (err) => {
       if (err) {
-        console.log(err);
+        logger.error(err);
         return;
       }
 
       const configTemplate = path.normalize(path.join(__dirname, '..', '..', 'config', 'config.template.json'));
-      console.log(`Copying config template "${configTemplate}" -> "${configPath()}"`)
+      logger.info(`Copying config template "${configTemplate}" -> "${configPath()}"`)
       const stream = fs.createReadStream(configTemplate).pipe(fs.createWriteStream(configPath()));
 
       stream.on('finish', () => {

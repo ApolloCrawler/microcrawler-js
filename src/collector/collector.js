@@ -8,6 +8,8 @@ import config from '../../config';
 import Couchbase from '../couchbase';
 import Elasticsearch from '../elasticsearch';
 
+import logger from '../logger';
+
 export default class Collector {
   constructor() {
     this._couchbase = new Couchbase();
@@ -30,22 +32,22 @@ export default class Collector {
     this.couchbase.init().then(() => {
       this.connect();
     }).catch((err) => {
-      console.log(err);
+      logger.error(err);
     });
   }
 
   connect() {
     amqp.connect(config.amqp.uri, (err, connection) => {
       if (err) {
-        console.log(err);
+        logger.error(err);
         return;
       }
 
-      console.log(`Collector is connected to "${config.amqp.uri}" and waiting for results.`);
+      logger.info(`Collector is connected to "${config.amqp.uri}" and waiting for results.`);
 
       connection.createChannel((err, channel) => {
         if (err) {
-          console.log(err);
+          logger.error(err);
           return;
         }
 
@@ -63,7 +65,7 @@ export default class Collector {
       durable: false
     });
 
-    console.log(`Collector is consuming results at channel "${config.amqp.queues.collector}"`);
+    logger.info(`Collector is consuming results at channel "${config.amqp.queues.collector}"`);
     channel.consume(config.amqp.queues.collector, (data) => {
       const msg = JSON.parse(data.content);
 

@@ -7,6 +7,7 @@ import fs from 'fs';
 import path from 'path';
 
 import config from '../../config';
+import logger from '../logger';
 import request from '../helper/request';
 import walk from '../helper/walk';
 
@@ -26,22 +27,22 @@ export default class Worker {
       this.processors = processors;
       this.connect();
     }).catch((err) => {
-      console.log(err);
+      logger.error(err);
     });
   }
 
   connect() {
     amqp.connect(config.amqp.uri, (err, connection) => {
       if (err) {
-        console.log(err);
+        logger.error(err);
         return;
       }
 
-      console.log(`Worker is connected to "${config.amqp.uri}" and waiting for work.`);
+      logger.info(`Worker is connected to "${config.amqp.uri}" and waiting for work.`);
 
       connection.createChannel((err, channel) => {
         if (err) {
-          console.log(err);
+          logger.error(err);
           return;
         }
 
@@ -59,7 +60,7 @@ export default class Worker {
       durable: false
     });
 
-    console.log(`Worker is waiting for work at channel "${config.amqp.queues.collector}"`);
+    logger.info(`Worker is waiting for work at channel "${config.amqp.queues.collector}"`);
     channel.consume(config.amqp.queues.worker, (data) => {
       const msg = JSON.parse(data.content);
       this.process(channel, msg);
@@ -69,14 +70,14 @@ export default class Worker {
   process(channel, msg) {
     const processors = this.processors;
 
-    console.log(JSON.stringify(msg, null, 4));
+    logger.debug(JSON.stringify(msg, null, 4));
 
     request(msg.url).then((data) => {
       const doc = cheerio.load(data);
 
       const processor = processors[msg.processor];
       if (!processor || !processor.processor) {
-        console.log('Unable to find processor', msg.processor);
+        logger.warn('Unable to find processor', msg.processor);
         return;
       }
 
@@ -87,13 +88,13 @@ export default class Worker {
         result: res
       }
 
-      console.log(res);
+      logger.debug(res);
 
       const json = JSON.stringify(collect);
       const buffer = Buffer.from(json);
       channel.sendToQueue(config.amqp.queues.collector, buffer);
     }).catch((err) => {
-      console.log(err);
+      logger.error(err);
     });
   }
 }

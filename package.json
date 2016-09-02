@@ -1,12 +1,13 @@
 {
   "name": "microcrawler",
-  "version": "0.1.22",
+  "version": "0.1.23",
   "description": "Micro implementation of crawler",
   "main": "lib/index.js",
   "scripts": {
     "eslint": "node ./node_modules/eslint/bin/eslint.js src/ test/",
     "test": "mocha --compilers js:babel-register test/**/*Test.js",
-    "build": "gulp babel"
+    "build": "gulp build",
+    "watch": "gulp watch"
   },
   "repository": {
     "type": "git",

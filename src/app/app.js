@@ -4,6 +4,7 @@ import program from 'commander';
 import amqp from 'amqplib/callback_api';
 
 import config from '../../config';
+import logger from '../logger';
 
 export default class App {
   main(args = process.argv) {
@@ -27,13 +28,13 @@ export default class App {
 
     amqp.connect(config.amqp.uri, (err, connection) => {
       if (err) {
-        console.log(err);
+        logger.error(err);
         return;
       }
 
       connection.createChannel((err, channel) => {
         if (err) {
-          console.log(err);
+          logger.error(err);
           return;
         }
 
@@ -46,7 +47,7 @@ export default class App {
           processor: processor
         };
 
-        console.log(`Initializing crawling of '${url}' using '${processor}' processor.`);
+        logger.info(`Initializing crawling of '${url}' using '${processor}' processor.`);
 
         const res = channel.sendToQueue(config.amqp.queues.worker, Buffer.from(JSON.stringify(msg)));
         // console.log(res);

@@ -1,6 +1,7 @@
 import couchbase from 'couchbase';
 
 import config from '../../config';
+import logger from '../logger';
 
 export default class Couchbase {
   constructor() {
@@ -57,7 +58,7 @@ export default class Couchbase {
       this.bucket.get(id, (err, res) => {
         if (err) {
           if (err.code != 13) {
-            console.log(err);
+            logger.error(err);
             return reject(err);
           } else {
             return resolve(null);
@@ -73,7 +74,7 @@ export default class Couchbase {
     return new Promise((resolve, reject) => {
       this.bucket.upsert(id, data, (err, res) => {
         if (err) {
-          console.log(err);
+          logger.error(err);
           return reject(err);
         }
 
