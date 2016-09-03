@@ -65,13 +65,150 @@ npm install -g .
 
 ## Usage
 
-## Full Example 
+### Initialize config file
+
+```
+$ microcrawler config init
+2016-09-03T10:45:13.105Z - info: Creating config file "/Users/tomaskorcak/.microcrawler/config.json"
+{
+    "client": "superagent",
+    "timeout": 10000,
+    "throttler": {
+        "enabled": false,
+        "active": true,
+        "rate": 20,
+        "ratePer": 1000,
+        "concurrent": 8
+    },
+    "retry": {
+        "count": 2
+    },
+    "headers": {
+        "Accept": "*/*",
+        "User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+        "From": "googlebot(at)googlebot.com"
+    },
+    "proxy": {
+        "enabled": false,
+        "list": [
+            "https://168.63.20.19:8145"
+        ]
+    },
+    "natFaker": {
+        "enabled": true,
+        "base": "192.168.1.1",
+        "bits": 16
+    },
+    "amqp": {
+        "uri": "amqp://korczis.com",
+        "queues": {
+            "collector": "collector",
+            "worker": "worker"
+        },
+        "options": {
+            "heartbeat": 60
+        }
+    },
+    "couchbase": {
+        "uri": "couchbase://korczis.com:8091",
+        "bucket": "microcrawler",
+        "username": "Administrator",
+        "password": "Administrator",
+        "connectionTimeout": 60000000,
+        "durabilityTimeout": 60000000,
+        "managementTimeout": 60000000,
+        "nodeConnectionTimeout": 10000000,
+        "operationTimeout": 10000000,
+        "viewTimeout": 10000000
+    },
+    "elasticsearch": {
+        "uri": "korczis.com:9200",
+        "index": "microcrawler",
+        "log": "debug"
+    }
+}
+```
+
+### Edit config file
+
+```
+$ vim ~/.microcrawler/config.json
+```
+
+### Show config file
+
+```
+$ microcrawler config show
+{
+    "client": "superagent",
+    "timeout": 10000,
+    "throttler": {
+        "enabled": false,
+        "active": true,
+        "rate": 20,
+        "ratePer": 1000,
+        "concurrent": 8
+    },
+    "retry": {
+        "count": 2
+    },
+    "headers": {
+        "Accept": "*/*",
+        "User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+        "From": "googlebot(at)googlebot.com"
+    },
+    "proxy": {
+        "enabled": false,
+        "list": [
+            "https://168.63.20.19:8145"
+        ]
+    },
+    "natFaker": {
+        "enabled": true,
+        "base": "192.168.1.1",
+        "bits": 16
+    },
+    "amqp": {
+        "uri": "amqp://korczis.com",
+        "queues": {
+            "collector": "collector",
+            "worker": "worker"
+        },
+        "options": {
+            "heartbeat": 60
+        }
+    },
+    "couchbase": {
+        "uri": "couchbase://korczis.com:8091",
+        "bucket": "microcrawler",
+        "username": "Administrator",
+        "password": "Administrator",
+        "connectionTimeout": 60000000,
+        "durabilityTimeout": 60000000,
+        "managementTimeout": 60000000,
+        "nodeConnectionTimeout": 10000000,
+        "operationTimeout": 10000000,
+        "viewTimeout": 10000000
+    },
+    "elasticsearch": {
+        "uri": "korczis.com:9200",
+        "index": "microcrawler",
+        "log": "debug"
+    }
+}
+```
 
 ### Pull elasticsearch
 
+TBD
+
 ### Start elasticsearch
 
+TBD 
+
 ### Query elasticsearch
+
+TBD
 
 ## Example usage
 
