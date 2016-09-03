@@ -9,4 +9,4 @@ export default class Exporter {
 
     console.log('Not implemented yet!');
   }
-};
+}

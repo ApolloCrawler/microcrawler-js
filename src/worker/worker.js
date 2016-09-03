@@ -3,18 +3,15 @@ import program from 'commander';
 
 import amqp from 'amqplib/callback_api';
 import cheerio from 'cheerio';
-import fs from 'fs';
-import path from 'path';
 
 import {config} from '../config';
 import logger from '../logger';
 import request from '../helper/request';
-import walk from '../helper/walk';
 
 import {loadProcessors} from '../helper';
 
 export default class Worker {
-  constructor(args) {
+  constructor() {
     this.processors = {};
   }
 
@@ -40,9 +37,9 @@ export default class Worker {
 
       logger.info(`Worker is connected to "${config.amqp.uri}" and waiting for work.`);
 
-      connection.createChannel((err, channel) => {
-        if (err) {
-          logger.error(err);
+      connection.createChannel((error, channel) => {
+        if (error) {
+          logger.error(error);
           return;
         }
 
@@ -86,7 +83,7 @@ export default class Worker {
       const collect = {
         request: msg,
         result: res
-      }
+      };
 
       logger.debug(res);
 

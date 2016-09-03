@@ -4,7 +4,8 @@
     "comma-dangle": 0,
     "func-names": 0,
     "no-alert": 1,
-    "no-console": 1,
+    "no-console": 0,
+    "no-loop-func": 0,
     "no-use-before-define": 1
   }
 }

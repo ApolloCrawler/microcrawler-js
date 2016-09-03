@@ -26,7 +26,7 @@ export default class Couchbase {
     return new Promise((resolve, reject) => {
       this._client = new couchbase.Cluster(config.couchbase.uri);
       this._bucket = this._client.openBucket(config.couchbase.bucket, (err) => {
-        if(err) {
+        if (err) {
           return reject(err);
         }
       });
@@ -57,12 +57,12 @@ export default class Couchbase {
     return new Promise((resolve, reject) => {
       this.bucket.get(id, (err, res) => {
         if (err) {
-          if (err.code != 13) {
+          if (err.code !== 13) {
             logger.error(err);
             return reject(err);
-          } else {
-            return resolve(null);
           }
+
+          return resolve(null);
         }
 
         resolve(res);

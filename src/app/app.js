@@ -32,9 +32,9 @@ export default class App {
         return;
       }
 
-      connection.createChannel((err, channel) => {
-        if (err) {
-          logger.error(err);
+      connection.createChannel((error, channel) => {
+        if (error) {
+          logger.error(error);
           return;
         }
 
@@ -50,7 +50,7 @@ export default class App {
         logger.info(`Initializing crawling of '${url}' using '${processor}' processor.`);
 
         const res = channel.sendToQueue(config.amqp.queues.worker, Buffer.from(JSON.stringify(msg)));
-        // console.log(res);
+        logger.debug(res);
 
         setTimeout(() => {
           process.exit(0);

@@ -44,12 +44,12 @@ export function loadProcessors() {
         return reject(err);
       }
 
-      let res = {};
+      const res = {};
 
       const prefix = 'microcrawler-crawler-';
       for (let i = 0; i < items.length; i++) {
         const item = items[i];
-        if (item.indexOf(prefix) != 0) {
+        if (item.indexOf(prefix) !== 0) {
           continue;
         }
 

@@ -14,7 +14,7 @@ export function configDir() {
   }
 
   return '~/.microcrawler'.replace('~', require('homedir')());
-};
+}
 
 export function configPath() {
   return path.join(configDir(), 'config.json');
@@ -50,11 +50,11 @@ export default class Config {
         return;
       }
 
-      logger.info(`Creating config file "${configPath()}"`)
+      logger.info(`Creating config file "${configPath()}"`);
 
-      fs.writeFile(configPath(), JSON.stringify(pkg.config, null, 4), (err) => {
-        if(err) {
-          return logger.error(err);
+      fs.writeFile(configPath(), JSON.stringify(pkg.config, null, 4), (error) => {
+        if (error) {
+          return logger.error(error);
         }
 
         this.show();

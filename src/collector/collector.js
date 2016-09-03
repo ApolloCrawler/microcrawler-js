@@ -45,9 +45,9 @@ export default class Collector {
 
       logger.info(`Collector is connected to "${config.amqp.uri}" and waiting for results.`);
 
-      connection.createChannel((err, channel) => {
-        if (err) {
-          logger.error(err);
+      connection.createChannel((error, channel) => {
+        if (error) {
+          logger.error(error);
           return;
         }
 
@@ -73,14 +73,14 @@ export default class Collector {
 
       let promise = Promise.resolve(true);
 
-      for (var i = 0; i < msg.result.length; i++) {
+      for (let i = 0; i < msg.result.length; i++) {
         const item = msg.result[i];
 
-        if (item.type == 'url') {
+        if (item.type === 'url') {
           promise = promise.then(() => {
             return this.processUrl(channel, item);
           });
-        } else if (item.type == 'data') {
+        } else if (item.type === 'data') {
           promise = promise.then(() => {
             return this.processData(channel, msg, item);
           });
@@ -93,7 +93,7 @@ export default class Collector {
     const hash = crypto.createHash('sha256').update(item.url).digest('hex');
     const id = `url-${item.processor}-${hash}`;
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.couchbase.get(id).then((doc) => {
         if (doc) {
           return resolve(doc);
@@ -106,9 +106,8 @@ export default class Collector {
 
         channel.sendToQueue(config.amqp.queues.worker, Buffer.from(JSON.stringify(msg)));
 
-        var ts = new Date().toISOString();
-        item['createdAt'] = ts;
-        item['updatedAt'] = ts;
+        const ts = new Date().toISOString();
+        item.createdAt = item.updatedAt = ts;
 
         resolve(this.couchbase.upsert(id, item));
       });
@@ -119,9 +118,8 @@ export default class Collector {
     const hash = crypto.createHash('sha256').update(msg.request.url).digest('hex');
     const id = `data-${msg.request.processor}-${hash}`;
 
-    var ts = new Date().toISOString();
-    item['createdAt'] = ts;
-    item['updatedAt'] = ts;
+    const ts = new Date().toISOString();
+    item.createdAt = item.updatedAt = ts;
 
     this.elasticsearch.client.index({
       id: id,
@@ -132,4 +130,4 @@ export default class Collector {
 
     return this.couchbase.upsert(id, item);
   }
-};
+}

@@ -24,28 +24,28 @@ import randomip from 'random-ip';
 import request from 'request';
 
 import superagent from 'superagent-use';
-import Proxy from 'superagent-proxy';
+import proxy from 'superagent-proxy';
 import retry from 'superagent-retry';
 import Throttle from 'superagent-throttle';
 
 retry(superagent);
 
-let throttle = new Throttle({
-  active:     config.throttler.active,    // set false to pause queue
-  rate:       config.throttler.rate,      // how many requests can be sent every `ratePer`
-  ratePer:    config.throttler.ratePer,   // number of ms in which `rate` requests may be sent
+const throttle = new Throttle({
+  active: config.throttler.active, // set false to pause queue
+  rate: config.throttler.rate, // how many requests can be sent every `ratePer`
+  ratePer: config.throttler.ratePer, // number of ms in which `rate` requests may be sent
   concurrent: config.throttler.concurrent // how many requests can be sent concurrently
 });
 
 if (config.proxy.enabled) {
-  Proxy(superagent);
+  proxy(superagent);
 }
 
 if (config.throttler.enabled) {
   superagent.use(throttle.plugin());
 }
 
-export function requestSimple(url, retry = 0) {
+export function requestSimple(url, retryNo = 0) {
   return new Promise((resolve, reject) => {
     const options = {
       url: url,
@@ -56,9 +56,15 @@ export function requestSimple(url, retry = 0) {
       }
     };
 
-    request(options, function (err, resp, body) {
+    request(options, (err, resp, body) => {
       if (err) {
-        return reject(new Error("Unable to fetch '" + url + "', reason: " + err));
+        if (retryNo < config.retry.count) {
+          setTimeout(() => {
+            return resolve(requestSimple(url, retryNo + 1));
+          }, 1000 * retryNo);
+        } else {
+          return reject(new Error("Unable to fetch '" + url + "', reason: " + err));
+        }
       }
 
       if (resp.statusCode !== 200) {
@@ -71,61 +77,60 @@ export function requestSimple(url, retry = 0) {
 }
 
 
-export function requestSuperagent(url, retry = 0) {
+export function requestSuperagent(url, retryNo = 0) {
   return new Promise((resolve, reject) => {
-      let req = superagent
-        .get(url)
-        .timeout(config.timeout)
-        .retry(config.retry.count)
-        .redirects(5);
+    let req = superagent
+      .get(url)
+      .timeout(config.timeout)
+      .retry(config.retry.count)
+      .redirects(5);
 
-      const headers = Object.keys(config.headers);
-      for(let i = 0; i < headers.length; i++) {
-        req = req.set(headers[i], config.headers[headers[i]]);
+    const headers = Object.keys(config.headers);
+    for (let i = 0; i < headers.length; i++) {
+      req = req.set(headers[i], config.headers[headers[i]]);
+    }
+
+    if (config.natFaker.enabled) {
+      const ip = randomip(config.natFaker.base, config.natFaker.bits);
+      req = req.set('x-forwarded-for', ip);
+    }
+
+    if (config.proxy.enabled) {
+      req = req.proxy(config.proxy.list[0]);
+    }
+
+    req.end(function(err, res) {
+      if (err) {
+        if (retryNo < config.retry.count) {
+          setTimeout(() => {
+            return resolve(requestSuperagent(url, retryNo + 1));
+          }, 1000 * retryNo);
+        } else {
+          return reject(err);
+        }
       }
 
-      if (config.natFaker.enabled) {
-        const ip = randomip(config.natFaker.base, config.natFaker.bits);
-        req = req.set('x-forwarded-for', ip);
+      if (!res) {
+        return reject(`Unable to fetch URL "${url}"`);
       }
 
-      if (config.proxy.enabled) {
-        req = req.proxy(config.proxy.list[0]);
-      };
+      if (res.statusType !== 2) {
+        return reject(`${res.statusCode} - ${res.res.statusMessage}, url: ${url}`);
+      }
 
-      req.end(function (err, res) {
-        if (err) {
-          if (retry < config.retry.count) {
-            const retryNo = retry + 1;
-            setTimeout(() => {
-              return resolve(requestSuperagent(url, retryNo));
-            }, 1000 * retryNo);
-          } else {
-            return reject(err);
-          }
-        }
-
-        if (!res) {
-          return reject(`Unable to fetch URL "${url}"`);
-        }
-
-        if (res.statusType != 2) {
-          return reject(`${res.statusCode} - ${res.res.statusMessage}, url: ${url}`);
-        }
-
-        return resolve(res.text);
-      });
+      return resolve(res.text);
+    });
   });
-};
+}
 
-export default function(url, retry = 0) {
-  if (url == null || url == '') {
+export default function(url, retryNo = 0) {
+  if (url === null || url === '') {
     return Promise.reject(`Invalid URL specified: "${url}"`);
   }
 
-  if (config.client == 'superagent') {
-    return requestSuperagent(url, retry);
+  if (config.client === 'superagent') {
+    return requestSuperagent(url, retryNo);
   }
 
-  return requestSimple(url, retry);
+  return requestSimple(url, retryNo);
 }
