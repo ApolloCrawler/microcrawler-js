@@ -1,3 +1,2 @@
-import Couchbase from './couchbase';
-
-export default Couchbase;
+export * from './couchbase';
+export default from './couchbase';

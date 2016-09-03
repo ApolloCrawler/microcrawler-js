@@ -1,3 +1,2 @@
-import Collector from './collector';
-
-export default Collector;
+export * from './collector';
+export default from './collector';

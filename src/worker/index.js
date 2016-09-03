@@ -1,3 +1,2 @@
-import Worker from './worker';
-
-export default Worker;
+export * from './worker';
+export default from './worker';

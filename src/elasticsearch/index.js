@@ -1,3 +1,2 @@
-import Elasticsearch from './elasticsearch';
-
-export default Elasticsearch;
+export * from './elasticsearch';
+export default from './elasticsearch';

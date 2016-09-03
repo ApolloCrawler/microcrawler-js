@@ -13,24 +13,22 @@ export function configDir() {
     return '~/.microcrawler'.replace('~', os.homedir());
   }
 
-  return require('homedir')();
+  return '~/.microcrawler'.replace('~', require('homedir')());
 };
 
 export function configPath() {
   return path.join(configDir(), 'config.json');
 }
 
-export const config = (() => {
+const configData = (() => {
   try {
     return merge(true, pkg.config, require(configPath()));
   } catch (err) {
-    // console.log(`File "${configPath()}" was not found.`);
-    // console.log(`Run "microcrawler config init" first!`);
-    // process.exit(-1);
-
     return pkg.config;
   }
 })();
+
+export const config = configData;
 
 export default class Config {
   main(args = process.argv) {

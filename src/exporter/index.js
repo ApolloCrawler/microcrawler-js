@@ -1,3 +1,2 @@
-import Exporter from './exporter';
-
-export default Exporter;
+export * from './exporter';
+export default from './exporter';
