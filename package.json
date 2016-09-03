@@ -1,6 +1,6 @@
 {
   "name": "microcrawler",
-  "version": "0.1.26",
+  "version": "0.1.27",
   "description": "Micro implementation of crawler",
   "main": "lib/index.js",
   "scripts": {
@@ -140,7 +140,7 @@
       "bits": 16
     },
     "amqp": {
-      "uri": "amqp://rabbitmq",
+      "uri": "amqp://localhost",
       "queues": {
         "collector": "collector",
         "worker": "worker"
@@ -150,7 +150,7 @@
       }
     },
     "couchbase": {
-      "uri": "couchbase://couchbase:8091",
+      "uri": "couchbase://localhost:8091",
       "bucket": "microcrawler",
       "username": "Administrator",
       "password": "Administrator",
@@ -162,7 +162,7 @@
       "viewTimeout": 10000000
     },
     "elasticsearch": {
-      "uri": "elasticsearch:9200",
+      "uri": "localhost:9200",
       "index": "microcrawler",
       "log": "debug"
     }

@@ -100,7 +100,7 @@ $ microcrawler config init
         "bits": 16
     },
     "amqp": {
-        "uri": "amqp://korczis.com",
+        "uri": "amqp://localhost",
         "queues": {
             "collector": "collector",
             "worker": "worker"
@@ -110,7 +110,7 @@ $ microcrawler config init
         }
     },
     "couchbase": {
-        "uri": "couchbase://korczis.com:8091",
+        "uri": "couchbase://localhost:8091",
         "bucket": "microcrawler",
         "username": "Administrator",
         "password": "Administrator",
@@ -122,7 +122,7 @@ $ microcrawler config init
         "viewTimeout": 10000000
     },
     "elasticsearch": {
-        "uri": "korczis.com:9200",
+        "uri": "localhost:9200",
         "index": "microcrawler",
         "log": "debug"
     }
@@ -169,7 +169,7 @@ $ microcrawler config show
         "bits": 16
     },
     "amqp": {
-        "uri": "amqp://korczis.com",
+        "uri": "amqp://example.com",
         "queues": {
             "collector": "collector",
             "worker": "worker"
@@ -179,7 +179,7 @@ $ microcrawler config show
         }
     },
     "couchbase": {
-        "uri": "couchbase://korczis.com:8091",
+        "uri": "couchbase://example.com:8091",
         "bucket": "microcrawler",
         "username": "Administrator",
         "password": "Administrator",
@@ -191,20 +191,24 @@ $ microcrawler config show
         "viewTimeout": 10000000
     },
     "elasticsearch": {
-        "uri": "korczis.com:9200",
+        "uri": "example.com:9200",
         "index": "microcrawler",
         "log": "debug"
     }
 }
 ```
 
-### Pull elasticsearch
+### Start Couchbase
 
 TBD
 
-### Start elasticsearch
+### Start Elasticsearch
 
-TBD 
+TBD
+
+### Start Kibana
+
+TBD
 
 ### Query elasticsearch
 
