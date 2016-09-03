@@ -37,7 +37,7 @@ List of official publicly available crawlers.
 
 ## Installation
 
-### From [npmjs.org](https://npmjs.org)
+### From [npmjs.org](https://npmjs.org) (the easy way)
 
 This is the easiest way. The prerequisites still needs to be satisfied.
 
