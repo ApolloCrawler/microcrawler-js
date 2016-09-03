@@ -2,7 +2,7 @@
 
 ## Status
 
-[![GitHub version](https://badge.fury.io/gh/korczis%2Fmicrocrawler.png)](http://badge.fury.io/gh/korczis%2Fmicrocrawler)
+[![npm version](https://badge.fury.io/js/microcrawler.svg)](https://badge.fury.io/js/microcrawler)
 [![Dependency Status](https://gemnasium.com/badges/github.com/ApolloCrawler/microcrawler.svg)](https://gemnasium.com/github.com/ApolloCrawler/microcrawler)
 [![Code Climate](https://codeclimate.com/github/korczis/microcrawler.png)](https://codeclimate.com/github/korczis/microcrawler)
 [![Coverage Status](https://coveralls.io/repos/korczis/microcrawler/badge.png)](https://coveralls.io/r/korczis/microcrawler)
