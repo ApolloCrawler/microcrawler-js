@@ -1,6 +1,6 @@
 {
   "name": "microcrawler",
-  "version": "0.1.29",
+  "version": "0.1.30",
   "description": "Micro implementation of crawler",
   "main": "lib/index.js",
   "scripts": {
@@ -64,7 +64,7 @@
     "express": "^4.14.0",
     "faye": "^1.2.2",
     "homedir": "^0.6.0",
-    "microcrawler-crawler-all": "0.0.6",
+    "microcrawler-crawler-all": "0.0.7",
     "mkdirp": "^0.5.1",
     "moment": "^2.14.1",
     "nano": "^6.2.0",
