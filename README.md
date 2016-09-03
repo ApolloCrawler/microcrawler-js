@@ -5,7 +5,7 @@
 [![npm version](https://badge.fury.io/js/microcrawler.svg)](https://badge.fury.io/js/microcrawler)
 [![Dependency Status](https://gemnasium.com/badges/github.com/ApolloCrawler/microcrawler.svg)](https://gemnasium.com/github.com/ApolloCrawler/microcrawler)
 [![Code Climate](https://codeclimate.com/github/korczis/microcrawler.png)](https://codeclimate.com/github/korczis/microcrawler)
-[![Coverage Status](https://coveralls.io/repos/korczis/microcrawler/badge.png)](https://coveralls.io/r/korczis/microcrawler)
+[![Coverage Status](https://coveralls.io/repos/github/ApolloCrawler/microcrawler/badge.svg?branch=master)](https://coveralls.io/github/ApolloCrawler/microcrawler?branch=master)
 [![Build Status](https://travis-ci.org/ApolloCrawler/microcrawler.png)](https://travis-ci.org/ApolloCrawler/microcrawler)
 [![Downloads](http://img.shields.io/npm/dm/microcrawler.svg)](https://www.npmjs.org/package/microcrawler)
 
