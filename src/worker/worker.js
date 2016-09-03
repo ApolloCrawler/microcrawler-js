@@ -77,7 +77,7 @@ export default class Worker {
       durable: true
     });
 
-    logger.info(`Worker is waiting for work at channel "${config.amqp.queues.collector}"`);
+    logger.info(`Worker is waiting for work at channel "${config.amqp.queues.worker}"`);
     channel.consume(config.amqp.queues.worker, (data) => {
       const msg = JSON.parse(data.content);
       this.process(channel, msg);
