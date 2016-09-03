@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import config from '../../config';
+import {config} from '../config';
 
 import randomip from 'random-ip';
 import request from 'request';

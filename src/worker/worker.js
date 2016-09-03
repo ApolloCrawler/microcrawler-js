@@ -6,7 +6,7 @@ import cheerio from 'cheerio';
 import fs from 'fs';
 import path from 'path';
 
-import config from '../../config';
+import {config} from '../config';
 import logger from '../logger';
 import request from '../helper/request';
 import walk from '../helper/walk';

@@ -1,6 +1,6 @@
 import couchbase from 'couchbase';
 
-import config from '../../config';
+import {config} from '../config';
 import logger from '../logger';
 
 export default class Couchbase {

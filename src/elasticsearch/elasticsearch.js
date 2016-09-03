@@ -1,6 +1,6 @@
 import elasticsearch from 'elasticsearch';
 
-import config from '../../config';
+import {config} from '../config';
 
 export default class Elasticsearch {
   constructor() {

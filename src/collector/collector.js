@@ -4,7 +4,7 @@ import program from 'commander';
 import amqp from 'amqplib/callback_api';
 import crypto from 'crypto';
 
-import config from '../../config';
+import {config} from '../config';
 import Couchbase from '../couchbase';
 import Elasticsearch from '../elasticsearch';
 

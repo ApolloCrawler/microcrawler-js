@@ -3,7 +3,7 @@ import program from 'commander';
 
 import amqp from 'amqplib/callback_api';
 
-import config from '../../config';
+import {config} from '../config';
 import logger from '../logger';
 
 export default class App {
