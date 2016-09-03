@@ -65,6 +65,36 @@ npm install -g .
 
 ## Usage
 
+### Show available commands
+
+```
+$ microcrawler
+
+  Usage: microcrawler [options] [command]
+
+
+  Commands:
+
+    collector [args]  Run data collector
+    config [args]     Run config
+    exporter [args]   Run data exporter
+    worker [args]     Run crawler worker
+    crawl [args]      Crawl specified site
+    help [cmd]        display help for [cmd]
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+```
+
+### Check microcrawler version
+
+```
+$ microcrawler --version
+0.1.27
+```
+
 ### Initialize config file
 
 ```
