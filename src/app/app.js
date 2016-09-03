@@ -46,7 +46,7 @@ export default class App {
     const processor = args[2];
     const url = args[3];
 
-    amqp.connect(config.amqp.uri, (err, connection) => {
+    amqp.connect(config.amqp.uri, config.amqp.options, (err, connection) => {
       if (err) {
         logger.error(err);
         return;
@@ -59,7 +59,7 @@ export default class App {
         }
 
         channel.assertQueue(config.amqp.queues.worker, {
-          durable: false
+          durable: true
         });
 
         const msg = {
@@ -69,7 +69,7 @@ export default class App {
 
         logger.info(`Initializing crawling of '${url}' using '${processor}' processor.`);
 
-        const res = channel.sendToQueue(config.amqp.queues.worker, Buffer.from(JSON.stringify(msg)));
+        const res = channel.sendToQueue(config.amqp.queues.worker, Buffer.from(JSON.stringify(msg)), {persistent: true});
         logger.debug(res);
 
         setTimeout(() => {

@@ -1,6 +1,6 @@
 {
   "name": "microcrawler",
-  "version": "0.1.27",
+  "version": "0.1.28",
   "description": "Micro implementation of crawler",
   "main": "lib/index.js",
   "scripts": {
@@ -146,7 +146,7 @@
         "worker": "worker"
       },
       "options": {
-        "heartbeat": 60
+        "heartbeat": 30
       }
     },
     "couchbase": {

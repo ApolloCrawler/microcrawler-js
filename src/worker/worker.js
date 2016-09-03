@@ -49,7 +49,7 @@ export default class Worker {
   }
 
   connect() {
-    amqp.connect(config.amqp.uri, (err, connection) => {
+    amqp.connect(config.amqp.uri, config.amqp.options, (err, connection) => {
       if (err) {
         logger.error(err);
         return;
@@ -70,11 +70,11 @@ export default class Worker {
 
   run(channel) {
     channel.assertQueue(config.amqp.queues.collector, {
-      durable: false
+      durable: true
     });
 
     channel.assertQueue(config.amqp.queues.worker, {
-      durable: false
+      durable: true
     });
 
     logger.info(`Worker is waiting for work at channel "${config.amqp.queues.collector}"`);
@@ -109,7 +109,7 @@ export default class Worker {
 
       const json = JSON.stringify(collect);
       const buffer = Buffer.from(json);
-      channel.sendToQueue(config.amqp.queues.collector, buffer);
+      channel.sendToQueue(config.amqp.queues.collector, buffer, {persistent: true});
     }).catch((err) => {
       logger.error(err);
     });

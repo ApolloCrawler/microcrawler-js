@@ -57,7 +57,7 @@ export default class Collector {
   }
 
   connect() {
-    amqp.connect(config.amqp.uri, (err, connection) => {
+    amqp.connect(config.amqp.uri, config.amqp.options, (err, connection) => {
       if (err) {
         logger.error(err);
         return;
@@ -78,11 +78,11 @@ export default class Collector {
 
   run(channel) {
     channel.assertQueue(config.amqp.queues.collector, {
-      durable: false
+      durable: true
     });
 
     channel.assertQueue(config.amqp.queues.worker, {
-      durable: false
+      durable: true
     });
 
     logger.info(`Collector is consuming results at channel "${config.amqp.queues.collector}"`);
@@ -124,7 +124,7 @@ export default class Collector {
           url: item.url
         };
 
-        channel.sendToQueue(config.amqp.queues.worker, Buffer.from(JSON.stringify(msg)));
+        channel.sendToQueue(config.amqp.queues.worker, Buffer.from(JSON.stringify(msg)), {persistent: true});
 
         const ts = new Date().toISOString();
         item.createdAt = item.updatedAt = ts;
